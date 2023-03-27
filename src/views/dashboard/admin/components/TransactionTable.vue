@@ -1,5 +1,13 @@
+<!--
+ * @Author: liuxiang liuxiang@163.com
+ * @Date: 2023-03-24 14:33:44
+ * @LastEditors: liuxiang liuxiang@163.com
+ * @LastEditTime: 2023-03-25 22:22:22
+ * @FilePath: /MaaS_Integration_Hub/src/views/dashboard/admin/components/TransactionTable.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
-  <el-table :data="list" style="width: 100%;padding-top: 15px;">
+  <el-table :data="list" style="width: 100%; padding-top: 15px">
     <el-table-column label="Order_No" min-width="200">
       <template slot-scope="scope">
         {{ scope.row.order_no | orderNoFilter }}
@@ -7,11 +15,11 @@
     </el-table-column>
     <el-table-column label="Price" width="195" align="center">
       <template slot-scope="scope">
-        ¥{{ scope.row.price | toThousandFilter }}
+        {{ scope.row.price | toThousandFilter }}
       </template>
     </el-table-column>
     <el-table-column label="Status" width="100" align="center">
-      <template slot-scope="{row}">
+      <template slot-scope="{ row }">
         <el-tag :type="row.status | statusFilter">
           {{ row.status }}
         </el-tag>
@@ -46,7 +54,7 @@ export default {
   },
   methods: {
     fetchData() {
-      transactionList().then(response => {
+      transactionList().then((response) => {
         this.list = response.data.items.slice(0, 8)
       })
     }

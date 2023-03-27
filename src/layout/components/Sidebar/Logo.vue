@@ -1,13 +1,17 @@
+<!--
+ * @Author: liuxiang liuxiang@163.com
+ * @Date: 2023-03-24 21:32:26
+ * @LastEditors: liuxiang liuxiang@163.com
+ * @LastEditTime: 2023-03-26 16:39:47
+ * @FilePath: /MaaS_Integration_Hub/src/layout/components/Sidebar/Logo.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
-  <div class="sidebar-logo-container" :class="{'collapse':collapse}">
+  <div class="sidebar-logo-container" :class="{ collapse: collapse }">
     <transition name="sidebarLogoFade">
-      <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
-        <img v-if="logo" :src="logo" class="sidebar-logo">
-        <h1 v-else class="sidebar-title">{{ title }} </h1>
-      </router-link>
-      <router-link v-else key="expand" class="sidebar-logo-link" to="/">
-        <img v-if="logo" :src="logo" class="sidebar-logo">
-        <h1 class="sidebar-title">{{ title }} </h1>
+      <router-link key="expand" class="sidebar-logo-link" to="/">
+        <img src="../../../assets/common/logo.jpeg" class="sidebar-logo">
+        <h1 class="sidebar-title">{{ $t("title") }}</h1>
       </router-link>
     </transition>
   </div>
@@ -25,7 +29,7 @@ export default {
   data() {
     return {
       title: 'Vue Element Admin',
-      logo: 'https://wpimg.wallstcn.com/69a1c46c-eb1c-4b46-8bd4-e9e686ef5251.png'
+      logo: ''
     }
   }
 }
@@ -59,6 +63,7 @@ export default {
       height: 32px;
       vertical-align: middle;
       margin-right: 12px;
+      border-radius: 10px;
     }
 
     & .sidebar-title {
