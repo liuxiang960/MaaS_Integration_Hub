@@ -1,25 +1,33 @@
+<!--
+ * @Author: liuxiang liuxiang@163.com
+ * @Date: 2023-03-24 14:33:44
+ * @LastEditors: liuxiang liuxiang@163.com
+ * @LastEditTime: 2023-03-27 18:14:34
+ * @FilePath: /MaaS_Integration_Hub/src/layout/components/AppMain.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
   <section class="app-main">
     <transition name="fade-transform" mode="out-in">
-      <keep-alive :include="cachedViews">
-        <router-view :key="key" />
-      </keep-alive>
+      <!-- <keep-alive :include="cachedViews"> -->
+      <router-view :key="key" />
+      <!-- </keep-alive> -->
     </transition>
   </section>
 </template>
 
 <script>
 export default {
-  name: 'AppMain',
+  name: "AppMain",
   computed: {
     cachedViews() {
-      return this.$store.state.tagsView.cachedViews
+      return this.$store.state.tagsView.cachedViews;
     },
     key() {
-      return this.$route.path
-    }
-  }
-}
+      return this.$route.path;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -31,7 +39,7 @@ export default {
   overflow: hidden;
 }
 
-.fixed-header+.app-main {
+.fixed-header + .app-main {
   padding-top: 50px;
 }
 
@@ -41,7 +49,7 @@ export default {
     min-height: calc(100vh - 84px);
   }
 
-  .fixed-header+.app-main {
+  .fixed-header + .app-main {
     padding-top: 84px;
   }
 }

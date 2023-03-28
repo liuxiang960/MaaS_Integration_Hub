@@ -30,8 +30,7 @@
         </el-tabs>
       </el-col>
       <el-col :span="6" :xs="24">
-        <user-card :user="user" />
-        <timeline />
+      
       </el-col>
     </el-row>
   </div>

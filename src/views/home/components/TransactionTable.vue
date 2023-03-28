@@ -10,7 +10,7 @@
   <div>
     <h3 class="app-eis-h3">应用列表</h3>
     <el-table :data="list" style="width: 100%; padding-top: 15px">
-      <el-table-column label="应用名称" min-width="200">
+      <el-table-column :label="$t('appName')" min-width="200">
         <template slot-scope="scope">
           {{ scope.row.name }}
         </template>
@@ -33,37 +33,37 @@
 </template>
 
 <script>
-import { transactionList } from '@/api/remote-search'
+import { transactionList } from "@/api/remote-search";
 
 export default {
   filters: {
     statusFilter(status) {
       const statusMap = {
-        success: 'success',
-        pending: 'danger'
-      }
-      return statusMap[status]
+        success: "success",
+        pending: "danger",
+      };
+      return statusMap[status];
     },
     orderNoFilter(str) {
-      return str.substring(0, 30)
-    }
+      return str.substring(0, 30);
+    },
   },
   data() {
     return {
-      list: null
-    }
+      list: null,
+    };
   },
   created() {
-    this.fetchData()
+    this.fetchData();
   },
   methods: {
     fetchData() {
       transactionList().then((response) => {
-        this.list = response.data.items.slice(0, 8)
-      })
-    }
-  }
-}
+        this.list = response.data.items.slice(0, 8);
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>

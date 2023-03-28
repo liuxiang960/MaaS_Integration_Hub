@@ -2,7 +2,7 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 21:32:26
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-03-26 16:39:47
+ * @LastEditTime: 2023-03-28 11:16:23
  * @FilePath: /MaaS_Integration_Hub/src/layout/components/Sidebar/Logo.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -10,7 +10,7 @@
   <div class="sidebar-logo-container" :class="{ collapse: collapse }">
     <transition name="sidebarLogoFade">
       <router-link key="expand" class="sidebar-logo-link" to="/">
-        <img src="../../../assets/common/logo.jpeg" class="sidebar-logo">
+        <img src="../../../assets/common/logo.jpeg" class="sidebar-logo" />
         <h1 class="sidebar-title">{{ $t("title") }}</h1>
       </router-link>
     </transition>
@@ -19,20 +19,20 @@
 
 <script>
 export default {
-  name: 'SidebarLogo',
+  name: "SidebarLogo",
   props: {
     collapse: {
       type: Boolean,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      title: 'Vue Element Admin',
-      logo: ''
-    }
-  }
-}
+      title: "MaaS Integration Hub",
+      logo: "",
+    };
+  },
+};
 </script>
 
 <style lang="scss" scoped>

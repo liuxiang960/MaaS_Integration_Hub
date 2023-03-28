@@ -19,7 +19,7 @@
       </div>
       <el-table v-loading="loading" :data="tableData" style="width: 100%">
         <el-table-column
-          label="序号"
+          :label="$t('number')"
           type="index"
           width="100"
           :index="(i) => (currentPage - 1) * pageSize + i + 1"
@@ -35,18 +35,17 @@
         <el-table-column prop="duration" label="持续时长" />
         <el-table-column prop="endTime" label="结束时间" />
 
-        <el-table-column label="操作" width="160">
+        <el-table-column :label="$t('operation')" width="160">
           <template slot-scope="scope">
             <el-button
               type="text"
               size="small"
               @click="handleEdit(scope.row)"
-            >编辑</el-button>
-            <el-button
-              type="text"
-              size="small"
-              @click="handleDel(scope.row)"
-            >删除</el-button>
+              >{{ $t("edit") }}</el-button
+            >
+            <el-button type="text" size="small" @click="handleDel(scope.row)">{{
+              $t("deletd")
+            }}</el-button>
             <!-- <el-button type="text" size="small" @click="handleDisabled(scope.row)">{{ scope.row.disabled === 0 ? '关闭' : '开启' }}</el-button>
             <el-button type="text" size="small" @click="handlelock(scope.row)">{{ scope.row.locked === 0 ? '锁定' : '解锁' }} </el-button> -->
           </template>
@@ -63,21 +62,21 @@
 </template>
 
 <script>
-import Pagination from '@/components/Pagination/index'
-import { applcationList } from '@/api/application'
+import Pagination from "@/components/Pagination/index";
+import { operationDayList } from "@/api/apiManager";
 export default {
-  name: 'Index',
+  name: "Index",
   components: { Pagination },
   data() {
     var validator = (rule, value, callback) => {
-      if (value === '') {
-        callback(new Error(rule.message2))
-      } else if (value.toString().trim() === '') {
-        callback('不能全为空格')
+      if (value === "") {
+        callback(new Error(rule.message2));
+      } else if (value.toString().trim() === "") {
+        callback("不能全为空格");
       } else {
-        callback()
+        callback();
       }
-    }
+    };
     return {
       btnHidde: true,
       filterInfo: {
@@ -89,136 +88,136 @@ export default {
           sex: 1,
           date: null,
           dateTime: null,
-          range: null
+          range: null,
         },
         // 条件配置项
         fieldList: [
           {
-            label: '告警状态',
-            type: 'select',
-            value: 'appName',
-            list: 'alarmStautList'
+            label: "告警状态",
+            type: "select",
+            value: "appName",
+            list: "alarmStautList",
           },
           {
-            label: '告警策略',
-            type: 'select',
-            value: 'policy',
-            list: 'policyList'
-          },
-
-          {
-            label: '告警类型',
-            type: 'select',
-            value: 'policyType',
-            list: 'policyTypeList'
+            label: "告警策略",
+            type: "select",
+            value: "policy",
+            list: "policyList",
           },
 
           {
-            label: '告警级别',
-            type: 'select',
-            value: 'policyLeve',
-            list: 'policyLeveList'
-          },
-          {
-            label: '告警对象',
-            type: 'select',
-            value: 'policyWho',
-            list: 'policyWhoList'
+            label: "告警类型",
+            type: "select",
+            value: "policyType",
+            list: "policyTypeList",
           },
 
           {
-            label: '试用环境',
-            type: 'select',
-            value: 'env',
-            list: 'envList'
-          }
-        ]
+            label: "告警级别",
+            type: "select",
+            value: "policyLeve",
+            list: "policyLeveList",
+          },
+          {
+            label: "告警对象",
+            type: "select",
+            value: "policyWho",
+            list: "policyWhoList",
+          },
+
+          {
+            label: "试用环境",
+            type: "select",
+            value: "env",
+            list: "envList",
+          },
+        ],
       },
       listTypeInfo: {
         alarmStautList: [
           {
             id: 1,
-            name: '全部告警'
+            name: "全部告警",
           },
           {
             id: 2,
-            name: '持续中'
+            name: "持续中",
           },
           {
             id: 3,
-            name: '已恢复'
+            name: "已恢复",
           },
           {
             id: 4,
-            name: '已失效'
-          }
+            name: "已失效",
+          },
         ],
         policyList: [
           {
             id: 1,
-            name: '全部告警策略'
-          }
+            name: "全部告警策略",
+          },
         ],
         policyTypeList: [
           {
             id: 1,
-            name: '应用告警'
+            name: "应用告警",
           },
           {
             id: 2,
-            name: '集成流告警'
+            name: "集成流告警",
           },
           {
             id: 3,
-            name: 'API服务告警'
+            name: "API服务告警",
           },
           {
             id: 4,
-            name: 'API告警'
+            name: "API告警",
           },
           {
             id: 5,
-            name: '环境告警'
-          }
+            name: "环境告警",
+          },
         ],
         policyLeveList: [
           {
             id: 0,
-            name: '全部'
+            name: "全部",
           },
           {
             id: 1,
-            name: '一般'
+            name: "一般",
           },
           {
             id: 2,
-            name: '重要'
+            name: "重要",
           },
           {
             id: 4,
-            name: '紧急'
-          }
+            name: "紧急",
+          },
         ],
 
         policyWhoList: [
           {
             id: 0,
-            name: '全部'
+            name: "全部",
           },
           {
             id: 1,
-            name: '默认项目'
-          }
+            name: "默认项目",
+          },
         ],
         envList: [
           {
             id: 0,
-            name: '试用环境'
-          }
-        ]
+            name: "试用环境",
+          },
+        ],
       },
 
-      title: '',
+      title: "",
       tableData: [],
       currentPage: 1,
       pageSize: 10,
@@ -226,235 +225,235 @@ export default {
       dialogVisible: false,
       id: -1,
       ruleForm: {
-        name: '',
-        desc: '',
-        code: ''
+        name: "",
+        desc: "",
+        code: "",
       },
-      loading: false
-    }
+      loading: false,
+    };
   },
   mounted() {
-    this.initPage()
+    this.initPage();
   },
   methods: {
     /** 搜索 */
     handleFilter(row) {
-      console.log(row)
+      console.log(row);
     },
     /** 重置 */
     handleReset(row) {
-      console.log(row)
+      console.log(row);
     },
     /** 焦点失去事件 */
     handleEvent(row) {
-      console.log(row)
+      console.log(row);
     },
     initPage() {
-      this.loading = true
+      this.loading = true;
 
-      applcationList({
+      operationDayList({
         pageNum: this.currentPage,
-        pageSize: this.pageSize
+        pageSize: this.pageSize,
       })
         .then((res) => {
-          this.loading = false
-          const { code, message, data, total } = res || {}
+          this.loading = false;
+          const { code, message, data, total } = res || {};
           if (code === 20000) {
-            this.tableData = data.list
-            this.total = data.total
+            this.tableData = data.list;
+            this.total = data.list.length;
           } else {
-            this.$message.error(message)
+            this.$message.error(message);
           }
         })
         .catch((err) => {
-          this.loading = false
-          console.log(err)
-        })
+          this.loading = false;
+          console.log(err);
+        });
     },
     refreshList() {
-      this.initPage()
+      this.initPage();
     },
     add() {
       this.$api.DS.addDataSetType(this.ruleForm)
         .then((res) => {
           if (res.status === 200) {
-            this.$message.success(res.message)
-            this.handleClose()
-            this.currentPage = 1
-            this.initPage()
+            this.$message.success(res.message);
+            this.handleClose();
+            this.currentPage = 1;
+            this.initPage();
           } else {
-            this.$message.error(res.message)
+            this.$message.error(res.message);
           }
         })
         .catch((err) => {
           // this.$message.error(err.message)
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     update() {
       this.$api.DS.editDataSetType({
         id: this.id,
-        ...this.ruleForm
+        ...this.ruleForm,
       })
         .then((res) => {
           if (res.status === 200) {
-            this.$message.success(res.message)
-            this.handleClose()
+            this.$message.success(res.message);
+            this.handleClose();
             // this.currentPage = 1
-            this.initPage()
+            this.initPage();
           } else {
-            this.$message.error(res.message)
+            this.$message.error(res.message);
           }
         })
         .catch((err) => {
           // this.$message.error(err.message)
-          console.log(err)
-        })
+          console.log(err);
+        });
     },
     handleEdit(row) {
-      this.id = row.id
-      var { name, desc, code } = row
-      Object.assign(this.ruleForm, { name, desc, code })
-      this.dialogVisible = true
+      this.id = row.id;
+      var { name, desc, code } = row;
+      Object.assign(this.ruleForm, { name, desc, code });
+      this.dialogVisible = true;
     },
     handleDel(row) {
       // 删除
       // const content = row.locked === 0 ? '确定要锁定吗?' : '确定要解锁吗?'
-      this.$confirm('确定要删除吗', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
+      this.$confirm("确定要删除吗", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
       })
         .then(() => {
           this.$axios
             .delete(`web/dataSetType/delete?id=${row.id}`)
             .then((res) => {
-              const { status, message } = res.data || {}
+              const { status, message } = res.data || {};
               if (status === 200) {
-                this.initPage()
+                this.initPage();
                 this.$message({
-                  type: 'success',
-                  message: message
-                })
+                  type: "success",
+                  message: message,
+                });
               } else {
-                this.$message.error(message)
+                this.$message.error(message);
               }
             })
             .catch((err) => {
-              console.log(err)
-            })
+              console.log(err);
+            });
         })
         .catch((err) => {
           this.$message({
-            type: 'info',
-            message: err
-          })
-        })
+            type: "info",
+            message: err,
+          });
+        });
     },
     handlelock(row) {
-      const content = row.locked === 0 ? '确定要锁定吗?' : '确定要解锁吗?'
-      this.$confirm(content, '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
+      const content = row.locked === 0 ? "确定要锁定吗?" : "确定要解锁吗?";
+      this.$confirm(content, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
       })
         .then(() => {
           this.$axios
-            .get(`web/tenant/${row.locked == 0 ? 'lock' : 'unlock'}/${row.id}`)
+            .get(`web/tenant/${row.locked == 0 ? "lock" : "unlock"}/${row.id}`)
             .then((res) => {
-              const { status, message } = res.data || {}
+              const { status, message } = res.data || {};
               if (status === 200) {
-                this.initPage()
+                this.initPage();
                 this.$message({
-                  type: 'success',
-                  message: message
-                })
+                  type: "success",
+                  message: message,
+                });
               } else {
-                this.$message.error(message)
+                this.$message.error(message);
               }
             })
             .catch((err) => {
-              console.log(err)
-            })
+              console.log(err);
+            });
         })
         .catch((err) => {
           this.$message({
-            type: 'info',
-            message: err
-          })
-        })
+            type: "info",
+            message: err,
+          });
+        });
     },
     handleClose() {
-      this.resetForm()
-      this.dialogVisible = false
+      this.resetForm();
+      this.dialogVisible = false;
     },
     resetForm() {
-      this.$refs['ruleForm'].resetFields()
+      this.$refs["ruleForm"].resetFields();
       this.ruleForm = {
-        name: '',
-        desc: '',
-        code: ''
-      }
+        name: "",
+        desc: "",
+        code: "",
+      };
     },
     save() {
       // 提交
-      this.$refs['ruleForm'].validate((valid) => {
+      this.$refs["ruleForm"].validate((valid) => {
         if (valid) {
           if (this.id === -1) {
-            this.add()
+            this.add();
           } else {
-            this.update()
+            this.update();
           }
         } else {
-          console.log('error submit!!')
-          return false
+          console.log("error submit!!");
+          return false;
         }
-      })
+      });
     },
     handleDisabled(row) {
-      const content = row.disabled === 0 ? '确定要关闭吗?' : '确定要开启吗?'
-      this.$confirm(content, '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
+      const content = row.disabled === 0 ? "确定要关闭吗?" : "确定要开启吗?";
+      this.$confirm(content, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
       })
         .then(() => {
           this.$axios
-            .get(`web/tenant/${row.disabled == 0 ? 'close' : 'open'}/${row.id}`)
+            .get(`web/tenant/${row.disabled == 0 ? "close" : "open"}/${row.id}`)
             .then((res) => {
-              const { status, message } = res.data || {}
+              const { status, message } = res.data || {};
               if (status === 200) {
-                this.initPage()
+                this.initPage();
                 this.$message({
-                  type: 'success',
-                  message: message
-                })
+                  type: "success",
+                  message: message,
+                });
               } else {
-                this.$message.error(message)
+                this.$message.error(message);
               }
             })
             .catch((err) => {
-              console.log(err)
-            })
+              console.log(err);
+            });
         })
         .catch((err) => {
           this.$message({
-            type: 'info',
-            message: err
-          })
-        })
+            type: "info",
+            message: err,
+          });
+        });
     },
     pagination(val) {
-      this.pageSize = val.limit
-      this.currentPage = val.page
-      this.initPage()
+      this.pageSize = val.limit;
+      this.currentPage = val.page;
+      this.initPage();
     },
     resetTitle() {
-      this.title = ''
-      this.initPage()
-    }
-  }
-}
+      this.title = "";
+      this.initPage();
+    },
+  },
+};
 </script>
 
 <style scoped></style>

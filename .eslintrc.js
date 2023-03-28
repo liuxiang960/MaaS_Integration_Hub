@@ -24,7 +24,7 @@ module.exports = {
         },
       },
     ],
-    // singleQuote: true,
+    singleQuote: true,
     "vue/singleline-html-element-content-newline": "off",
     "vue/multiline-html-element-content-newline": "off",
     "vue/name-property-casing": ["error", "PascalCase"],

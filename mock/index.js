@@ -2,7 +2,7 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-03-26 11:03:24
+ * @LastEditTime: 2023-03-27 13:36:18
  * @FilePath: /MaaS_Integration_Hub/mock/index.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -14,8 +14,16 @@ const role = require("./role");
 const article = require("./article");
 const search = require("./remote-search");
 const applicationD = require("./application");
+const apiManager = require("./apiManager");
 
-const mocks = [...user, ...role, ...article, ...search, ...applicationD];
+const mocks = [
+  ...user,
+  ...role,
+  ...article,
+  ...search,
+  ...applicationD,
+  ...apiManager,
+];
 
 // for front mock
 // please use it cautiously, it will redefine XMLHttpRequest,

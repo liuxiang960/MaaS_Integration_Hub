@@ -1,16 +1,16 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import Vue from "vue";
+import Router from "vue-router";
 
-Vue.use(Router)
+Vue.use(Router);
 
 /* Layout */
-import Layout from '@/layout'
+import Layout from "@/layout";
 
 /* Router Modules */
-import componentsRouter from './modules/components'
-import chartsRouter from './modules/charts'
-import tableRouter from './modules/table'
-import nestedRouter from './modules/nested'
+import componentsRouter from "./modules/components";
+import chartsRouter from "./modules/charts";
+import tableRouter from "./modules/table";
+import nestedRouter from "./modules/nested";
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -40,53 +40,53 @@ import nestedRouter from './modules/nested'
  */
 export const constantRoutes = [
   {
-    path: '/redirect',
+    path: "/redirect",
     component: Layout,
     hidden: true,
     children: [
       {
-        path: '/redirect/:path(.*)',
-        component: () => import('@/views/redirect/index')
-      }
-    ]
+        path: "/redirect/:path(.*)",
+        component: () => import("@/views/redirect/index"),
+      },
+    ],
   },
   {
-    path: '/login',
-    component: () => import('@/views/login/index'),
-    hidden: true
+    path: "/login",
+    component: () => import("@/views/login/index"),
+    hidden: true,
   },
   {
-    path: '/auth-redirect',
-    component: () => import('@/views/login/auth-redirect'),
-    hidden: true
+    path: "/auth-redirect",
+    component: () => import("@/views/login/auth-redirect"),
+    hidden: true,
   },
   {
-    path: '/404',
-    component: () => import('@/views/error-page/404'),
-    hidden: true
+    path: "/404",
+    component: () => import("@/views/error-page/404"),
+    hidden: true,
   },
   {
-    path: '/401',
-    component: () => import('@/views/error-page/401'),
-    hidden: true
+    path: "/401",
+    component: () => import("@/views/error-page/401"),
+    hidden: true,
   },
   {
-    path: '/flowDesign',
-    component: () => import('../components/FlowDesign/Index'),
-    hidden: true
+    path: "/flowDesign",
+    component: () => import("../components/FlowDesign/Index"),
+    hidden: true,
   },
   {
-    path: '/',
+    path: "/",
     component: Layout,
-    redirect: '/home',
+    redirect: "/home",
     children: [
       {
-        path: 'home',
-        component: () => import('@/views/home/index'),
-        name: 'home',
-        meta: { title: 'leftbar.home', icon: 'dashboard', affix: true }
-      }
-    ]
+        path: "home",
+        component: () => import("@/views/home/index"),
+        name: "home",
+        meta: { title: "leftbar.home", icon: "dashboard", affix: true },
+      },
+    ],
   },
   // {
   //   path: "/index",
@@ -105,20 +105,20 @@ export const constantRoutes = [
   // },
 
   {
-    path: '/profile',
+    path: "/profile",
     component: Layout,
-    redirect: '/profile/index',
+    redirect: "/profile/index",
     hidden: true,
     children: [
       {
-        path: 'index',
-        component: () => import('@/views/profile/index'),
-        name: 'Profile',
-        meta: { title: 'Profile', icon: 'user', noCache: true }
-      }
-    ]
-  }
-]
+        path: "index",
+        component: () => import("@/views/profile/index"),
+        name: "Profile",
+        meta: { title: "Profile", icon: "user", noCache: true },
+      },
+    ],
+  },
+];
 
 /**
  * asyncRoutes
@@ -126,118 +126,154 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
-    path: '/application',
+    path: "/application",
     component: Layout,
-    redirect: '/application/page',
+    redirect: "/application/page",
     alwaysShow: true, // will always show the root menu
-    name: 'application',
+    name: "application",
     meta: {
-      title: 'leftbar.integration.title',
-      icon: 'peoples',
-      roles: ['admin', 'editor'] // you can set roles in root nav
+      title: "leftbar.integration.title",
+      icon: "peoples",
+      roles: ["admin", "editor"], // you can set roles in root nav
     },
     children: [
       {
-        path: 'page',
-        component: () => import('@/views/application/index'),
-        name: 'PagePermission',
+        path: "page",
+        component: () => import("@/views/application/index"),
+        name: "PagePermission",
         meta: {
-          title: 'leftbar.integration.subtitle',
-          roles: ['admin'] // or you can only set roles in sub nav
-        }
+          title: "leftbar.integration.subtitle",
+          roles: ["admin"], // or you can only set roles in sub nav
+        },
       },
       {
-        path: 'apiManager',
-        component: () => import('@/views/apiManager/index'),
-        name: 'apiManager',
+        path: "apiManager",
+        component: () => import("@/views/apiManager/index"),
+        name: "apiManager",
         meta: {
-          title: 'leftbar.integration.subtitle1'
+          title: "leftbar.integration.subtitle1",
           // if do not set roles, means: this page does not require permission
-        }
-      }
-    ]
+        },
+      },
+      {
+        path: "newApiServe",
+        component: () => import("@/views/apiManager/newApiServe"),
+        name: "newApiServe",
+        alwaysShow: false, // will always show the root menu
+        hidden: true,
+
+        meta: {
+          title: "leftbar.integration.subtitle1",
+          // if do not set roles, means: this page does not require permission
+        },
+      },
+      {
+        path: "newApi",
+        component: () => import("@/views/apiManager/newApi"),
+        name: "newApi",
+        alwaysShow: false, // will always show the root menu
+        hidden: true,
+
+        meta: {
+          title: "manager.title",
+          // if do not set roles, means: this page does not require permission
+        },
+      },
+      {
+        path: "newApiList",
+        component: () => import("@/views/apiManager/newApiList"),
+        name: "newApiList",
+        alwaysShow: false, // will always show the root menu
+        hidden: true,
+
+        meta: {
+          title: "manager.title1",
+          // if do not set roles, means: this page does not require permission
+        },
+      },
+    ],
   },
   {
-    path: '/operation',
+    path: "/operation",
     component: Layout,
-    redirect: '/operation/page',
+    redirect: "/operation/page",
     alwaysShow: true, // will always show the root menu
-    name: 'operation',
+    name: "operation",
     meta: {
-      title: 'leftbar.operation.title',
-      icon: 'international',
-      roles: ['admin', 'editor'] // you can set roles in root nav
+      title: "leftbar.operation.title",
+      icon: "international",
+      roles: ["admin", "editor"], // you can set roles in root nav
     },
     children: [
       {
-        path: 'page',
-        component: () => import('@/views/operation/index'),
-        name: 'PagePermission',
+        path: "page",
+        component: () => import("@/views/operation/index"),
+        name: "PagePermission",
         meta: {
-          title: 'leftbar.operation.subtitle',
-          roles: ['admin'] // or you can only set roles in sub nav
-        }
+          title: "leftbar.operation.subtitle",
+          roles: ["admin"], // or you can only set roles in sub nav
+        },
       },
       {
-        path: 'dayRecord',
-        component: () => import('@/views/operation/dayRecord'),
-        name: 'dayRecord',
+        path: "dayRecord",
+        component: () => import("@/views/operation/dayRecord"),
+        name: "dayRecord",
         meta: {
-          title: 'leftbar.operation.subtitle1'
+          title: "leftbar.operation.subtitle1",
           // if do not set roles, means: this page does not require permission
-        }
+        },
       },
       {
-        path: 'alarmPage',
-        component: () => import('@/views/operation/alarmPage'),
-        name: 'alarmPage',
+        path: "alarmPage",
+        component: () => import("@/views/operation/alarmPage"),
+        name: "alarmPage",
         meta: {
-          title: 'leftbar.operation.subtitle2'
+          title: "leftbar.operation.subtitle2",
           // if do not set roles, means: this page does not require permission
-        }
-      }
-    ]
+        },
+      },
+    ],
   },
   {
-    path: '/permission2',
+    path: "/permission2",
     component: Layout,
-    redirect: '/permission/page',
+    redirect: "/permission/page",
     alwaysShow: true, // will always show the root menu
-    name: 'manager',
+    name: "manager",
     meta: {
-      title: 'leftbar.manager.title',
-      icon: 'lock',
-      roles: ['admin', 'editor'] // you can set roles in root nav
+      title: "leftbar.manager.title",
+      icon: "lock",
+      roles: ["admin", "editor"], // you can set roles in root nav
     },
     children: [
       {
-        path: 'role',
-        component: () => import('@/views/permission/role'),
-        name: 'RolePermission',
+        path: "role",
+        component: () => import("@/views/permission/role"),
+        name: "RolePermission",
         meta: {
-          title: 'leftbar.manager.subtitle',
-          roles: ['admin']
-        }
+          title: "leftbar.manager.subtitle",
+          roles: ["admin"],
+        },
       },
+      // {
+      //   path: "directive4",
+      //   component: () => import("@/views/permission/directive"),
+      //   name: "DirectivePermission",
+      //   meta: {
+      //     title: "leftbar.manager.subtitle1",
+      //     // if do not set roles, means: this page does not require permission
+      //   },
+      // },
       {
-        path: 'directive4',
-        component: () => import('@/views/permission/directive'),
-        name: 'DirectivePermission',
+        path: "config",
+        component: () => import("@/views/permission/role"),
+        name: "RolePermission",
         meta: {
-          title: 'leftbar.manager.subtitle1'
-          // if do not set roles, means: this page does not require permission
-        }
+          title: "leftbar.manager.subtitle2",
+          roles: ["admin"],
+        },
       },
-      {
-        path: 'config',
-        component: () => import('@/views/permission/role'),
-        name: 'RolePermission',
-        meta: {
-          title: 'leftbar.manager.subtitle2',
-          roles: ['admin']
-        }
-      }
-    ]
+    ],
   },
 
   /** when your routing map is too long, you can split it into small modules **/
@@ -282,22 +318,22 @@ export const asyncRoutes = [
   // },
 
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
-]
+  { path: "*", redirect: "/404", hidden: true },
+];
 
 const createRouter = () =>
   new Router({
     // mode: 'history', // require service support
     scrollBehavior: () => ({ y: 0 }),
-    routes: constantRoutes
-  })
+    routes: constantRoutes,
+  });
 
-const router = createRouter()
+const router = createRouter();
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
-  const newRouter = createRouter()
-  router.matcher = newRouter.matcher // reset router
+  const newRouter = createRouter();
+  router.matcher = newRouter.matcher; // reset router
 }
 
-export default router
+export default router;
