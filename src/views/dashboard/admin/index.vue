@@ -1,125 +1,153 @@
+<!--
+ * @Author: liuxiang liuxiang@163.com
+ * @Date: 2023-03-24 14:33:44
+ * @LastEditors: liuxiang liuxiang@163.com
+ * @LastEditTime: 2023-03-31 23:50:25
+ * @FilePath: /MaaS_Integration_Hub/src/views/dashboard/admin/index.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
   <div class="dashboard-editor-container">
-    <github-corner class="github-corner" />
-
-    <panel-group @handleSetLineChartData="handleSetLineChartData" />
-
-    <el-row style="background: #fff; padding: 16px 16px 0; margin-bottom: 32px">
-      <line-chart :chart-data="lineChartData" />
-    </el-row>
-
-    <el-row :gutter="32">
-      <el-col :xs="24" :sm="24" :lg="8">
+    <header-view></header-view>
+    <el-row :gutter="20" style="margin-top: 20px">
+      <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
-          <raddar-chart />
+          <div class="unfold-view" @click="didClick(DataHealth)">
+            <div class="unfold"></div>
+          </div>
+          <div class="common-p">{{ $t("app_1108") }}</div>
+
+          <line-chart :chart-data="DataHealth" />
         </div>
       </el-col>
-      <el-col :xs="24" :sm="24" :lg="8">
+
+      <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
-          <pie-chart />
+          <div class="unfold-view" @click="didClick(DataNetwork)">
+            <div class="unfold"></div>
+          </div>
+          <div class="common-p">{{ $t("app_1109") }}</div>
+
+          <line-chart :chart-data="DataNetwork" />
         </div>
       </el-col>
-      <el-col :xs="24" :sm="24" :lg="8">
+
+      <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
-          <bar-chart />
+          <div class="unfold-view" @click="didClick(DataRequestNum)">
+            <div class="unfold"></div>
+          </div>
+          <div class="common-p">{{ $t("app_1110") }}</div>
+
+          <line-chart :chart-data="DataRequestNum" />
+        </div>
+      </el-col>
+
+      <el-col :xs="24" :sm="24" :lg="12">
+        <div class="chart-wrapper">
+          <div class="unfold-view" @click="didClick(DataconCurrence)">
+            <div class="unfold"></div>
+          </div>
+          <div class="common-p">{{ $t("app_1111") }}</div>
+
+          <line-chart :chart-data="DataconCurrence" />
+        </div>
+      </el-col>
+
+      <el-col :xs="24" :sm="24" :lg="12">
+        <div class="chart-wrapper">
+          <div class="unfold-view" @click="didClick(ResponseStauts)">
+            <div class="unfold"></div>
+          </div>
+          <div class="common-p">{{ $t("app_1112") }}</div>
+
+          <line-chart :chart-data="ResponseStauts" />
+        </div>
+      </el-col>
+
+      <el-col :xs="24" :sm="24" :lg="12">
+        <div class="chart-wrapper">
+          <div class="unfold-view" @click="didClick(ResponseTime)">
+            <div class="unfold"></div>
+          </div>
+          <div class="common-p">{{ $t("app_1113") }}</div>
+
+          <line-chart :chart-data="ResponseTime" />
         </div>
       </el-col>
     </el-row>
 
-    <el-row :gutter="8">
-      <el-col
-        :xs="{ span: 24 }"
-        :sm="{ span: 24 }"
-        :md="{ span: 24 }"
-        :lg="{ span: 12 }"
-        :xl="{ span: 12 }"
-        style="padding-right: 8px; margin-bottom: 30px"
-      >
-        <transaction-table />
-      </el-col>
-      <el-col
-        :xs="{ span: 24 }"
-        :sm="{ span: 12 }"
-        :md="{ span: 12 }"
-        :lg="{ span: 6 }"
-        :xl="{ span: 6 }"
-        style="margin-bottom: 30px"
-      >
-        <todo-list />
-      </el-col>
-      <el-col
-        :xs="{ span: 24 }"
-        :sm="{ span: 12 }"
-        :md="{ span: 12 }"
-        :lg="{ span: 6 }"
-        :xl="{ span: 6 }"
-        style="margin-bottom: 30px"
-      >
-        <box-card />
-      </el-col>
-    </el-row>
+    <el-dialog
+      :visible.sync="dialogVisible"
+      width="70%"
+      :before-close="handleClose"
+    >
+      <div class="chart-wrapper">
+        <line-chart :chart-data="alertData" />
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import GithubCorner from '@/components/GithubCorner'
-import PanelGroup from './components/PanelGroup'
-import LineChart from './components/LineChart'
-import RaddarChart from './components/RaddarChart'
-import PieChart from './components/PieChart'
-import BarChart from './components/BarChart'
-import TransactionTable from './components/TransactionTable'
-import TodoList from './components/TodoList'
-import BoxCard from './components/BoxCard'
-
-const lineChartData = {
-  newVisitis: {
-    expectedData: [100, 120, 161, 134, 105, 160, 165],
-    actualData: [120, 82, 91, 154, 162, 140, 145]
-  },
-  messages: {
-    expectedData: [200, 192, 120, 144, 160, 130, 140],
-    actualData: [180, 160, 151, 106, 145, 150, 130]
-  },
-  purchases: {
-    expectedData: [80, 100, 121, 104, 105, 90, 100],
-    actualData: [120, 90, 100, 138, 142, 130, 130]
-  },
-  shoppings: {
-    expectedData: [130, 140, 141, 142, 145, 150, 160],
-    actualData: [120, 82, 91, 154, 162, 140, 130]
-  }
-}
+import HeaderView from "./components/HeaderView.vue";
+import LineChart from "./components/LineChart";
+import { getChartData as DataHealth } from "./components/data/health";
+import { getChartData as DataNetwork } from "./components/data/network";
+import { getChartData as DataRequestNum } from "./components/data/requestNum";
+import { getChartData as DataconCurrence } from "./components/data/concurrence";
+import { getChartData as ResponseStauts } from "./components/data/responseStauts";
+import { getChartData as ResponseTime } from "./components/data/responseTime";
 
 export default {
-  name: 'DashboardAdmin',
+  name: "chart",
   components: {
-    GithubCorner,
-    PanelGroup,
+    HeaderView,
     LineChart,
-    RaddarChart,
-    PieChart,
-    BarChart,
-    TransactionTable,
-    TodoList,
-    BoxCard
   },
   data() {
     return {
-      lineChartData: lineChartData.newVisitis
-    }
+      DataHealth: [],
+      DataNetwork: [],
+
+      DataRequestNum: [],
+
+      DataconCurrence: [],
+
+      ResponseStauts: [],
+
+      ResponseTime: [],
+
+      alertData: [],
+      dialogVisible: false,
+    };
+  },
+  created() {
+    this.DataHealth = DataHealth();
+    this.DataNetwork = DataNetwork();
+    this.DataRequestNum = DataRequestNum();
+    this.DataconCurrence = DataconCurrence();
+
+    this.ResponseStauts = ResponseStauts();
+
+    this.ResponseTime = ResponseTime();
   },
   methods: {
-    handleSetLineChartData(type) {
-      this.lineChartData = lineChartData[type]
-    }
-  }
-}
+    didClick(data) {
+      // alertData
+      this.alertData = data;
+      this.dialogVisible = true;
+    },
+    handleClose(done) {
+      this.dialogVisible = false;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 .dashboard-editor-container {
-  padding: 32px;
+  padding: 20px;
   background-color: rgb(240, 242, 245);
   position: relative;
 
@@ -134,6 +162,18 @@ export default {
     background: #fff;
     padding: 16px 16px 0;
     margin-bottom: 32px;
+    position: relative;
+  }
+
+  .unfold-view {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    .unfold {
+      width: 25px;
+      height: 25px;
+      background: url("../../../assets/common/open.png") 0/100% no-repeat;
+    }
   }
 }
 

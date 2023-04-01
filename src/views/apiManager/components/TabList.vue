@@ -9,7 +9,7 @@
               icon="el-icon-plus"
               size="small"
               @click="newAdd"
-              >创建API服务</el-button
+              >{{ $t("app_1048") }}</el-button
             >
           </el-col>
           <el-col :span="20" :xs="24" style="margin-bottom: 20px">
@@ -29,34 +29,39 @@
         <el-table-column
           :label="$t('number')"
           type="index"
-          width="100"
+          width="180"
           :index="(i) => (currentPage - 1) * pageSize + i + 1"
         />
         <!-- index 第二页的序号累计在第一页的基础上-->
 
-        <el-table-column prop="name" label="API服务名称" width="160">
+        <el-table-column prop="name" :label="$t('app_1027')" width="160">
           <template slot-scope="scope">
-            <el-button type="text" size="small" @click="goApi(scope.row)">{{
-              scope.row.name
-            }}</el-button>
+            <el-button
+              type="text"
+              size="small"
+              @click="handleEdit(scope.row)"
+              >{{ scope.row.name }}</el-button
+            >
 
             <!-- <el-button type="text" size="small" @click="handleDisabled(scope.row)">{{ scope.row.disabled === 0 ? '关闭' : '开启' }}</el-button>
             <el-button type="text" size="small" @click="handlelock(scope.row)">{{ scope.row.locked === 0 ? '锁定' : '解锁' }} </el-button> -->
           </template>
         </el-table-column>
-        <el-table-column prop="status" :label="$t('stauts')" />
 
-        <el-table-column prop="domain" label="服务域名" />
+        <el-table-column prop="num" :label="$t('app_1049')" />
         <!-- <el-table-column prop="version" label="分组" /> -->
         <el-table-column prop="description" :label="$t('description')" />
-        <el-table-column :label="$t('operation')" width="160">
+        <el-table-column :label="$t('operation')" width="200">
           <template slot-scope="scope">
-            <el-button type="text" size="small" @click="handleEdit(scope.row)"
-              >查看</el-button
+            <el-button
+              type="text"
+              size="small"
+              @click="handleEdit(scope.row)"
+              >{{ $t("edit") }}</el-button
             >
-            <el-button type="text" size="small" @click="newApi(scope.row)"
-              >新建API</el-button
-            >
+            <el-button type="text" size="small" @click="goApi(scope.row)">{{
+              $t("app_1050")
+            }}</el-button>
             <el-button type="text" size="small" @click="handleDel(scope.row)">{{
               $t("deletd")
             }}</el-button>
@@ -79,21 +84,13 @@
 import Cookies from "js-cookie";
 
 import Pagination from "@/components/Pagination/index";
-import { apiManagerList, apiManagerDeletd } from "@/api/apiManager";
+import { apiServeList, apiServeDeletd } from "@/api/apiServer";
 
+import { getIncloudList } from "@/utils/index";
 export default {
   name: "Index",
   components: { Pagination },
   data() {
-    var validator = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error(rule.message2));
-      } else if (value.toString().trim() === "") {
-        callback("不能全为空格");
-      } else {
-        callback();
-      }
-    };
     return {
       btnHidde: true,
       filterInfo: {
@@ -110,10 +107,9 @@ export default {
         // 条件配置项
         fieldList: [
           {
-            label: "时间段",
-            type: "date",
+            label: this.$t("app_1027"),
+            type: "input",
             value: "range",
-            dateType: "daterange",
           },
         ],
       },
@@ -187,74 +183,33 @@ export default {
     initPage() {
       this.loading = true;
 
-      apiManagerList({
+      apiServeList({
         pageNum: this.currentPage,
         pageSize: this.pageSize,
       })
         .then((res) => {
           this.loading = false;
-          const { code } = res || {};
-          if (code === 20000) {
-            if (Cookies.get("apiManager")) {
-              let list = JSON.parse(Cookies.get("apiManager")) || [];
-              this.tableData = list;
-              this.total = list.length;
-            }
-          } else {
-            this.$message.error(message);
-          }
+          this.tableData = res;
+
+          this.total = res.length;
         })
         .catch((err) => {
           this.loading = false;
           console.log(err);
         });
     },
+
     refreshList() {
       this.initPage();
     },
     newApi(row) {
+      debugger;
       this.$router.push({
         path: "/application/newApi",
         query: row,
       });
     },
-    add() {
-      this.$api.DS.addDataSetType(this.ruleForm)
-        .then((res) => {
-          if (res.status === 200) {
-            this.$message.success(res.message);
-            this.handleClose();
-            this.currentPage = 1;
-            this.initPage();
-          } else {
-            this.$message.error(res.message);
-          }
-        })
-        .catch((err) => {
-          // this.$message.error(err.message)
-          console.log(err);
-        });
-    },
-    update() {
-      this.$api.DS.editDataSetType({
-        id: this.id,
-        ...this.ruleForm,
-      })
-        .then((res) => {
-          if (res.status === 200) {
-            this.$message.success(res.message);
-            this.handleClose();
-            // this.currentPage = 1
-            this.initPage();
-          } else {
-            this.$message.error(res.message);
-          }
-        })
-        .catch((err) => {
-          // this.$message.error(err.message)
-          console.log(err);
-        });
-    },
+
     handleEdit(row) {
       this.$router.push({
         path: "/application/newApiServe",
@@ -264,9 +219,9 @@ export default {
     handleDel(row) {
       // 删除
       // const content = row.locked === 0 ? '确定要锁定吗?' : '确定要解锁吗?'
-      this.$confirm("确定要删除吗", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(this.$t("tost_1001"), this.$t("tost_1002"), {
+        confirmButtonText: this.$t("sure"),
+        cancelButtonText: this.$t("cancel"),
         type: "warning",
       })
         .then(() => {
@@ -280,12 +235,12 @@ export default {
         });
     },
     deleteRow(row) {
-      apiManagerDeletd(row)
+      apiServeDeletd(row)
         .then((res) => {
           this.loading = false;
           const { code, message, data, total } = res || {};
           if (code === 20000) {
-            this.$message.success("操作成功");
+            this.$message.success(this.$t("successfulOperation"));
             this.initPage();
           } else {
             this.$message.error(message);
@@ -298,9 +253,9 @@ export default {
     },
     handlelock(row) {
       const content = row.locked === 0 ? "确定要锁定吗?" : "确定要解锁吗?";
-      this.$confirm(content, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(content, this.$t("tost_1002"), {
+        confirmButtonText: this.$t("sure"),
+        cancelButtonText: this.$t("cancel"),
         type: "warning",
       })
         .then(() => {
@@ -358,9 +313,9 @@ export default {
     },
     handleDisabled(row) {
       const content = row.disabled === 0 ? "确定要关闭吗?" : "确定要开启吗?";
-      this.$confirm(content, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(content, this.$t("tost_1002"), {
+        confirmButtonText: this.$t("sure"),
+        cancelButtonText: this.$t("cancel"),
         type: "warning",
       })
         .then(() => {

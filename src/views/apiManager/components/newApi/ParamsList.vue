@@ -15,18 +15,19 @@
       :row-style="{ height: '30px' }"
       :cell-style="{ padding: '0px' }"
     >
-      <el-table-column prop="name" label="参数名"> </el-table-column>
-      <el-table-column prop="addr" label="位置"> </el-table-column>
-      <el-table-column prop="type" label="类型"> </el-table-column>
-      <el-table-column prop="default" label="默认值"> </el-table-column>
-      <el-table-column prop="need" label="必填"> </el-table-column>
+      <el-table-column prop="name" :label="$t('app_1151')"> </el-table-column>
+      <el-table-column prop="addr" :label="$t('position')"> </el-table-column>
+      <el-table-column prop="type" :label="$t('app_1030')"> </el-table-column>
+      <el-table-column prop="default" :label="$t('app_1005')">
+      </el-table-column>
+      <el-table-column prop="need" :label="$t('app_1152')"> </el-table-column>
       <el-table-column prop="description" :label="$t('description')">
       </el-table-column>
-      <el-table-column :label="$t('operation')" width="110">
+      <el-table-column :label="$t('operation')" width="110" v-if="!isPreview">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click="handleEdit(scope.row)"
-            >查看</el-button
-          >
+          <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
+            $t("look")
+          }}</el-button>
 
           <el-button type="text" size="small" @click="handleDel(scope.row)">{{
             $t("deletd")
@@ -34,35 +35,38 @@
         </template>
       </el-table-column>
     </el-table>
-
     <el-button
+      v-if="!isPreview"
       class="btn"
       type="primary"
       icon="el-icon-plus"
       size="small"
       @click="newAdd"
-      >添加一条( {{ tableData.length }}/{{ maxNum }} )</el-button
+      >{{ $t("addRecord") }}( {{ tableData.length }}/{{ maxNum }} )</el-button
     >
-
     <div>
       <el-dialog
-        title="提示"
+        :title="this.$t('tost_1002')"
         :visible.sync="dialogVisible"
-        width="30%"
+        width="40%"
         :before-close="handleClose"
       >
-        <el-form ref="form" :model="form" label-width="100px">
-          <el-form-item label="参数名称">
-            <el-input v-model="form.name"></el-input>
+        <el-form ref="form" :model="form" label-width="180px">
+          <el-form-item :label="$t('paramsName')">
+            <el-input
+              v-model="form.name"
+              :placeholder="$t('plaseInput')"
+            ></el-input>
           </el-form-item>
-          <el-form-item label="位置">
-            <el-select v-model="form.addr" placeholder="请选择位置">
+          <el-form-item :label="$t('position')">
+            <el-select v-model="form.addr" :placeholder="$t('tost_1007')">
               <el-option label="Header" value="Header"></el-option>
               <el-option label="Body" value="Body"></el-option>
+              <el-option label="Query" value="Query"></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="参数类型">
-            <el-select v-model="form.type" placeholder="参数类型">
+          <el-form-item :label="$t('app_1004')">
+            <el-select v-model="form.type" :placeholder="$t('plaseInput')">
               <el-option label="string" value="string"></el-option>
               <el-option label="int" value="int"></el-option>
               <el-option label="float" value="float"></el-option>
@@ -70,24 +74,34 @@
             </el-select>
           </el-form-item>
 
-          <el-form-item label="默认值">
+          <el-form-item :label="$t('app_1005')">
             <el-input
               v-model="form.default"
-              :type="form.type == 'int' ? 'number' : 'text'"
+              v-if="form.type == 'int'"
+              οnkeyup="this.value=this.value.replace(/\D/g,‘’)"
             ></el-input>
+
+            <el-input v-model="form.default" v-else></el-input>
           </el-form-item>
 
-          <el-form-item label="设为必填">
+          <el-form-item :label="$t('app_1006')">
             <el-radio-group v-model="form.need">
-              <el-radio label="是">必填</el-radio>
-              <el-radio label="否">非必填</el-radio>
+              <el-radio :label="$t('need')">{{ $t("app_1007") }}</el-radio>
+              <el-radio :label="$t('not')">{{ $t("app_1008") }}</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item :label="$t('description')">
-            <el-input type="textarea" v-model="form.description"></el-input>
+            <el-input
+              type="textarea"
+              :maxlength="500"
+              :autosize="{ minRows: 5, maxRows: 5 }"
+              v-model="form.description"
+            ></el-input>
           </el-form-item>
           <el-form-item style="margin-top: 50px">
-            <el-button type="primary" @click="onSubmit"> 确定</el-button>
+            <el-button type="primary" @click="onSubmit">{{
+              $t("sure")
+            }}</el-button>
             <el-button @click="dialogVisible = false">{{
               $t("cancel")
             }}</el-button>
@@ -107,10 +121,10 @@ export default {
       tableData: [],
       form: {
         name: "",
-        addr: "Heard",
+        addr: "Header",
         type: "string",
         default: "",
-        need: "是",
+        need: this.$t("need"),
         description: "",
       },
       dialogVisible: false,
@@ -120,6 +134,15 @@ export default {
     updata: {
       type: Array,
       default: () => [],
+    },
+    isPreview: {
+      type: Boolean,
+      default: () => false,
+    },
+  },
+  watch: {
+    updata(newV, oldV) {
+      this.tableData = this.updata;
     },
   },
   mounted() {
@@ -131,10 +154,10 @@ export default {
     newAdd() {
       let dict = {
         name: "",
-        addr: "Heard",
+        addr: "Header",
         type: "string",
         default: "",
-        need: "是",
+        need: this.$t("need"),
         description: "",
       };
       this.form = dict;
@@ -151,7 +174,7 @@ export default {
     },
     onSubmit() {
       if (!this.form.name) {
-        this.$message.error("请输入参数名称");
+        this.$message.error(this.$t("app_1153"));
         return;
       }
       this.dialogVisible = false;

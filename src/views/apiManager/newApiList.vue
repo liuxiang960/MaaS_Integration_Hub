@@ -2,38 +2,19 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-03-28 04:24:03
+ * @LastEditTime: 2023-03-30 22:04:03
  * @FilePath: /MaaS_Integration_Hub/src/views/home/index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <el-col :span="22" :xs="24">
-        <el-tabs v-model="activeTab">
-          <el-tab-pane label="API列表" name="opt1">
-            <el-card>
-              <tab-list :updata="apiServeMap" />
-            </el-card>
-          </el-tab-pane>
-          <el-tab-pane label="描述文件" name="opt2">
-            <el-card>
-              <tab-list1 :updata="apiServeMap" />
-            </el-card>
-          </el-tab-pane>
-
-          <el-tab-pane label="调用凭证" name="opt3">
-            <el-card>
-              <tab-list2 :updata="apiServeMap" />
-            </el-card>
-          </el-tab-pane>
-          <!-- <el-tab-pane label="订阅详情" name="opt4">
-            <el-card>
-              <tab-list3 />
-            </el-card>
-          </el-tab-pane> -->
-        </el-tabs>
+      <el-col :span="24" :xs="24">
+        <el-card>
+          <tab-list :updata="apiServeMap" />
+        </el-card>
       </el-col>
+      <el-col :span="6" :xs="24"> </el-col>
     </el-row>
   </div>
 </template>

@@ -45,7 +45,7 @@
             </template>
           </el-table-column>
 
-          <el-table-column :label="$t('operation')" width="160">
+          <el-table-column :label="$t('operation')" width="200">
             <template slot-scope="scope">
               <el-button
                 type="text"
@@ -99,10 +99,15 @@
           </el-form-item>
 
           <el-form-item :label="$t('description')">
-            <el-input type="textarea" v-model="form.description"></el-input>
+            <el-input
+              type="textarea"
+              :maxlength="500"
+              :autosize="{ minRows: 5, maxRows: 5 }"
+              v-model="form.description"
+            ></el-input>
           </el-form-item>
           <el-form-item style="margin-top: 50px">
-            <el-button type="primary" @click="save"> 确定</el-button>
+            <el-button type="primary" @click="save">{{ $t("sure") }}</el-button>
             <el-button @click="dialogVisible = false">{{
               $t("cancel")
             }}</el-button>
@@ -193,7 +198,7 @@ export default {
           this.loading = false;
           this.dialogVisible = false;
 
-          this.$message.success("操作成功");
+          this.$message.success(this.$t("successfulOperation"));
           this.initPage();
         })
         .catch((err) => {
@@ -242,9 +247,9 @@ export default {
     handleDel(row) {
       // 删除
       // const content = row.locked === 0 ? '确定要锁定吗?' : '确定要解锁吗?'
-      this.$confirm("确定要删除吗", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(this.$t("tost_1001"), this.$t("tost_1002"), {
+        confirmButtonText: this.$t("sure"),
+        cancelButtonText: this.$t("cancel"),
         type: "warning",
       })
         .then(() => {

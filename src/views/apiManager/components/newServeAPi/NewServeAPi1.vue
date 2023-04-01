@@ -2,29 +2,35 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-03-27 18:09:41
+ * @LastEditTime: 2023-03-31 22:03:48
  * @FilePath: /MaaS_Integration_Hub/src/views/apiManager/components/newServeAPi/NewServeAPi1.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
-  <el-form ref="form" :model="form" label-width="80px">
-    <el-form-item label="服务名称">
-      <el-input v-model="form.name" placeholder="请输入API服务名称"></el-input>
-    </el-form-item>
-
-    <el-form-item label="协议">
-      <el-select v-model="form.region">
-        <el-option label="HTTP" value="HTTP"></el-option>
-        <el-option label="HTTPS" value="HTTPS"></el-option>
-        <el-option label="HTTPS&HTTP" value="HTTPS&HTTP"></el-option>
-      </el-select>
+  <el-form
+    ref="form"
+    :model="form"
+    size="mini"
+    label-width="120px"
+    label-position="left"
+  >
+    <el-form-item :label="$t('app_1027')">
+      <el-input v-model="form.name" :placeholder="$t('app_1028')"></el-input>
     </el-form-item>
 
     <el-form-item :label="$t('description')">
-      <el-input type="textarea" v-model="form.description"></el-input>
+      <el-input
+        type="textarea"
+        :maxlength="500"
+        :autosize="{ minRows: 5, maxRows: 5 }"
+        v-model="form.description"
+      ></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="onSubmit">下一步</el-button>
+      <el-button type="primary" @click="onSubmit">{{
+        $t("app_1022")
+      }}</el-button>
+      <el-button @click="goBack">{{ $t("cancel") }}</el-button>
     </el-form-item>
   </el-form>
 </template>
@@ -52,13 +58,16 @@ export default {
     }
   },
   methods: {
+    goBack() {
+      this.$router.back();
+    },
     onSubmit() {
       if (!this.form.name) {
-        this.$message.error("请输入服务名称");
+        this.$message.error(this.$t("app_1028"));
         return;
       }
       if (!this.form.description) {
-        this.$message.error("请输入服务描述信息");
+        this.$message.error(this.$t("tost_1008"));
         return;
       }
       this.$emit("submitStep", this.form);

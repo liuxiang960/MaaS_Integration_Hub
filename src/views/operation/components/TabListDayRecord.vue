@@ -20,31 +20,36 @@
         <el-table-column
           :label="$t('number')"
           type="index"
-          width="100"
+          width="180"
           :index="(i) => (currentPage - 1) * pageSize + i + 1"
         />
         <!-- index 第二页的序号累计在第一页的基础上-->
-        <el-table-column prop="date" label="运行时间" />
+        <el-table-column prop="date" :label="$t('app_1060')" />
+        <el-table-column prop="ip" :label="$t('app_1061')" />
+        <el-table-column prop="appName" :label="$t('appName')" />
+        <el-table-column prop="apiName" :label="$t('app_1014')" />
+        <el-table-column prop="apiPath" :label="$t('app_1062')" />
+        <el-table-column prop="responseStatus" :label="$t('app_1063')" />
+        <el-table-column :label="$t('app_1064')" width="120">
+          <template slot-scope="scope">
+            <div class="text-ellipsis">{{ scope.row.request }}</div>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('app_1065')" width="120">
+          <template slot-scope="scope">
+            <div class="text-ellipsis">{{ scope.row.response }}</div>
+          </template>
+        </el-table-column>
 
-        <el-table-column prop="logLeve" label="日志级别" />
-        <el-table-column prop="workFlag" label="作业标记" />
-        <el-table-column prop="name" label="集成流名称" />
-        <el-table-column prop="compone" label="组件/连接器" />
-        <el-table-column prop="operationName" label="操作名称" />
-        <el-table-column prop="category" label="日志类别" />
-
-        <el-table-column prop="env" label="环境" />
-        <el-table-column :label="$t('operation')" width="160">
+        <el-table-column :label="$t('operation')" width="200">
           <template slot-scope="scope">
             <el-button
               type="text"
               size="small"
               @click="handleEdit(scope.row)"
-              >{{ $t("edit") }}</el-button
+              >{{ $t("app_1066") }}</el-button
             >
-            <el-button type="text" size="small" @click="handleDel(scope.row)">{{
-              $t("deletd")
-            }}</el-button>
+
             <!-- <el-button type="text" size="small" @click="handleDisabled(scope.row)">{{ scope.row.disabled === 0 ? '关闭' : '开启' }}</el-button>
             <el-button type="text" size="small" @click="handlelock(scope.row)">{{ scope.row.locked === 0 ? '锁定' : '解锁' }} </el-button> -->
           </template>
@@ -67,15 +72,6 @@ export default {
   name: "Index",
   components: { Pagination },
   data() {
-    var validator = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error(rule.message2));
-      } else if (value.toString().trim() === "") {
-        callback("不能全为空格");
-      } else {
-        callback();
-      }
-    };
     return {
       btnHidde: true,
       filterInfo: {
@@ -91,94 +87,16 @@ export default {
         },
         // 条件配置项
         fieldList: [
+          { label: this.$t("appName"), type: "input", value: "workFlag" },
+          { label: this.$t("app_1067"), type: "input", value: "logMsg" },
           {
-            label: "应用名称",
-            type: "select",
-            value: "appName",
-            list: "appList",
-          },
-          {
-            label: "应用版本",
-            type: "select",
-            value: "appVersion",
-            list: "appVersionList",
-          },
-
-          {
-            label: "选择流",
-            type: "select",
-            value: "liu",
-            list: "liuList",
-          },
-
-          {
-            label: "发布环境",
-            type: "select",
-            value: "env",
-            list: "envList",
-          },
-          {
-            label: "日志级别",
-            type: "select",
-            value: "LogLevel",
-            list: "LogLevelList",
-          },
-          {
-            label: "时间段",
+            label: this.$t("app_1068"),
             type: "date",
             value: "range",
-            dateType: "daterange",
-          },
-          { label: "作业标识", type: "input", value: "workFlag" },
-          { label: "日志内容", type: "input", value: "logMsg" },
-        ],
-      },
-      listTypeInfo: {
-        appList: [
-          {
-            id: 1,
-            name: "test",
-          },
-          {
-            id: 2,
-            name: "test1",
-          },
-        ],
-        appVersionList: [
-          {
-            id: 1,
-            name: "1.0.0",
-          },
-          {
-            id: 2,
-            name: "1.0.1",
-          },
-        ],
-        envList: [],
-        liuList: [],
-        LogLevelList: [
-          {
-            id: 0,
-            name: "全部日志级别",
-          },
-          {
-            id: 1,
-            name: "DEBUG",
-          },
-          {
-            id: 2,
-            name: "INFO",
-          },
-          {
-            id: 3,
-            name: "WARN",
-          },
-          {
-            id: 4,
-            name: "ERROR",
           },
         ],
       },
+      listTypeInfo: {},
 
       title: "",
       tableData: [],
@@ -276,35 +194,21 @@ export default {
     handleEdit(row) {
       this.id = row.id;
       var { name, desc, code } = row;
-      Object.assign(this.ruleForm, { name, desc, code });
-      this.dialogVisible = true;
+      this.$router.push({
+        path: "/operation/dayRecorDetail",
+        query: row,
+      });
     },
     handleDel(row) {
       // 删除
       // const content = row.locked === 0 ? '确定要锁定吗?' : '确定要解锁吗?'
-      this.$confirm("确定要删除吗", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm("确定要下载吗", this.$t("tost_1002"), {
+        confirmButtonText: this.$t("sure"),
+        cancelButtonText: this.$t("cancel"),
         type: "warning",
       })
         .then(() => {
-          this.$axios
-            .delete(`web/dataSetType/delete?id=${row.id}`)
-            .then((res) => {
-              const { status, message } = res.data || {};
-              if (status === 200) {
-                this.initPage();
-                this.$message({
-                  type: "success",
-                  message: message,
-                });
-              } else {
-                this.$message.error(message);
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
+          this.$message.success("下载成功");
         })
         .catch((err) => {
           this.$message({
@@ -315,9 +219,9 @@ export default {
     },
     handlelock(row) {
       const content = row.locked === 0 ? "确定要锁定吗?" : "确定要解锁吗?";
-      this.$confirm(content, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(content, this.$t("tost_1002"), {
+        confirmButtonText: this.$t("sure"),
+        cancelButtonText: this.$t("cancel"),
         type: "warning",
       })
         .then(() => {
@@ -375,9 +279,9 @@ export default {
     },
     handleDisabled(row) {
       const content = row.disabled === 0 ? "确定要关闭吗?" : "确定要开启吗?";
-      this.$confirm(content, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(content, this.$t("tost_1002"), {
+        confirmButtonText: this.$t("sure"),
+        cancelButtonText: this.$t("cancel"),
         type: "warning",
       })
         .then(() => {
@@ -419,4 +323,11 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.text-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+}
+</style>

@@ -2,40 +2,48 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-03-28 01:51:37
+ * @LastEditTime: 2023-03-31 23:02:05
  * @FilePath: /MaaS_Integration_Hub/src/views/home/index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <el-col :span="15" :xs="24" style="margin-top: 30px; margin-left: 30px">
-        <el-steps :space="200" :active="active" finish-status="success">
-          <el-step title="基础配置"></el-step>
-          <el-step title="后端配置"></el-step>
-          <el-step title="响应示例"></el-step>
-        </el-steps>
-        <Step1
-          v-show="active == 0"
-          style="margin-top: 30px"
-          @submitStep="submitStep1"
-          :updata="step1Data"
-        />
-        <Step2
-          v-show="active == 1"
-          :updata="step2Data"
-          style="margin-top: 30px"
-          @submitStep="submitStep2"
-          @goBack="goBack"
-          @goNext="goNext2"
-        />
-        <Step3
-          v-show="active == 2"
-          style="margin-top: 30px"
-          @subMitComplte="subMitComplte"
-          @goBack="goBack3"
-        />
+      <el-col :span="20" :xs="24">
+        <el-card>
+          <el-steps
+            style="margin-left: 60px; margin-top: 20px; margin-bottom: 50px"
+            :space="200"
+            :active="active"
+            finish-status="success"
+          >
+            <el-step :title="$t('app_1081')"></el-step>
+            <el-step :title="$t('app_1082')"></el-step>
+            <el-step :title="$t('app_1083')"></el-step>
+          </el-steps>
+          <Step1
+            v-show="active == 0"
+            style="margin-top: 30px"
+            @submitStep="submitStep1"
+            :updata="step1Data"
+          />
+          <Step2
+            v-show="active == 1"
+            :updata="step2Data"
+            style="margin-top: 30px"
+            @submitStep="submitStep2"
+            @goBack="goBack"
+            @goNext="goNext2"
+          />
+          <Step3
+            v-show="active == 2"
+            style="margin-top: 30px"
+            @subMitComplte="subMitComplte"
+            @goBack="goBack3"
+          />
+        </el-card>
       </el-col>
+      <el-col :span="6" :xs="24"> </el-col>
     </el-row>
   </div>
 </template>
@@ -96,14 +104,14 @@ export default {
     goBack3() {
       this.active = 1;
     },
-    subMitComplte() {
+    subMitComplte(mockData) {
       let data = Object.assign(this.step1Data, this.step2Data);
       data.apiServeMap = this.apiServeMap;
       apiServeNew(data)
         .then((res) => {
           this.loading = false;
 
-          this.$message.success("操作成功");
+          this.$message.success(this.$t("successfulOperation"));
           this.$router.go(-1);
         })
         .catch((err) => {
@@ -118,7 +126,7 @@ export default {
         .then((res) => {
           this.loading = false;
 
-          this.$message.success("操作成功");
+          this.$message.success(this.$t("successfulOperation"));
           this.$router.go(-1);
         })
         .catch((err) => {

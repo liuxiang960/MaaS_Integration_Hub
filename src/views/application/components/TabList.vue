@@ -30,7 +30,7 @@
         <el-table-column
           label="序号"
           type="index"
-          width="100"
+          width="180"
           :index="(i) => (currentPage - 1) * pageSize + i + 1"
         />
         <!-- index 第二页的序号累计在第一页的基础上-->
@@ -38,7 +38,7 @@
 
         <el-table-column prop="description" :label="$t('description')" />
         <el-table-column prop="status" :label="$t('stauts')" />
-        <el-table-column :label="$t('operation')" width="160">
+        <el-table-column :label="$t('operation')" width="200">
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -274,7 +274,7 @@ export default {
       })
         .then(() => {
           applcationDeletd(row).then((response) => {
-            this.$message.success("操作成功");
+            this.$message.success(this.$t("app_1059"));
             this.dialogVisible = false;
 
             this.initPage();
@@ -337,13 +337,13 @@ export default {
       // 提交
 
       if (!this.ruleForm.name || this.ruleForm.name.length <= 0) {
-        this.$message.error("请输入应用名称");
+        this.$message.error(this.$t("app_1001"));
 
         return;
       }
 
       applicationNew(this.ruleForm).then((response) => {
-        this.$message.success("操作成功");
+        this.$message.success(this.$t("app_1059"));
         this.dialogVisible = false;
         this.resetForm();
 

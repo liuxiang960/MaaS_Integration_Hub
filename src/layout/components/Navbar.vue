@@ -12,7 +12,6 @@
     <div class="right-menu">
       <template v-if="device !== 'mobile'">
         <!-- <search id="header-search" class="right-menu-item" /> -->
-        <LangSelect class="errLog-container right-menu-item hover-effect" />
 
         <!-- <error-log class="errLog-container right-menu-item hover-effect" /> -->
 
@@ -22,6 +21,7 @@
           <size-select id="size-select" class="right-menu-item hover-effect" />
         </el-tooltip> -->
       </template>
+      <LangSelect class="errLog-container right-menu-item hover-effect" />
 
       <el-dropdown
         class="avatar-container right-menu-item hover-effect"
@@ -29,8 +29,10 @@
       >
         <div class="avatar-wrapper">
           <img src="../../assets/common/logo.jpeg" class="user-avatar" />
+          <div class="name_p">{{ name }}</div>
           <i class="el-icon-caret-bottom" />
         </div>
+
         <el-dropdown-menu slot="dropdown">
           <!-- <router-link to="/profile/index">
             <el-dropdown-item>Profile</el-dropdown-item>
@@ -143,6 +145,8 @@ export default {
       .avatar-wrapper {
         margin-top: 0px;
         position: relative;
+        display: flex;
+        align-items: center;
 
         .user-avatar {
           cursor: pointer;
@@ -151,11 +155,21 @@ export default {
           border-radius: 50%;
         }
 
+        .name_p {
+          color: #303133;
+          font-size: 14px;
+          display: inline-block;
+          padding-left: 10px;
+          padding-right: 0px;
+          line-height: 50px;
+          height: 50px;
+        }
+
         .el-icon-caret-bottom {
           cursor: pointer;
           position: absolute;
           right: -20px;
-          top: 22px;
+          top: 20px;
           font-size: 12px;
         }
       }

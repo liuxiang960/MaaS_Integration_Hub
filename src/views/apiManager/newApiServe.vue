@@ -2,39 +2,43 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-03-27 18:07:43
+ * @LastEditTime: 2023-03-31 23:01:05
  * @FilePath: /MaaS_Integration_Hub/src/views/home/index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <el-col :span="10" :xs="24" style="margin-top: 30px; margin-left: 30px">
-        <el-steps :space="200" :active="active" finish-status="success">
-          <el-step title="基础配置"></el-step>
-          <el-step title="策略信息"></el-step>
-        </el-steps>
-        <NewServeAPi1
-          v-show="active == 0"
-          style="margin-top: 30px"
-          @submitStep="submitStep1"
-          :updata="step1Data"
-        />
-        <NewServeAPi2
-          v-show="active == 1"
-          :updata="step2Data"
-          style="margin-top: 30px"
-          @submitStep="submitStep2"
-          @goBack="goBack"
-        />
+      <el-col :span="15" :xs="24">
+        <el-card>
+          <el-steps :space="200" :active="active" finish-status="success">
+            <el-step :title="$t('app_1079')"></el-step>
+            <el-step :title="$t('app_1080')"></el-step>
+          </el-steps>
+          <NewServeAPi1
+            v-show="active == 0"
+            style="margin-top: 30px"
+            @submitStep="submitStep1"
+            :updata="step1Data"
+          />
+          <NewServeAPi2
+            v-show="active == 1"
+            :updata="step2Data"
+            style="margin-top: 30px"
+            @submitStep="submitStep2"
+            @goBack="goBack"
+          />
+        </el-card>
       </el-col>
+      <el-col :span="6" :xs="24"> </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import { apiManagerNew } from "@/api/apiManager";
+
+import { apiServeNew } from "@/api/apiServer";
 
 import NewServeAPi1 from "./components/newServeAPi/NewServeAPi1";
 import NewServeAPi2 from "./components/newServeAPi/NewServeAPi2";
@@ -77,11 +81,11 @@ export default {
     submitStep2(item) {
       this.step2Data = item;
       let data = Object.assign(this.step1Data, item);
-      apiManagerNew(data)
+      apiServeNew(data)
         .then((res) => {
           this.loading = false;
 
-          this.$message.success("操作成功");
+          this.$message.success(this.$t("successfulOperation"));
           this.$router.go(-1);
         })
         .catch((err) => {

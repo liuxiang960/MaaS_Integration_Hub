@@ -70,11 +70,7 @@ export const constantRoutes = [
     component: () => import("@/views/error-page/401"),
     hidden: true,
   },
-  {
-    path: "/flowDesign",
-    component: () => import("../components/FlowDesign/Index"),
-    hidden: true,
-  },
+
   {
     path: "/",
     component: Layout,
@@ -84,46 +80,12 @@ export const constantRoutes = [
         path: "home",
         component: () => import("@/views/home/index"),
         name: "home",
-        meta: { title: "leftbar.home", icon: "dashboard", affix: true },
-      },
-    ],
-  },
-  // {
-  //   path: "/index",
-  //   component: Layout,
-  //   redirect: "/dashboard",
-  //   hidden: true,
-
-  //   children: [
-  //     {
-  //       path: "dashboard",
-  //       component: () => import("@/views/dashboard/index"),
-  //       name: "Dashboard",
-  //       meta: { title: "leftbar.home", icon: "dashboard", affix: true },
-  //     },
-  //   ],
-  // },
-
-  {
-    path: "/profile",
-    component: Layout,
-    redirect: "/profile/index",
-    hidden: true,
-    children: [
-      {
-        path: "index",
-        component: () => import("@/views/profile/index"),
-        name: "Profile",
-        meta: { title: "Profile", icon: "user", noCache: true },
+        meta: { title: "leftbar.home", icon: "home", affix: true },
       },
     ],
   },
 ];
 
-/**
- * asyncRoutes
- * the routes that need to be dynamically loaded based on user roles
- */
 export const asyncRoutes = [
   {
     path: "/application",
@@ -133,19 +95,55 @@ export const asyncRoutes = [
     name: "application",
     meta: {
       title: "leftbar.integration.title",
-      icon: "peoples",
+      icon: "app",
       roles: ["admin", "editor"], // you can set roles in root nav
     },
     children: [
       {
         path: "page",
-        component: () => import("@/views/application/index"),
-        name: "PagePermission",
+        component: () => import("@/views/appManager/index"),
+        name: "PagePermiss",
         meta: {
           title: "leftbar.integration.subtitle",
+
           roles: ["admin"], // or you can only set roles in sub nav
         },
       },
+      {
+        path: "newApp",
+        component: () => import("@/views/appManager/newApp"),
+        name: "newApp",
+        alwaysShow: false, // will always show the root menu
+        hidden: true,
+
+        meta: {
+          title: "leftbar.operation.subtitle7",
+          // if do not set roles, means: this page does not require permission
+        },
+      },
+      {
+        path: "integrationFlow",
+        component: () => import("@/views/apiManager/integration"),
+        name: "integrationFlow",
+        alwaysShow: false, // will always show the root menu
+
+        meta: {
+          title: "leftbar.operation.subtitle6",
+          // if do not set roles, means: this page does not require permission
+        },
+      },
+      {
+        path: "process",
+        component: () => import("@/views/apiManager/process"),
+        name: "process",
+        alwaysShow: false, // will always show the root menu
+        hidden: true,
+        meta: {
+          title: "leftbar.operation.subtitle6",
+          // if do not set roles, means: this page does not require permission
+        },
+      },
+
       {
         path: "apiManager",
         component: () => import("@/views/apiManager/index"),
@@ -155,6 +153,7 @@ export const asyncRoutes = [
           // if do not set roles, means: this page does not require permission
         },
       },
+
       {
         path: "newApiServe",
         component: () => import("@/views/apiManager/newApiServe"),
@@ -167,6 +166,7 @@ export const asyncRoutes = [
           // if do not set roles, means: this page does not require permission
         },
       },
+
       {
         path: "newApi",
         component: () => import("@/views/apiManager/newApi"),
@@ -201,76 +201,108 @@ export const asyncRoutes = [
     name: "operation",
     meta: {
       title: "leftbar.operation.title",
-      icon: "international",
+      icon: "monitoring_center",
       roles: ["admin", "editor"], // you can set roles in root nav
     },
     children: [
       {
-        path: "page",
-        component: () => import("@/views/operation/index"),
-        name: "PagePermission",
+        path: "monitoring",
+        component: () => import("@/views/dashboard/index"),
+        name: "monitoring",
+        meta: {
+          title: "leftbar.operation.subtitle", // if do not set roles, means: this page does not require permission
+        },
+      },
+
+      {
+        path: "dayRecorDetail",
+        component: () => import("@/views/operation/dayRecorDetail"),
+        name: "dayRecorDetail",
+        hidden: true,
         meta: {
           title: "leftbar.operation.subtitle",
           roles: ["admin"], // or you can only set roles in sub nav
         },
       },
       {
+        path: "strategy",
+        component: () => import("@/views/operation/strategy"),
+        name: "strategy",
+        meta: {
+          title: "leftbar.operation.subtitle5",
+          roles: ["admin"], // or you can only set roles in sub nav
+        },
+      },
+
+      {
         path: "dayRecord",
         component: () => import("@/views/operation/dayRecord"),
         name: "dayRecord",
         meta: {
-          title: "leftbar.operation.subtitle1",
+          title: "leftbar.operation.subtitle4",
           // if do not set roles, means: this page does not require permission
         },
       },
+      // {
+      //   path: "page",
+      //   component: () => import("@/views/operation/index"),
+      //   name: "PagePermission",
+
+      //   meta: {
+      //     title: "告警历史",
+      //     roles: ["admin"], // or you can only set roles in sub nav
+      //   },
+      // },
+
       {
-        path: "alarmPage",
-        component: () => import("@/views/operation/alarmPage"),
-        name: "alarmPage",
+        path: "newStrategy",
+        component: () => import("@/views/operation/newStrategy"),
+        hidden: true,
+        name: "newStrategy",
         meta: {
-          title: "leftbar.operation.subtitle2",
-          // if do not set roles, means: this page does not require permission
+          title: "leftbar.operation.subtitle3",
+
+          roles: ["admin"], // or you can only set roles in sub nav
         },
       },
     ],
   },
   {
-    path: "/permission2",
+    path: "/permission",
     component: Layout,
     redirect: "/permission/page",
     alwaysShow: true, // will always show the root menu
     name: "manager",
     meta: {
       title: "leftbar.manager.title",
-      icon: "lock",
+      icon: "manager",
       roles: ["admin", "editor"], // you can set roles in root nav
     },
     children: [
       {
-        path: "role",
-        component: () => import("@/views/permission/role"),
-        name: "RolePermission",
+        path: "user",
+        component: () => import("@/views/manager/index"),
+        name: "user",
         meta: {
           title: "leftbar.manager.subtitle",
-          roles: ["admin"],
         },
       },
-      // {
-      //   path: "directive4",
-      //   component: () => import("@/views/permission/directive"),
-      //   name: "DirectivePermission",
-      //   meta: {
-      //     title: "leftbar.manager.subtitle1",
-      //     // if do not set roles, means: this page does not require permission
-      //   },
-      // },
+
       {
         path: "config",
-        component: () => import("@/views/permission/role"),
-        name: "RolePermission",
+        component: () => import("@/views/manager/config"),
+        name: "config",
         meta: {
           title: "leftbar.manager.subtitle2",
-          roles: ["admin"],
+        },
+      },
+      {
+        path: "log",
+        component: () => import("@/views/manager/logManager"),
+        name: "log",
+        meta: {
+          title: "leftbar.operation.subtitle8",
+          roles: ["admin"], // or you can only set roles in sub nav
         },
       },
     ],

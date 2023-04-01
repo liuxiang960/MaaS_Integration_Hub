@@ -21,21 +21,21 @@
         <el-table-column
           :label="$t('number')"
           type="index"
-          width="100"
+          width="180"
           :index="(i) => (currentPage - 1) * pageSize + i + 1"
         />
         <!-- index 第二页的序号累计在第一页的基础上-->
         <el-table-column prop="startTime" label="触发时间" />
         <el-table-column prop="status" label="告警状态" />
         <el-table-column prop="type" label="告警类型" />
-        <el-table-column prop="leve" label="告警级别" />
+        <el-table-column prop="leve" :label="$t('app_1070')" />
         <el-table-column prop="policy" label="告警策略" />
         <el-table-column prop="env" label="告警环境" />
         <el-table-column prop="content" label="告警内容" />
         <el-table-column prop="duration" label="持续时长" />
         <el-table-column prop="endTime" label="结束时间" />
 
-        <el-table-column :label="$t('operation')" width="160">
+        <el-table-column :label="$t('operation')" width="200">
           <template slot-scope="scope">
             <el-button
               type="text"

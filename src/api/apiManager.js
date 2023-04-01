@@ -2,14 +2,14 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-03-28 09:04:03
+ * @LastEditTime: 2023-04-01 03:29:02
  * @FilePath: /MaaS_Integration_Hub/src/api/application.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import request from "@/utils/request";
 import Cookies from "js-cookie";
 import { removeListItem } from "@/utils/index";
-
+import { getApiServeData } from "./mock/apiServe";
 export function apiManagerNew(query) {
   let list = [];
   if (Cookies.get("apiManager")) {
@@ -62,18 +62,20 @@ export function apiManagerList(query) {
 export function apiServeNew(query) {
   let list = [];
   let cookieKey = "apiServe" + query.apiServeMap.id;
-  if (Cookies.get(cookieKey)) {
-    list = JSON.parse(Cookies.get(cookieKey)) || [];
+  debugger;
+  const data = localStorage.getItem(cookieKey);
+
+  if (data) {
+    list = JSON.parse(data) || [];
     list = removeListItem(list, query.id);
   }
 
   let dt = { id: Math.floor(Math.random() * 100000 + 1) };
-  dt.status = "配置中";
-  dt.domain = "域名";
 
   dt = Object.assign(query, dt);
   list.push(dt);
-  Cookies.set(cookieKey, JSON.stringify(list));
+  localStorage.setItem(cookieKey, JSON.stringify(list));
+
   return request({
     url: "/vue-element-admin/apiServe/new",
     method: "post",
@@ -84,12 +86,13 @@ export function apiServeNew(query) {
 export function apiServeDeletd(query) {
   let list = [];
   let cookieKey = "apiServe" + query.apiServeMap.id;
+  const data = localStorage.getItem(cookieKey);
 
-  if (Cookies.get(cookieKey)) {
-    list = JSON.parse(Cookies.get(cookieKey)) || [];
+  if (data) {
+    list = JSON.parse(data) || [];
     list = removeListItem(list, query.id);
   }
-  Cookies.set(cookieKey, JSON.stringify(list));
+  localStorage.setItem(cookieKey, JSON.stringify(list));
   return request({
     url: "/vue-element-admin/apiServe/deleted",
     method: "post",
@@ -97,13 +100,19 @@ export function apiServeDeletd(query) {
   });
 }
 
+//api  详情
 export function apiServeList(query) {
   return new Promise((resolve, reject) => {
     let cookieKey = "apiServe" + query.apiServeMap.id || "";
     let list = [];
-    if (Cookies.get(cookieKey)) {
-      list = JSON.parse(Cookies.get(cookieKey)) || [];
+    const data = localStorage.getItem(cookieKey);
+
+    if (data) {
+      list = JSON.parse(data) || [];
       list = removeListItem(list, query.id);
+    } else {
+      list = getApiServeData(cookieKey);
+      localStorage.setItem(cookieKey, JSON.stringify(list));
     }
     resolve(list);
   });
@@ -139,8 +148,6 @@ export function apiCertificateNew(query) {
   }
 
   let dt = { id: Math.floor(Math.random() * 100000 + 1) };
-  dt.status = "配置中";
-  dt.domain = "域名";
 
   dt = Object.assign(query, dt);
   list.push(dt);
@@ -261,3 +268,12 @@ export function operationDayList(query) {
   });
 }
 
+export function operationHistory(query) {
+  const list = [];
+
+  return request({
+    url: "/vue-element-admin/operation/history",
+    method: "get",
+    params: query,
+  });
+}

@@ -21,35 +21,18 @@
         <el-table-column
           :label="$t('number')"
           type="index"
-          width="100"
+          width="180"
           :index="(i) => (currentPage - 1) * pageSize + i + 1"
         />
         <!-- index 第二页的序号累计在第一页的基础上-->
         <el-table-column prop="startTime" label="触发时间" />
         <el-table-column prop="status" label="告警状态" />
         <el-table-column prop="type" label="告警类型" />
-        <el-table-column prop="leve" label="告警级别" />
-        <el-table-column prop="policy" label="告警策略" />
-        <el-table-column prop="env" label="告警环境" />
+        <el-table-column prop="leve" :label="$t('app_1070')" />
+
         <el-table-column prop="content" label="告警内容" />
         <el-table-column prop="duration" label="持续时长" />
         <el-table-column prop="endTime" label="结束时间" />
-
-        <el-table-column :label="$t('operation')" width="160">
-          <template slot-scope="scope">
-            <el-button
-              type="text"
-              size="small"
-              @click="handleEdit(scope.row)"
-              >{{ $t("edit") }}</el-button
-            >
-            <el-button type="text" size="small" @click="handleDel(scope.row)">{{
-              $t("deletd")
-            }}</el-button>
-            <!-- <el-button type="text" size="small" @click="handleDisabled(scope.row)">{{ scope.row.disabled === 0 ? '关闭' : '开启' }}</el-button>
-            <el-button type="text" size="small" @click="handlelock(scope.row)">{{ scope.row.locked === 0 ? '锁定' : '解锁' }} </el-button> -->
-          </template>
-        </el-table-column>
       </el-table>
       <pagination
         :page="currentPage"
@@ -63,7 +46,7 @@
 
 <script>
 import Pagination from "@/components/Pagination/index";
-import { operationDayList } from "@/api/apiManager";
+import { operationHistory } from "@/api/apiManager";
 export default {
   name: "Index",
   components: { Pagination },
@@ -98,12 +81,6 @@ export default {
             value: "appName",
             list: "alarmStautList",
           },
-          {
-            label: "告警策略",
-            type: "select",
-            value: "policy",
-            list: "policyList",
-          },
 
           {
             label: "告警类型",
@@ -117,19 +94,6 @@ export default {
             type: "select",
             value: "policyLeve",
             list: "policyLeveList",
-          },
-          {
-            label: "告警对象",
-            type: "select",
-            value: "policyWho",
-            list: "policyWhoList",
-          },
-
-          {
-            label: "试用环境",
-            type: "select",
-            value: "env",
-            list: "envList",
           },
         ],
       },
@@ -198,23 +162,6 @@ export default {
             name: "紧急",
           },
         ],
-
-        policyWhoList: [
-          {
-            id: 0,
-            name: "全部",
-          },
-          {
-            id: 1,
-            name: "默认项目",
-          },
-        ],
-        envList: [
-          {
-            id: 0,
-            name: "试用环境",
-          },
-        ],
       },
 
       title: "",
@@ -251,7 +198,7 @@ export default {
     initPage() {
       this.loading = true;
 
-      operationDayList({
+      operationHistory({
         pageNum: this.currentPage,
         pageSize: this.pageSize,
       })
@@ -273,43 +220,7 @@ export default {
     refreshList() {
       this.initPage();
     },
-    add() {
-      this.$api.DS.addDataSetType(this.ruleForm)
-        .then((res) => {
-          if (res.status === 200) {
-            this.$message.success(res.message);
-            this.handleClose();
-            this.currentPage = 1;
-            this.initPage();
-          } else {
-            this.$message.error(res.message);
-          }
-        })
-        .catch((err) => {
-          // this.$message.error(err.message)
-          console.log(err);
-        });
-    },
-    update() {
-      this.$api.DS.editDataSetType({
-        id: this.id,
-        ...this.ruleForm,
-      })
-        .then((res) => {
-          if (res.status === 200) {
-            this.$message.success(res.message);
-            this.handleClose();
-            // this.currentPage = 1
-            this.initPage();
-          } else {
-            this.$message.error(res.message);
-          }
-        })
-        .catch((err) => {
-          // this.$message.error(err.message)
-          console.log(err);
-        });
-    },
+
     handleEdit(row) {
       this.id = row.id;
       var { name, desc, code } = row;
@@ -319,9 +230,9 @@ export default {
     handleDel(row) {
       // 删除
       // const content = row.locked === 0 ? '确定要锁定吗?' : '确定要解锁吗?'
-      this.$confirm("确定要删除吗", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(this.$t("tost_1001"), this.$t("tost_1002"), {
+        confirmButtonText: this.$t("sure"),
+        cancelButtonText: this.$t("cancel"),
         type: "warning",
       })
         .then(() => {
@@ -352,9 +263,9 @@ export default {
     },
     handlelock(row) {
       const content = row.locked === 0 ? "确定要锁定吗?" : "确定要解锁吗?";
-      this.$confirm(content, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(content, this.$t("tost_1002"), {
+        confirmButtonText: this.$t("sure"),
+        cancelButtonText: this.$t("cancel"),
         type: "warning",
       })
         .then(() => {
@@ -395,54 +306,8 @@ export default {
         code: "",
       };
     },
-    save() {
-      // 提交
-      this.$refs["ruleForm"].validate((valid) => {
-        if (valid) {
-          if (this.id === -1) {
-            this.add();
-          } else {
-            this.update();
-          }
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
-    },
-    handleDisabled(row) {
-      const content = row.disabled === 0 ? "确定要关闭吗?" : "确定要开启吗?";
-      this.$confirm(content, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          this.$axios
-            .get(`web/tenant/${row.disabled == 0 ? "close" : "open"}/${row.id}`)
-            .then((res) => {
-              const { status, message } = res.data || {};
-              if (status === 200) {
-                this.initPage();
-                this.$message({
-                  type: "success",
-                  message: message,
-                });
-              } else {
-                this.$message.error(message);
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        })
-        .catch((err) => {
-          this.$message({
-            type: "info",
-            message: err,
-          });
-        });
-    },
+    save() {},
+
     pagination(val) {
       this.pageSize = val.limit;
       this.currentPage = val.page;

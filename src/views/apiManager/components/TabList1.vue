@@ -20,11 +20,11 @@
         <el-table-column
           :label="$t('number')"
           type="index"
-          width="100"
+          width="180"
           :index="(i) => (currentPage - 1) * pageSize + i + 1"
         />
         <!-- index 第二页的序号累计在第一页的基础上-->
-        <el-table-column prop="name" label="API服务名称" />
+        <el-table-column prop="name" :label="$t('app_1027')" />
         <!-- <el-table-column prop="env" label="运行环境" /> -->
 
         <!-- <el-table-column prop="project" label="所属项目" /> -->
@@ -32,13 +32,13 @@
         <el-table-column prop="date" label="上架更新时间" />
         <el-table-column prop="subscribeStautLabel" label="订阅状态" />
 
-        <el-table-column :label="$t('operation')" width="160">
+        <el-table-column :label="$t('operation')" width="200">
           <template slot-scope="scope">
             <el-button
               type="text"
               size="small"
               @click="handleEdit(scope.row, scope)"
-              >操作</el-button
+              >{{ $t("app_1090") }}</el-button
             >
 
             <!-- <el-button type="text" size="small" @click="handleDisabled(scope.row)">{{ scope.row.disabled === 0 ? '关闭' : '开启' }}</el-button>
@@ -109,12 +109,11 @@ export default {
           },
 
           {
-            label: "时间段",
+            label: this.$t("app_1068"),
             type: "date",
             value: "range",
-            dateType: "daterange",
           },
-          { label: "API服务名称", type: "input", value: "apiServeName" },
+          { label: this.$t("app_1027"), type: "input", value: "apiServeName" },
         ],
       },
       listTypeInfo: {
@@ -224,14 +223,14 @@ export default {
       this.tableData[scop.$index] = row;
       this.$forceUpdate();
 
-      this.$message.success("操作成功");
+      this.$message.success(this.$t("successfulOperation"));
     },
     handleDel(row) {
       // 删除
       // const content = row.locked === 0 ? '确定要锁定吗?' : '确定要解锁吗?'
-      this.$confirm("确定要删除吗", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(this.$t("tost_1001"), this.$t("tost_1002"), {
+        confirmButtonText: this.$t("sure"),
+        cancelButtonText: this.$t("cancel"),
         type: "warning",
       })
         .then(() => {
@@ -262,9 +261,9 @@ export default {
     },
     handlelock(row) {
       const content = row.locked === 0 ? "确定要锁定吗?" : "确定要解锁吗?";
-      this.$confirm(content, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(content, this.$t("tost_1002"), {
+        confirmButtonText: this.$t("sure"),
+        cancelButtonText: this.$t("cancel"),
         type: "warning",
       })
         .then(() => {
@@ -322,9 +321,9 @@ export default {
     },
     handleDisabled(row) {
       const content = row.disabled === 0 ? "确定要关闭吗?" : "确定要开启吗?";
-      this.$confirm(content, "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
+      this.$confirm(content, this.$t("tost_1002"), {
+        confirmButtonText: this.$t("sure"),
+        cancelButtonText: this.$t("cancel"),
         type: "warning",
       })
         .then(() => {

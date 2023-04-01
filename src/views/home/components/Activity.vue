@@ -36,7 +36,7 @@ export default {
       })
         .then(({ value }) => {
           if (!value || value.length <= 0) {
-            this.$message.error("请输入应用名称");
+            this.$message.error(this.$t("app_1001"));
 
             return;
           }

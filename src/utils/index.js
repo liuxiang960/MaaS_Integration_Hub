@@ -372,3 +372,101 @@ export function removeListItem(list, ids, dt) {
   }
   return mulist;
 }
+
+export function getIncloudList(list, ids) {
+  let mulist = [];
+  for (let i = 0; i < list.length; i++) {
+    let item = list[i];
+    if (item.apiServeMap && item.apiServeMap.id == ids) {
+      mulist.push(item);
+    } else {
+    }
+  }
+  return mulist;
+}
+
+// 数组更加数据字段分组
+export function groupByList(datalist, name) {
+  let resList = []; //分组结果
+  for (var i = 0; i < datalist.length; i++) {
+    var thisindex = parseInt(datalist[i][name]) || 0; //分组的索引
+    if (resList[thisindex] != undefined) {
+      //如果数组中有值，则添加第二条数据
+      resList[thisindex] = resList[thisindex].concat(datalist[i]);
+    } else {
+      //新建数组
+      resList[thisindex] = [];
+      resList[thisindex][0] = datalist[i];
+    }
+  }
+
+  var list = [];
+
+  for (var i = 0; i < resList.length; i++) {
+    if (resList && resList[i]) {
+      var item = resList[i][0][name];
+      console.log("!!!!!", item);
+      list.push({
+        keyName: item,
+        list: resList[i],
+      });
+    }
+  }
+
+  return list;
+}
+
+export function getTimeSub(nS) {
+  var date = new Date(nS); //获取一个时间对象
+
+  let y = date.getFullYear(); // 获取完整的年份(4位,1970)
+
+  let m =
+    date.getMonth() + 1 < 10
+      ? "0" + (date.getMonth() + 1)
+      : date.getMonth() + 1; // 获取月份(0-11,0代表1月,用的时候记得加上1)
+
+  let d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate(); // 获取日(1-31)
+
+  return y + "-" + m + "-" + d;
+}
+
+export function getDays(n) {
+  let time = 1610176741;
+
+  let list = [];
+
+  for (var j = 0; j <= n; j++) {
+    let thirtyDays =
+      new Date(new Date().toLocaleDateString()).getTime() -
+      j * 3600 * 24 * 1000;
+
+    thirtyDays = getTimeSub(thirtyDays);
+
+    list.push(thirtyDays);
+  }
+  console.log(list);
+  return list.reverse();
+}
+
+export function DateToStr(date) {
+  var year = date.getFullYear(); //年
+  var month = date.getMonth(); //月
+  var day = date.getDate(); //日
+  var hours = date.getHours(); //时
+  var min = date.getMinutes(); //分
+  var second = date.getSeconds(); //秒
+  return (
+    year +
+    "-" +
+    (month + 1 > 9 ? month + 1 : "0" + (month + 1)) +
+    "-" +
+    (day > 9 ? day : "0" + day) +
+    " " +
+    (hours > 9 ? hours : "0" + hours) +
+    ":" +
+    (min > 9 ? min : "0" + min) +
+    ":" +
+    (second > 9 ? second : "0" + second)
+  );
+}

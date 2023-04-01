@@ -29,7 +29,7 @@
         <el-table-column
           :label="$t('number')"
           type="index"
-          width="100"
+          width="180"
           :index="(i) => (currentPage - 1) * pageSize + i + 1"
         />
         <!-- index 第二页的序号累计在第一页的基础上-->
@@ -38,13 +38,13 @@
         <el-table-column prop="authentication" label="BasicAuth账号" />
         <el-table-column prop="description" :label="$t('description')" />
         <el-table-column prop="status" label="运行状态" />
-        <el-table-column :label="$t('operation')" width="160">
+        <el-table-column :label="$t('operation')" width="200">
           <template slot-scope="scope">
             <el-switch v-model="scope.row.value" />
           </template>
         </el-table-column>
 
-        <el-table-column :label="$t('operation')" width="160">
+        <el-table-column :label="$t('operation')" width="200">
           <template slot-scope="scope">
             <el-button
               type="text"
