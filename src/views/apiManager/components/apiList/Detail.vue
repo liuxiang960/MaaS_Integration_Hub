@@ -76,6 +76,8 @@
             </el-card>
           </el-tab-pane>
         </el-tabs>
+
+        
       </el-col>
     </el-row>
   </div>

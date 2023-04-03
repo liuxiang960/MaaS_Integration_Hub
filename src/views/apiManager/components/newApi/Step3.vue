@@ -2,7 +2,7 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-03-31 22:01:30
+ * @LastEditTime: 2023-04-02 06:02:21
  * @FilePath: /MaaS_Integration_Hub/src/views/apiManager/components/newServeAPi/NewServeAPi2.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -16,7 +16,7 @@
   >
     <el-form-item label="">
       <div class="super-edit-bg">
-        <div>
+        <div class="edit_bg" style="margin-left: 0px">
           <p class="tips">{{ $t("app_1023") }}</p>
           <!-- <img
             src="../../../../assets/../assets/home/template.jpg"
@@ -25,7 +25,7 @@
           /> -->
           <el-input
             disabled="disabled"
-            style="width: 500px; heigth: 300px"
+            style="width: 100%; heigth: 300px"
             :placeholder="$t('tost_1008')"
             type="textarea"
             :maxlength="500"
@@ -42,7 +42,7 @@
           /> -->
 
           <el-input
-            style="width: 500px; heigth: 300px"
+            style="width: 100%; heigth: 300px"
             :placeholder="$t('tost_1008')"
             type="textarea"
             :maxlength="500"
@@ -129,11 +129,13 @@ export default {
 .super-edit-bg {
   display: flex;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: flex-start;
+  width: 100%;
 }
 
 .edit_bg {
   margin-left: 80px;
+  width: 40%;
 }
 .tips {
   font-size: 14px;

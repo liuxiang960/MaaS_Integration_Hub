@@ -52,9 +52,9 @@
               type="text"
               size="small"
               @click="handleEdit(scope.row)"
-              >{{ $t("look") }}</el-button
+              >{{ $t("edit") }}</el-button
             >
-            <el-button type="text" size="small" @click="handleDel(scope.row)">{{
+            <el-button type="text" size="small" @click="handle(scope.row)">{{
               $t("deletd")
             }}</el-button>
           </template>

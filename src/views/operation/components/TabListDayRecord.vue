@@ -138,13 +138,10 @@ export default {
       })
         .then((res) => {
           this.loading = false;
-          const { code, message, data, total } = res || {};
-          if (code === 20000) {
-            this.tableData = data.list;
-            this.total = data.list.length;
-          } else {
-            this.$message.error(message);
-          }
+          debugger;
+          const { code, message, total, list } = res.data || {};
+          this.tableData = list;
+          this.total = total;
         })
         .catch((err) => {
           this.loading = false;

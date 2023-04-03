@@ -34,7 +34,7 @@
         />
         <!-- index 第二页的序号累计在第一页的基础上-->
         <el-table-column prop="name" label="模版名称" />
-        <el-table-column prop="notice" label="用户通知对象" />
+        <el-table-column prop="Notice" label="用户通知对象" />
         <el-table-column prop="address" label="回调地址" />
         <el-table-column prop="strategy" label="关联告警策略" />
 

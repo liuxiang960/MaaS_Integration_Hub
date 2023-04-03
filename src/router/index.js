@@ -133,6 +133,18 @@ export const asyncRoutes = [
         },
       },
       {
+        path: "newIntegration",
+        component: () => import("@/views/apiManager/newIntegration"),
+        name: "newIntegration",
+        alwaysShow: false, // will always show the root menu
+        hidden: true,
+
+        meta: {
+          title: "leftbar.operation.subtitle6",
+          // if do not set roles, means: this page does not require permission
+        },
+      },
+      {
         path: "process",
         component: () => import("@/views/apiManager/process"),
         name: "process",

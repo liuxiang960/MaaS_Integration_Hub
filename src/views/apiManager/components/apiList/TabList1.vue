@@ -73,6 +73,7 @@
         </el-table>
       </div>
     </el-col>
+
     <el-col :span="18">
       <div style="display: flex; justify-content: flex-end; margin-right: 90px">
         <el-button type="primary" size="small" @click="goAplly()">{{
@@ -80,6 +81,8 @@
         }}</el-button>
 
         <el-button plain @click="goEdit()">{{ $t("edit") }}</el-button>
+
+        <el-button size="small" @click="goBack()">{{ $t("back") }}</el-button>
         <!-- <el-button plain @click="goDeleted()">删 除</el-button> -->
       </div>
       <detail :updata="detailData"></detail>
@@ -108,15 +111,6 @@ export default {
     },
   },
   data() {
-    var validator = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error(rule.message2));
-      } else if (value.toString().trim() === "") {
-        callback("不能全为空格");
-      } else {
-        callback();
-      }
-    };
     return {
       btnHidde: true,
       detailData: {},
@@ -148,7 +142,7 @@ export default {
       });
     },
     goAplly() {
-      this.$message.success("发布成功");
+      this.$message.success(this.$t("app_1176"));
     },
     goEdit() {
       debugger;
@@ -177,6 +171,9 @@ export default {
         path: "/application/newApiList",
         query: item,
       });
+    },
+    goBack() {
+      this.$router.back();
     },
     /** 搜索 */
     handleFilter(row) {

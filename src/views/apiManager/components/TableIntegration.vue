@@ -45,10 +45,31 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="num" :label="$t('app_1040')" />
+        <!-- <el-table-column prop="num" :label="$t('app_1040')" /> -->
         <el-table-column prop="description" :label="$t('app_1041')" />
 
-        <el-table-column :label="$t('operation')" width="200">
+        <el-table-column
+          :label="$t('operation')"
+          width="300"
+          v-if="language == 'en'"
+        >
+          <template slot-scope="scope">
+            <el-button
+              type="text"
+              size="small"
+              @click="handleEdit(scope.row)"
+              >{{ $t("edit") }}</el-button
+            >
+            <el-button type="text" size="small" @click="goFlow(scope.row)">{{
+              $t("app_1042")
+            }}</el-button>
+            <el-button type="text" size="small" @click="handleDel(scope.row)">{{
+              $t("deletd")
+            }}</el-button>
+          </template>
+        </el-table-column>
+
+        <el-table-column :label="$t('operation')" width="200" v-else>
           <template slot-scope="scope">
             <el-button
               type="text"
@@ -118,7 +139,11 @@
 
 <script>
 import Pagination from "@/components/Pagination/index";
-import { configList, configNew, configDeletd } from "@/api/config";
+import {
+  integrationList,
+  integrationNew,
+  integrationDeletd,
+} from "@/api/integration";
 export default {
   name: "Index",
   components: { Pagination },
@@ -161,6 +186,11 @@ export default {
       listTypeInfo: {},
     };
   },
+  computed: {
+    language() {
+      return this.$store.getters.language;
+    },
+  },
   mounted() {
     this.initPage();
   },
@@ -191,7 +221,7 @@ export default {
       }
       this.dialogVisible = false;
 
-      configNew(this.ruleForm)
+      integrationNew(this.ruleForm)
         .then((res) => {
           this.loading = false;
           this.initPage();
@@ -206,17 +236,8 @@ export default {
       this.dialogVisible = false;
     },
     initPage() {
-      this.tableData = [
-        {
-          name: "protocolType",
-          num: "1",
-          description: "protocolType",
-        },
-      ];
-      return;
       this.loading = true;
-
-      configList({
+      integrationList({
         pageNum: this.currentPage,
         pageSize: this.pageSize,
       })
@@ -234,6 +255,9 @@ export default {
       this.initPage();
     },
     newAdd() {
+      this.$router.push({
+        path: "/application/newIntegration",
+      });
       return;
       this.ruleForm = {
         name: "",
@@ -244,6 +268,10 @@ export default {
     },
 
     handleEdit(row) {
+      this.$router.push({
+        path: "/application/newIntegration",
+        query: row,
+      });
       return;
       this.id = row.id;
       var { name, account, role } = row;
@@ -253,7 +281,6 @@ export default {
     },
     handleDel(row) {
       // 删除
-      return;
       // const content = row.locked === 0 ? '确定要锁定吗?' : '确定要解锁吗?'
       this.$confirm(this.$t("tost_1001"), this.$t("tost_1002"), {
         confirmButtonText: this.$t("sure"),
@@ -261,8 +288,9 @@ export default {
         type: "warning",
       })
         .then(() => {
-          configDeletd(row)
+          integrationDeletd(row)
             .then((res) => {
+              debugger;
               this.initPage();
             })
             .catch((err) => {

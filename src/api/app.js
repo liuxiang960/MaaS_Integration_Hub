@@ -2,7 +2,7 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-04-01 03:31:00
+ * @LastEditTime: 2023-04-02 07:16:29
  * @FilePath: /MaaS_Integration_Hub/src/api/application.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -33,6 +33,7 @@ export function appNew(query) {
 
 export function appDeletd(query) {
   let list = [];
+  debugger;
   if (Cookies.get("appNew")) {
     list = JSON.parse(Cookies.get("appNew")) || [];
     list = removeListItem(list, query.id);
@@ -50,6 +51,7 @@ export function appList(query) {
     let list = [];
     if (Cookies.get("appNew")) {
       list = JSON.parse(Cookies.get("appNew")) || [];
+      list = removeListItem(list, query.id);
     } else {
       list = [
         {
@@ -163,6 +165,7 @@ export function appList(query) {
           ],
         },
       ];
+      Cookies.set("appNew", JSON.stringify(list));
     }
 
     resolve(list);

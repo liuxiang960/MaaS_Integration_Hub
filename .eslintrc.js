@@ -22,6 +22,12 @@ module.exports = {
           max: 1,
           allowFirstLine: false,
         },
+        // 行末分号（启用）
+        semi: ["warn", "always"],
+        // 函数名后的空格（禁用）
+        "space-before-function-paren": ["error", "never"],
+        // 缩进规范（两个空格，一倍缩进）
+        "vue/script-indent": ["error", 2, { baseIndent: 1 }],
       },
     ],
     singleQuote: true,
@@ -273,4 +279,12 @@ module.exports = {
     ],
     "array-bracket-spacing": [2, "never"],
   },
+  overrides: [
+    {
+      files: ["*.vue"],
+      rules: {
+        indent: "off",
+      },
+    },
+  ],
 };

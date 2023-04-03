@@ -2,7 +2,7 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-04-01 02:36:46
+ * @LastEditTime: 2023-04-02 22:07:49
  * @FilePath: /MaaS_Integration_Hub/src/views/home/index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -12,7 +12,24 @@
       <el-col :span="24" :xs="24">
         <el-card>
           <!-- <tab-list /> -->
-          {{ language }}
+          <div
+            style="
+              display: flex;
+              justify-content: flex-end;
+              margin-bottom: 40px;
+            "
+          >
+            <el-button type="primary" size="small" @click="goAplly()">{{
+              $t("app_1093")
+            }}</el-button>
+
+            <el-button plain @click="goSave()">{{ $t("app_1175") }}</el-button>
+
+            <el-button size="small" @click="goBack()">{{
+              $t("back")
+            }}</el-button>
+            <!-- <el-button plain @click="goDeleted()">删 除</el-button> -->
+          </div>
           <img
             class="pro-img"
             v-if="language == 'zh'"
@@ -26,11 +43,6 @@
             alt=""
           />
         </el-card>
-      </el-col>
-      <el-col :span="24" :xs="24">
-        <el-button class="back_btn" type="primary" @click="goBack">{{
-          $t("back")
-        }}</el-button>
       </el-col>
     </el-row>
   </div>
@@ -53,6 +65,12 @@ export default {
     return {};
   },
   methods: {
+    goAplly() {
+      this.$message.success(this.$t("app_1176"));
+    },
+    goSave() {
+      this.$message.success(this.$t("app_1177"));
+    },
     goBack() {
       this.$router.back();
     },
