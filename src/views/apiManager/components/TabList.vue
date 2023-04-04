@@ -203,7 +203,6 @@ export default {
       this.initPage();
     },
     newApi(row) {
-      debugger;
       this.$router.push({
         path: "/application/newApi",
         query: row,

@@ -181,7 +181,6 @@ export default {
   },
   methods: {
     newAdd() {
-      debugger;
       this.$router.push({
         path: "/application/newApi",
         query: this.updata,
@@ -236,7 +235,6 @@ export default {
       });
     },
     handleEdit(row) {
-      debugger;
       this.$router.push({
         path: "/application/newApi",
         query: row,

@@ -11,7 +11,6 @@ import Cookies from "js-cookie";
 import { removeListItem } from "@/utils/index";
 const APISTR = "integration";
 export function integrationNew(query) {
-  debugger;
   let list = [];
   if (localStorage.getItem(APISTR)) {
     list = JSON.parse(localStorage.getItem(APISTR)) || [];

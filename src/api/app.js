@@ -33,7 +33,7 @@ export function appNew(query) {
 
 export function appDeletd(query) {
   let list = [];
-  debugger;
+
   if (Cookies.get("appNew")) {
     list = JSON.parse(Cookies.get("appNew")) || [];
     list = removeListItem(list, query.id);

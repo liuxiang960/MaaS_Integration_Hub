@@ -30,7 +30,7 @@ module.exports = {
         "vue/script-indent": ["error", 2, { baseIndent: 1 }],
       },
     ],
-    // singleQuote: true,
+    singleQuote: true,
     "vue/singleline-html-element-content-newline": "off",
     "vue/multiline-html-element-content-newline": "off",
     "vue/name-property-casing": ["error", "PascalCase"],

@@ -290,7 +290,6 @@ export default {
         .then(() => {
           integrationDeletd(row)
             .then((res) => {
-              debugger;
               this.initPage();
             })
             .catch((err) => {

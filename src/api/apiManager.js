@@ -62,7 +62,7 @@ export function apiManagerList(query) {
 export function apiServeNew(query) {
   let list = [];
   let cookieKey = "apiServe" + query.apiServeMap.id;
-  debugger;
+
   const data = localStorage.getItem(cookieKey);
 
   if (data) {

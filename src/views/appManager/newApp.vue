@@ -2,7 +2,7 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-03-30 22:01:22
+ * @LastEditTime: 2023-04-04 13:59:33
  * @FilePath: /MaaS_Integration_Hub/src/views/home/index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -11,10 +11,10 @@
     <el-row :gutter="20">
       <el-col :span="24" :xs="24">
         <el-card>
-          <Step1
+          <step-one
             style="margin-top: 30px"
             @submitStep="submitStep"
-            :updata="step1Data"
+            :updata="stepData"
           />
         </el-card>
       </el-col>
@@ -26,16 +26,16 @@
 <script>
 import { mapGetters } from "vuex";
 import { appNew } from "@/api/app";
-import Step1 from "./components/newApp/Step1";
+import StepOne from "./components/newApp/StepOne";
 
 export default {
   name: "apiManager",
   components: {
-    Step1,
+    StepOne,
   },
   data() {
     return {
-      step1Data: {},
+      stepData: {},
       isEidt: false,
       apiServeMap: {},
     };
@@ -46,7 +46,7 @@ export default {
   created() {
     let data = this.$route.query;
     if (data) {
-      this.step1Data = data;
+      this.stepData = data;
 
       this.isEidt = true;
     }
@@ -54,7 +54,7 @@ export default {
   methods: {
     submitStep(item) {
       this.step2Data = item;
-      let data = Object.assign(this.step1Data, item);
+      let data = Object.assign(this.stepData, item);
       appNew(data)
         .then((res) => {
           this.loading = false;

@@ -167,13 +167,12 @@ module.exports = [
     url: "/vue-element-admin/operationDay/list",
     type: "get",
     response: (params) => {
-      debugger;
       let List = RunningLog.returnData;
       let startNum = (params.query.pageNum - 1) * params.query.pageSize;
       let endNum = params.query.pageNum * params.query.pageSize;
       let max = List.length;
       List = List.slice(startNum, endNum);
-      debugger;
+
       console.log(List);
 
       return {

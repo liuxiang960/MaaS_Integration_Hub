@@ -79,7 +79,6 @@ export default {
     },
   },
   created() {
-    debugger;
     if (this.updata) {
       this.form = this.updata;
       this.paramsList = this.updata.paramsList;

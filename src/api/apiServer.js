@@ -50,7 +50,7 @@ export function apiServeDeletd(query) {
 export function apiServeList(query) {
   return new Promise((resolve, reject) => {
     let list = [];
-    debugger;
+
     if (Cookies.get("apiServe")) {
       list = JSON.parse(Cookies.get("apiServe")) || [];
       list = removeListItem(list, query.id);
@@ -132,7 +132,6 @@ function getApiTotal(list, isSet) {
     let listMu = [];
     item.num = 0;
     if (isSet) {
-      debugger;
       const apiList = getApiServeData(cookieKey);
       // setTimeout(function () {
       localStorage.setItem(cookieKey, JSON.stringify(apiList));

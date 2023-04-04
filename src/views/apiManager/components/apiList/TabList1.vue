@@ -135,7 +135,6 @@ export default {
   },
   methods: {
     newAdd() {
-      debugger;
       this.$router.push({
         path: "/application/newApi",
         query: this.updata,
@@ -145,7 +144,6 @@ export default {
       this.$message.success(this.$t("app_1176"));
     },
     goEdit() {
-      debugger;
       this.$router.push({
         path: "/application/newApi",
         query: this.detailData,

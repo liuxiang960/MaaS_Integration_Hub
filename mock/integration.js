@@ -23,7 +23,6 @@ module.exports = [
     url: "/vue-element-admin/integration/list",
     type: "get",
     response: () => {
-      debugger;
       return {
         code: 20000,
         data: { data: [] },
