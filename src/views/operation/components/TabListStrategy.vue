@@ -184,7 +184,7 @@ export default {
     handleEdit(row) {
       this.$router.push({
         path: "/operation/newStrategy",
-        query: row ? row : null,
+        query: row || null,
       });
     },
     handleDel(row) {

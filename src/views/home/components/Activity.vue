@@ -1,3 +1,11 @@
+<!--
+ * @Author: liuxiang liuxiang@163.com
+ * @Date: 2023-04-04 10:16:45
+ * @LastEditors: liuxiang liuxiang@163.com
+ * @LastEditTime: 2023-04-04 10:21:10
+ * @FilePath: /MaaS_Integration_Hub/src/views/home/components/Activity.vue
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <template>
   <div class="header_bg">
     <div class="header_top">
@@ -6,56 +14,13 @@
     </div>
   </div>
 </template>
-
 <script>
-const avatarPrefix = "?imageView2/1/w/80/h/80";
-const carouselPrefix = "?imageView2/2/h/440";
-import { applicationNew } from "@/api/remote-search";
-
 export default {
   components: {},
   data() {
-    return {
-      carouselImages: [
-        "https://wpimg.wallstcn.com/9679ffb0-9e0b-4451-9916-e21992218054.jpg",
-        "https://wpimg.wallstcn.com/bcce3734-0837-4b9f-9261-351ef384f75a.jpg",
-        "https://wpimg.wallstcn.com/d1d7b033-d75e-4cd6-ae39-fcd5f1c0a7c5.jpg",
-        "https://wpimg.wallstcn.com/50530061-851b-4ca5-9dc5-2fead928a939.jpg",
-      ],
-      avatarPrefix,
-      carouselPrefix,
-      appList: [],
-    };
+    return {};
   },
-  methods: {
-    newAdd() {
-      this.$prompt("应用名称", "创建空白应用", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        inputPlaceholder: "请输入应用名称",
-      })
-        .then(({ value }) => {
-          if (!value || value.length <= 0) {
-            this.$message.error(this.$t("app_1001"));
-
-            return;
-          }
-
-          applicationNew({ name: value }).then((response) => {
-            this.$message.success("新增成功");
-            this.$router.push({
-              path: "/flowDesign",
-            });
-          });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "取消输入",
-          });
-        });
-    },
-  },
+  methods: {},
 };
 </script>
 
@@ -64,9 +29,7 @@ export default {
   width: 100%;
   height: 98vh;
   position: relative;
-  // padding-top: 5%;
-  // padding-left: 2%;
-  // padding-bottom: 5%;
+
   background: url("../../../assets/home/home_bg_top.png") no-repeat;
   background-size: cover;
   .header_top {

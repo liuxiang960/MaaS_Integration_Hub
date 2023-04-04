@@ -138,7 +138,6 @@ export default {
       })
         .then((res) => {
           this.loading = false;
-          debugger;
           const { code, message, total, list } = res.data || {};
           this.tableData = list;
           this.total = total;
