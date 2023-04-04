@@ -2,7 +2,7 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-03-31 23:01:05
+ * @LastEditTime: 2023-04-04 14:30:27
  * @FilePath: /MaaS_Integration_Hub/src/views/home/index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -15,13 +15,13 @@
             <el-step :title="$t('app_1079')"></el-step>
             <el-step :title="$t('app_1080')"></el-step>
           </el-steps>
-          <NewServeAPi1
+          <new-serve-api-one
             v-show="active == 0"
             style="margin-top: 30px"
             @submitStep="submitStep1"
             :updata="step1Data"
           />
-          <NewServeAPi2
+          <new-serve-api-two
             v-show="active == 1"
             :updata="step2Data"
             style="margin-top: 30px"
@@ -40,14 +40,14 @@ import { mapGetters } from "vuex";
 
 import { apiServeNew } from "@/api/apiServer";
 
-import NewServeAPi1 from "./components/newServeAPi/NewServeAPi1";
-import NewServeAPi2 from "./components/newServeAPi/NewServeAPi2";
+import NewServeApiOne from "./components/newServeAPi/NewServeAPiOne";
+import NewServeApiTwo from "./components/newServeAPi/NewServeAPiTwo";
 
 export default {
   name: "apiManager",
   components: {
-    NewServeAPi1,
-    NewServeAPi2,
+    NewServeApiOne,
+    NewServeApiTwo,
   },
   data() {
     return {

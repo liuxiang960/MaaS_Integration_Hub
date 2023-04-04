@@ -63,8 +63,6 @@
               @click="handleDel(scope.row, false)"
               >{{ $t("deletd") }}</el-button
             >
-            <!-- <el-button type="text" size="small" @click="handleDisabled(scope.row)">{{ scope.row.disabled === 0 ? '关闭' : '开启' }}</el-button>
-            <el-button type="text" size="small" @click="handlelock(scope.row)">{{ scope.row.locked === 0 ? '锁定' : '解锁' }} </el-button> -->
           </template>
         </el-table-column>
       </el-table>

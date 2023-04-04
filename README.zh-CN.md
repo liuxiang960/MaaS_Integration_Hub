@@ -138,44 +138,17 @@ Become a sponsor and get your logo on our README on GitHub with a link to your s
   - Screenfull全屏
   - 自适应收缩侧边栏
 
-- 编辑器
-  - 富文本
-  - Markdown
-  - JSON 等多格式
 
-- Excel
-  - 导出excel
-  - 导入excel
-  - 前端可视化excel
-  - 导出zip
-
-- 表格
-  - 动态表格
-  - 拖拽表格
-  - 内联编辑
 
 - 错误页面
   - 401
   - 404
-
-- 組件
-  - 头像上传
-  - 返回顶部
-  - 拖拽Dialog
-  - 拖拽Select
-  - 拖拽看板
-  - 列表拖拽
-  - SplitPane
-  - Dropzone
-  - Sticky
-  - CountTo
 
 - 综合实例
 - 错误日志
 - Dashboard
 - 引导页
 - ECharts 图表
-- Clipboard(剪贴复制)
 - Markdown2html
 ```
 

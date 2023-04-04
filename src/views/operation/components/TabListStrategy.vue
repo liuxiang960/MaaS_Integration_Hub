@@ -77,15 +77,6 @@ export default {
   name: "Index",
   components: { Pagination },
   data() {
-    var validator = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error(rule.message2));
-      } else if (value.toString().trim() === "") {
-        callback("不能全为空格");
-      } else {
-        callback();
-      }
-    };
     return {
       btnHidde: true,
       dialogVisible: false,
@@ -222,39 +213,7 @@ export default {
           console.log(err);
         });
     },
-    handlelock(row) {
-      const content = row.locked === 0 ? "确定要锁定吗?" : "确定要解锁吗?";
-      this.$confirm(content, this.$t("tost_1002"), {
-        confirmButtonText: this.$t("sure"),
-        cancelButtonText: this.$t("cancel"),
-        type: "warning",
-      })
-        .then(() => {
-          this.$axios
-            .get(`web/tenant/${row.locked == 0 ? "lock" : "unlock"}/${row.id}`)
-            .then((res) => {
-              const { status, message } = res.data || {};
-              if (status === 200) {
-                this.initPage();
-                this.$message({
-                  type: "success",
-                  message: message,
-                });
-              } else {
-                this.$message.error(message);
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        })
-        .catch((err) => {
-          this.$message({
-            type: "info",
-            message: err,
-          });
-        });
-    },
+
     handleClose() {
       this.resetForm();
       this.dialogVisible = false;

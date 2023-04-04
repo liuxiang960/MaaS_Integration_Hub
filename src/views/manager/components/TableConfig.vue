@@ -118,15 +118,6 @@ export default {
   name: "Index",
   components: { Pagination },
   data() {
-    var validator = (rule, value, callback) => {
-      if (value === "") {
-        callback(new Error(rule.message2));
-      } else if (value.toString().trim() === "") {
-        callback("不能全为空格");
-      } else {
-        callback();
-      }
-    };
     return {
       btnHidde: false,
       title: "",

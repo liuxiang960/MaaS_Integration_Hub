@@ -2,7 +2,7 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-04-01 03:29:02
+ * @LastEditTime: 2023-04-04 15:51:57
  * @FilePath: /MaaS_Integration_Hub/src/api/application.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -67,13 +67,14 @@ export function apiServeNew(query) {
 
   if (data) {
     list = JSON.parse(data) || [];
-    list = removeListItem(list, query.id);
+    list = removeListItem(list, query.id, query);
+  } else {
+    let dt = { id: Math.floor(Math.random() * 100000 + 1) };
+
+    dt = Object.assign(query, dt);
+    list.push(dt);
   }
 
-  let dt = { id: Math.floor(Math.random() * 100000 + 1) };
-
-  dt = Object.assign(query, dt);
-  list.push(dt);
   localStorage.setItem(cookieKey, JSON.stringify(list));
 
   return request({

@@ -2,7 +2,7 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-04-02 05:51:34
+ * @LastEditTime: 2023-04-04 15:49:11
  * @FilePath: /MaaS_Integration_Hub/src/views/home/index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -21,13 +21,13 @@
             <el-step :title="$t('app_1082')"></el-step>
             <el-step :title="$t('app_1083')"></el-step>
           </el-steps>
-          <Step1
+          <step-one
             v-show="active == 0"
             style="margin-top: 30px"
             @submitStep="submitStep1"
             :updata="step1Data"
           />
-          <Step2
+          <step-two
             v-show="active == 1"
             :updata="step2Data"
             style="margin-top: 30px"
@@ -35,9 +35,10 @@
             @goBack="goBack"
             @goNext="goNext2"
           />
-          <Step3
+          <step-three
             v-show="active == 2"
             style="margin-top: 30px"
+            :updata="step3Data"
             @subMitComplte="subMitComplte"
             @goBack="goBack3"
           />
@@ -52,16 +53,16 @@
 import { mapGetters } from "vuex";
 import { apiServeNew } from "@/api/apiManager";
 
-import Step1 from "./components/newApi/Step1";
-import Step2 from "./components/newApi/Step2";
-import Step3 from "./components/newApi/Step3";
+import StepOne from "./components/newApi/StepOne";
+import StepTwo from "./components/newApi/StepTwo";
+import StepThree from "./components/newApi/StepThree";
 
 export default {
   name: "apiManager",
   components: {
-    Step1,
-    Step2,
-    Step3,
+    StepOne,
+    StepTwo,
+    StepThree,
   },
   data() {
     return {
@@ -69,6 +70,7 @@ export default {
       active: 0,
       step1Data: {},
       step2Data: {},
+      step3Data: {},
       isEidt: false,
       apiServeMap: {},
     };
@@ -84,6 +86,7 @@ export default {
       if (data.apiServeMap) {
         this.step1Data = data;
         this.step2Data = data;
+        this.step3Data = data;
       }
       this.isEidt = true;
     }
@@ -105,7 +108,9 @@ export default {
       this.active = 1;
     },
     subMitComplte(mockData) {
+      debugger;
       let data = Object.assign(this.step1Data, this.step2Data);
+      data.mockResponse = mockData || "";
       data.apiServeMap = this.apiServeMap;
       apiServeNew(data)
         .then((res) => {

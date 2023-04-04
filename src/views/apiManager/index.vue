@@ -2,7 +2,7 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-03-30 21:49:59
+ * @LastEditTime: 2023-04-04 14:09:50
  * @FilePath: /MaaS_Integration_Hub/src/views/home/index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -23,17 +23,11 @@
 import { mapGetters } from "vuex";
 
 import TabList from "./components/TabList";
-import TabList1 from "./components/TabList1";
-import TabList2 from "./components/TabList2";
-import TabList3 from "./components/TabListOrder";
 
 export default {
   name: "Application",
   components: {
     TabList,
-    TabList1,
-    TabList2,
-    TabList3,
   },
   data() {
     return {

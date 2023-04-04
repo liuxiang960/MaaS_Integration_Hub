@@ -49,9 +49,6 @@
               @click="handleEdit(scope.row)"
               >{{ $t("app_1066") }}</el-button
             >
-
-            <!-- <el-button type="text" size="small" @click="handleDisabled(scope.row)">{{ scope.row.disabled === 0 ? '关闭' : '开启' }}</el-button>
-            <el-button type="text" size="small" @click="handlelock(scope.row)">{{ scope.row.locked === 0 ? '锁定' : '解锁' }} </el-button> -->
           </template>
         </el-table-column>
       </el-table>
@@ -213,39 +210,7 @@ export default {
           });
         });
     },
-    handlelock(row) {
-      const content = row.locked === 0 ? "确定要锁定吗?" : "确定要解锁吗?";
-      this.$confirm(content, this.$t("tost_1002"), {
-        confirmButtonText: this.$t("sure"),
-        cancelButtonText: this.$t("cancel"),
-        type: "warning",
-      })
-        .then(() => {
-          this.$axios
-            .get(`web/tenant/${row.locked == 0 ? "lock" : "unlock"}/${row.id}`)
-            .then((res) => {
-              const { status, message } = res.data || {};
-              if (status === 200) {
-                this.initPage();
-                this.$message({
-                  type: "success",
-                  message: message,
-                });
-              } else {
-                this.$message.error(message);
-              }
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        })
-        .catch((err) => {
-          this.$message({
-            type: "info",
-            message: err,
-          });
-        });
-    },
+
     handleClose() {
       this.resetForm();
       this.dialogVisible = false;

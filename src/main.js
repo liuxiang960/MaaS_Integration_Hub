@@ -2,7 +2,7 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-03-30 21:39:43
+ * @LastEditTime: 2023-04-04 15:08:12
  * @FilePath: /MaaS_Integration_Hub/src/main.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -16,7 +16,7 @@ import "./styles/element-variables.scss";
 import enLang from "element-ui/lib/locale/lang/en"; // 如果使用中文语言包请默认支持，无需额外引入，请删除该依赖
 
 import "@/styles/index.scss"; // global css
-import ElFilter from "@/components/Search";
+import ElFilter from "@/components/Filter";
 
 import App from "./App";
 import store from "./store";
