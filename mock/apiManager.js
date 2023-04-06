@@ -2,7 +2,7 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-04-01 15:10:59
+ * @LastEditTime: 2023-04-04 18:17:31
  * @FilePath: /MaaS_Integration_Hub/mock/application.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -167,6 +167,7 @@ module.exports = [
     url: "/vue-element-admin/operationDay/list",
     type: "get",
     response: (params) => {
+      debugger;
       let List = RunningLog.returnData;
       let startNum = (params.query.pageNum - 1) * params.query.pageSize;
       let endNum = params.query.pageNum * params.query.pageSize;

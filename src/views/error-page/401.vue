@@ -25,17 +25,17 @@
           width="313"
           height="428"
           alt="Girl has dropped her ice cream."
-        />
+        >
       </el-col>
     </el-row>
     <el-dialog :visible.sync="dialogVisible" title="随便看">
-      <img :src="ewizardClap" class="pan-img" />
+      <img :src="ewizardClap" class="pan-img">
     </el-dialog>
   </div>
 </template>
 
 <script>
-import errGif from "@/assets/401_images/401.gif";
+import errGif from "@/assets/401_images/401.gif"
 
 export default {
   name: "Page401",
@@ -44,19 +44,19 @@ export default {
       errGif: errGif + "?" + +new Date(),
       ewizardClap:
         "https://wpimg.wallstcn.com/007ef517-bafd-4066-aae4-6883632d9646",
-      dialogVisible: false,
-    };
+      dialogVisible: false
+    }
   },
   methods: {
     back() {
       if (this.$route.query.noGoBack) {
-        this.$router.push({ path: "/" });
+        this.$router.push({ path: "/" })
       } else {
-        this.$router.go(-1);
+        this.$router.go(-1)
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

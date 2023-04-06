@@ -9,8 +9,7 @@
               icon="el-icon-plus"
               size="small"
               @click="newAdd"
-              >{{ $t("app_1048") }}</el-button
-            >
+            >{{ $t("app_1048") }}</el-button>
           </el-col>
           <el-col :span="20" :xs="24" style="margin-bottom: 20px">
             <el-filter
@@ -40,8 +39,7 @@
               type="text"
               size="small"
               @click="handleEdit(scope.row)"
-              >{{ scope.row.name }}</el-button
-            >
+            >{{ scope.row.name }}</el-button>
           </template>
         </el-table-column>
 
@@ -54,8 +52,7 @@
               type="text"
               size="small"
               @click="handleEdit(scope.row)"
-              >{{ $t("edit") }}</el-button
-            >
+            >{{ $t("edit") }}</el-button>
             <el-button type="text" size="small" @click="goApi(scope.row)">{{
               $t("app_1050")
             }}</el-button>
@@ -76,12 +73,11 @@
 </template>
 
 <script>
-import Cookies from "js-cookie";
 
-import Pagination from "@/components/Pagination/index";
-import { apiServeList, apiServeDeletd } from "@/api/apiServer";
+import Pagination from "@/components/Pagination/index"
+import { apiServeList, apiServeDeletd } from "@/api/apiServer"
 
-import { getIncloudList } from "@/utils/index";
+import { getIncloudList } from "@/utils/index"
 export default {
   name: "Index",
   components: { Pagination },
@@ -97,40 +93,40 @@ export default {
           sex: 1,
           date: null,
           dateTime: null,
-          range: null,
+          range: null
         },
         // 条件配置项
         fieldList: [
           {
             label: this.$t("app_1027"),
             type: "input",
-            value: "range",
-          },
-        ],
+            value: "range"
+          }
+        ]
       },
       listTypeInfo: {
         appList: [
           {
             id: 1,
-            name: "test",
+            name: "test"
           },
           {
             id: 2,
-            name: "test1",
-          },
+            name: "test1"
+          }
         ],
         appVersionList: [
           {
             id: 1,
-            name: "1.0.0",
+            name: "1.0.0"
           },
           {
             id: 2,
-            name: "1.0.1",
-          },
+            name: "1.0.1"
+          }
         ],
         envList: [],
-        liuList: [],
+        liuList: []
       },
 
       title: "",
@@ -143,72 +139,72 @@ export default {
       ruleForm: {
         name: "",
         desc: "",
-        code: "",
+        code: ""
       },
-      loading: false,
-    };
+      loading: false
+    }
   },
   mounted() {
-    this.initPage();
+    this.initPage()
   },
   methods: {
     newAdd() {
       this.$router.push({
-        path: "/application/newApiServe",
-      });
+        path: "/application/newApiServe"
+      })
     },
     goApi(item) {
       this.$router.push({
         path: "/application/newApiList",
-        query: item,
-      });
+        query: item
+      })
     },
     /** 搜索 */
     handleFilter(row) {
-      console.log(row);
+      console.log(row)
     },
     /** 重置 */
     handleReset(row) {
-      console.log(row);
+      console.log(row)
     },
     /** 焦点失去事件 */
     handleEvent(row) {
-      console.log(row);
+      console.log(row)
     },
     initPage() {
-      this.loading = true;
+      this.loading = true
 
       apiServeList({
         pageNum: this.currentPage,
-        pageSize: this.pageSize,
+        pageSize: this.pageSize
       })
         .then((res) => {
-          this.loading = false;
-          this.tableData = res;
+          this.loading = false
+          this.tableData = res
 
-          this.total = res.length;
+          this.total = res.length
         })
         .catch((err) => {
-          this.loading = false;
-          console.log(err);
-        });
+          this.loading = false
+          console.log(err)
+        })
     },
 
     refreshList() {
-      this.initPage();
+      this.initPage()
     },
     newApi(row) {
       this.$router.push({
         path: "/application/newApi",
-        query: row,
-      });
+        query: row
+      })
     },
 
     handleEdit(row) {
       this.$router.push({
         path: "/application/newApiServe",
-        query: row,
-      });
+        query: row
+      })
     },
     handleDel(row) {
       // 删除
@@ -216,107 +212,107 @@ export default {
       this.$confirm(this.$t("tost_1001"), this.$t("tost_1002"), {
         confirmButtonText: this.$t("sure"),
         cancelButtonText: this.$t("cancel"),
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
-          this.deleteRow(row);
+          this.deleteRow(row)
         })
         .catch((err) => {
           this.$message({
             type: "info",
-            message: err,
-          });
-        });
+            message: err
+          })
+        })
     },
     deleteRow(row) {
       apiServeDeletd(row)
         .then((res) => {
-          this.loading = false;
-          const { code, message, data, total } = res || {};
+          this.loading = false
+          const { code, message, data, total } = res || {}
           if (code === 20000) {
-            this.$message.success(this.$t("successfulOperation"));
-            this.initPage();
+            this.$message.success(this.$t("successfulOperation"))
+            this.initPage()
           } else {
-            this.$message.error(message);
+            this.$message.error(message)
           }
         })
         .catch((err) => {
-          this.loading = false;
-          console.log(err);
-        });
+          this.loading = false
+          console.log(err)
+        })
     },
 
     handleClose() {
-      this.resetForm();
-      this.dialogVisible = false;
+      this.resetForm()
+      this.dialogVisible = false
     },
     resetForm() {
-      this.$refs["ruleForm"].resetFields();
+      this.$refs["ruleForm"].resetFields()
       this.ruleForm = {
         name: "",
         desc: "",
-        code: "",
-      };
+        code: ""
+      }
     },
     save() {
       // 提交
       this.$refs["ruleForm"].validate((valid) => {
         if (valid) {
           if (this.id === -1) {
-            this.add();
+            this.add()
           } else {
-            this.update();
+            this.update()
           }
         } else {
-          console.log("error submit!!");
-          return false;
+          console.log("error submit!!")
+          return false
         }
-      });
+      })
     },
     handleDisabled(row) {
-      const content = row.disabled === 0 ? "确定要关闭吗?" : "确定要开启吗?";
+      const content = row.disabled === 0 ? "确定要关闭吗?" : "确定要开启吗?"
       this.$confirm(content, this.$t("tost_1002"), {
         confirmButtonText: this.$t("sure"),
         cancelButtonText: this.$t("cancel"),
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
           this.$axios
             .get(`web/tenant/${row.disabled == 0 ? "close" : "open"}/${row.id}`)
             .then((res) => {
-              const { status, message } = res.data || {};
+              const { status, message } = res.data || {}
               if (status === 200) {
-                this.initPage();
+                this.initPage()
                 this.$message({
                   type: "success",
-                  message: message,
-                });
+                  message: message
+                })
               } else {
-                this.$message.error(message);
+                this.$message.error(message)
               }
             })
             .catch((err) => {
-              console.log(err);
-            });
+              console.log(err)
+            })
         })
         .catch((err) => {
           this.$message({
             type: "info",
-            message: err,
-          });
-        });
+            message: err
+          })
+        })
     },
     pagination(val) {
-      this.pageSize = val.limit;
-      this.currentPage = val.page;
-      this.initPage();
+      this.pageSize = val.limit
+      this.currentPage = val.page
+      this.initPage()
     },
     resetTitle() {
-      this.title = "";
-      this.initPage();
-    },
-  },
-};
+      this.title = ""
+      this.initPage()
+    }
+  }
+}
 </script>
 
 <style scoped></style>

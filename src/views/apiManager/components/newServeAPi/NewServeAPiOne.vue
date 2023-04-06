@@ -2,7 +2,7 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-03-31 22:03:48
+ * @LastEditTime: 2023-04-04 18:28:13
  * @FilePath: /MaaS_Integration_Hub/src/views/apiManager/components/newServeAPi/NewServeAPi1.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -11,20 +11,20 @@
     ref="form"
     :model="form"
     size="mini"
-    label-width="120px"
+    label-width="180px"
     label-position="left"
   >
     <el-form-item :label="$t('app_1027')">
-      <el-input v-model="form.name" :placeholder="$t('app_1028')"></el-input>
+      <el-input v-model="form.name" :placeholder="$t('app_1028')" />
     </el-form-item>
 
     <el-form-item :label="$t('description')">
       <el-input
+        v-model="form.description"
         type="textarea"
         :maxlength="500"
         :autosize="{ minRows: 5, maxRows: 5 }"
-        v-model="form.description"
-      ></el-input>
+      />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="onSubmit">{{
@@ -37,6 +37,12 @@
 >
 <script>
 export default {
+  props: {
+    updata: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   data() {
     return {
       form: {
@@ -45,12 +51,6 @@ export default {
         description: "",
       },
     };
-  },
-  props: {
-    updata: {
-      type: Object,
-      default: () => ({}),
-    },
   },
   mounted() {
     if (this.updata) {

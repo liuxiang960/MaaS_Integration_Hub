@@ -2,7 +2,7 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-04-01 01:22:03
+ * @LastEditTime: 2023-04-04 18:24:08
  * @FilePath: /MaaS_Integration_Hub/src/views/dashboard/admin/components/HeaderView.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -28,18 +28,18 @@
             <div class="input-label">{{ $t("app_1159") }}：</div>
 
             <div class="point-bg">
-              <div class="point green-color"></div>
-              <div class="point-label">0{{ $t("app_1114") }}</div>
+              <div class="point green-color" />
+              <div class="point-label">{{ $t("app_1114") }}</div>
             </div>
 
             <div class="point-bg">
-              <div class="point red-color"></div>
-              <div class="point-label">0{{ $t("app_1115") }}</div>
+              <div class="point red-color" />
+              <div class="point-label">{{ $t("app_1115") }}</div>
             </div>
 
             <div class="point-bg">
-              <div class="point yellow-color"></div>
-              <div class="point-label">0{{ $t("app_1125") }}</div>
+              <div class="point yellow-color" />
+              <div class="point-label">{{ $t("app_1125") }}</div>
             </div>
           </div>
         </div>
@@ -78,7 +78,7 @@ export default {
     };
   },
   mounted() {
-    let day = getDays(30)[0];
+    const day = getDays(30)[0];
     this.valueDate = [new Date(), new Date(day)];
   },
   methods: {

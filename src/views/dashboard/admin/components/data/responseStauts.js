@@ -6,35 +6,35 @@
  * @FilePath: /MaaS_Integration_Hub/src/views/dashboard/admin/components/data/health.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import { getDays } from "@/utils/index";
-import { getLineData as mockData } from "./mock/responseStauts";
+import { getDays } from "@/utils/index"
+import { getLineData as mockData } from "./mock/responseStauts"
 
 export function getLineData(n) {
-  return mockData();
+  return mockData()
 
-  let dateList = getDays(n ? n : 1);
-  let good = [];
-  let preferably = [];
-  let common = [];
-  let difference = [];
-  let other = [];
+  const dateList = getDays(n || 1)
+  const good = []
+  const preferably = []
+  const common = []
+  const difference = []
+  const other = []
   for (let i = 0; i < dateList.length; i++) {
-    let item = dateList[i];
+    const item = dateList[i]
 
-    let randomGood = (Math.random() * (79 - 10) + 10).toFixed(2);
-    let randomPreferably = (Math.random() * (20 - 10) + 10).toFixed(2);
+    const randomGood = (Math.random() * (79 - 10) + 10).toFixed(2)
+    const randomPreferably = (Math.random() * (20 - 10) + 10).toFixed(2)
 
-    let randomCommon = (Math.random() * (12 - 10) + 10).toFixed(2);
+    const randomCommon = (Math.random() * (12 - 10) + 10).toFixed(2)
 
-    let randomDifference = (Math.random() * (34 - 10) + 10).toFixed(2);
+    const randomDifference = (Math.random() * (34 - 10) + 10).toFixed(2)
 
-    let randomOther = (Math.random() * (12 - 10) + 10).toFixed(2);
+    const randomOther = (Math.random() * (12 - 10) + 10).toFixed(2)
 
-    good.push(randomGood);
-    preferably.push(randomPreferably);
-    common.push(randomCommon);
-    difference.push(randomDifference);
-    other.push(randomOther);
+    good.push(randomGood)
+    preferably.push(randomPreferably)
+    common.push(randomCommon)
+    difference.push(randomDifference)
+    other.push(randomOther)
   }
 
   const data = {
@@ -43,11 +43,11 @@ export function getLineData(n) {
     common: common,
     difference,
     other: other,
-    date: dateList,
-  };
+    date: dateList
+  }
 
-  console.log("打印数据", JSON.stringify(data));
-  return data;
+  console.log("打印数据", JSON.stringify(data))
+  return data
 }
 
 export function getChartData() {
@@ -59,38 +59,38 @@ export function getChartData() {
     other,
     date,
     settingList,
-    legend,
-  } = getLineData();
+    legend
+  } = getLineData()
 
   return {
     xAxis: {
-      data: date, //横向
+      data: date, // 横向
       boundaryGap: false,
       axisTick: {
-        show: false,
-      },
+        show: false
+      }
     },
     grid: {
       left: 10,
       right: 10,
       bottom: 20,
       top: 30,
-      containLabel: true,
+      containLabel: true
     },
     tooltip: {
       trigger: "axis",
       axisPointer: {
-        type: "cross",
+        type: "cross"
       },
-      padding: [5, 10],
+      padding: [5, 10]
     },
     yAxis: {
       axisTick: {
-        show: false,
-      },
+        show: false
+      }
     },
     legend: {
-      data: legend, //标签
+      data: legend // 标签
     },
     series: [
       {
@@ -100,15 +100,15 @@ export function getChartData() {
             color: settingList[0].color,
             lineStyle: {
               color: settingList[0].color,
-              width: 2,
-            },
-          },
+              width: 2
+            }
+          }
         },
         smooth: true,
         type: "line",
         data: good,
         animationDuration: 2800,
-        animationEasing: settingList[0].name,
+        animationEasing: settingList[0].name
       },
       {
         name: settingList[1].name,
@@ -119,16 +119,16 @@ export function getChartData() {
             color: settingList[1].color,
             lineStyle: {
               color: settingList[1].color,
-              width: 2,
+              width: 2
             },
             areaStyle: {
-              color: "#f3f8ff",
-            },
-          },
+              color: "#f3f8ff"
+            }
+          }
         },
         data: preferably,
         animationDuration: 2800,
-        animationEasing: settingList[0].name,
+        animationEasing: settingList[0].name
       },
 
       {
@@ -140,16 +140,16 @@ export function getChartData() {
             color: settingList[2].color,
             lineStyle: {
               color: settingList[2].color,
-              width: 2,
+              width: 2
             },
             areaStyle: {
-              color: "#f3f8ff",
-            },
-          },
+              color: "#f3f8ff"
+            }
+          }
         },
         data: common,
         animationDuration: 2800,
-        animationEasing: settingList[2].name,
+        animationEasing: settingList[2].name
       },
 
       {
@@ -161,16 +161,16 @@ export function getChartData() {
             color: settingList[3].color,
             lineStyle: {
               color: settingList[3].color,
-              width: 2,
+              width: 2
             },
             areaStyle: {
-              color: "#f3f8ff",
-            },
-          },
+              color: "#f3f8ff"
+            }
+          }
         },
         data: difference,
         animationDuration: 2800,
-        animationEasing: settingList[3].name,
+        animationEasing: settingList[3].name
       },
 
       {
@@ -182,17 +182,17 @@ export function getChartData() {
             color: "#3888fa",
             lineStyle: {
               color: "#3888fa",
-              width: 2,
+              width: 2
             },
             areaStyle: {
-              color: "#f3f8ff",
-            },
-          },
+              color: "#f3f8ff"
+            }
+          }
         },
         data: other,
         animationDuration: 2800,
-        animationEasing: settingList[4].name,
-      },
-    ],
-  };
+        animationEasing: settingList[4].name
+      }
+    ]
+  }
 }

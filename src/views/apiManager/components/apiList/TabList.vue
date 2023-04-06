@@ -27,7 +27,7 @@
                   :placeholder="$t('plaseInput')"
                   class="input-with-select"
                 >
-                  <el-button slot="append" icon="el-icon-search"></el-button>
+                  <el-button slot="append" icon="el-icon-search" />
                 </el-input>
               </div>
             </el-col>
@@ -85,13 +85,12 @@
         <el-button size="small" @click="goBack()">{{ $t("back") }}</el-button>
         <!-- <el-button plain @click="goDeleted()">删 除</el-button> -->
       </div>
-      <detail :updata="detailData"></detail>
+      <detail :updata="detailData" />
     </el-col>
   </div>
 </template>
 
 <script>
-import Cookies from "js-cookie";
 
 import {
   apiManagerDeletd,
@@ -135,6 +134,7 @@ export default {
   },
   methods: {
     newAdd() {
+      
       this.$router.push({
         path: "/application/newApi",
         query: this.updata,
@@ -199,7 +199,7 @@ export default {
           if (list && list.length) {
             this.detailData = list[0];
             console.log("###########打印api服务列表数据Item:", list[0]);
-            let that = this;
+            const that = this;
             setTimeout(function () {
               that.rowClick(that.tableData[0]);
             }, 50);
@@ -215,7 +215,7 @@ export default {
       this.initPage();
     },
     releaseApi(row) {
-      //发布
+      // 发布
       row.status = this.$t("published");
       upDataApiServeList(row).then((res) => {
         this.$message.success(this.$t("successfulOperation"));
@@ -343,7 +343,7 @@ export default {
       // console.log('点击行事件', row, column, event)
 
       // 注意必须是使用两次深拷贝 因为 selectFlag 属性不是tableData原有的 则直接修改无效  所以两次深拷贝重新赋值
-      let Arr = JSON.parse(JSON.stringify(this.tableData));
+      const Arr = JSON.parse(JSON.stringify(this.tableData));
       for (let index = 0; index < Arr.length; index++) {
         const element = Arr[index];
         if (element.id == row.id) {
@@ -362,7 +362,7 @@ export default {
       // console.log('移入hover事件', row, column, cell, event)
 
       // 注意必须是使用两次深拷贝 因为 hoverFlag 属性不是tableData原有的 则直接修改无效  所以两次深拷贝重新赋值
-      let Arr = JSON.parse(JSON.stringify(this.tableData));
+      const Arr = JSON.parse(JSON.stringify(this.tableData));
       for (let index = 0; index < Arr.length; index++) {
         const element = Arr[index];
         if (element.id == row.id) {

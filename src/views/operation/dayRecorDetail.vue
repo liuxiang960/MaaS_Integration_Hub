@@ -14,32 +14,31 @@
           <detail :updata="detailData" />
         </el-card>
       </el-col>
-      <el-col :span="6" :xs="24"> </el-col>
+      <el-col :span="6" :xs="24" />
     </el-row>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
 
-import Detail from "./components/Detail.vue";
+import Detail from "./components/Detail.vue"
 
 export default {
   name: "Application",
   components: {
-    Detail,
+    Detail
   },
   data() {
     return {
       user: {},
       activeTab: "opt1",
-      detailData: {},
-    };
+      detailData: {}
+    }
   },
 
   created() {
-    this.detailData = this.$route.query;
+    this.detailData = this.$route.query
   },
-  methods: {},
-};
+  methods: {}
+}
 </script>

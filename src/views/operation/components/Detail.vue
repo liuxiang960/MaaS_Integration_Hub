@@ -100,27 +100,20 @@
           style="margin-left: 50%; width: 200px"
           type="primary"
           @click="goBack"
-          >返 回</el-button
-        >
+        >返 回</el-button>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import ParamsListVue from "./ParamsList.vue";
-import Config from "./Config.vue";
+import ParamsListVue from "./ParamsList.vue"
+import Config from "./Config.vue"
 
 export default {
-  data() {
-    return {
-      size: "",
-      activeTab: "opt1",
-    };
-  },
   components: {
     ParamsListVue,
-    Config,
+    Config
   },
   props: {
     updata: {
@@ -138,16 +131,22 @@ export default {
         appName: "",
         contentType: "application/json",
         authentication: "NoAuth",
-        apiPath: "",
-      }),
-    },
+        apiPath: ""
+      })
+    }
+  },
+  data() {
+    return {
+      size: "",
+      activeTab: "opt1"
+    }
   },
   methods: {
     goBack() {
-      this.$router.back();
-    },
-  },
-};
+      this.$router.back()
+    }
+  }
+}
 </script>
 <style>
 .el-descriptions :not(.is-bordered) th,

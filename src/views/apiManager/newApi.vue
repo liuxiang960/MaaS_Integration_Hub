@@ -2,7 +2,7 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-04-04 15:49:11
+ * @LastEditTime: 2023-04-04 17:54:01
  * @FilePath: /MaaS_Integration_Hub/src/views/home/index.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -17,15 +17,15 @@
             :active="active"
             finish-status="success"
           >
-            <el-step :title="$t('app_1079')"></el-step>
-            <el-step :title="$t('app_1082')"></el-step>
-            <el-step :title="$t('app_1083')"></el-step>
+            <el-step :title="$t('app_1079')" />
+            <el-step :title="$t('app_1082')" />
+            <el-step :title="$t('app_1083')" />
           </el-steps>
           <step-one
             v-show="active == 0"
             style="margin-top: 30px"
-            @submitStep="submitStep1"
             :updata="step1Data"
+            @submitStep="submitStep1"
           />
           <step-two
             v-show="active == 1"
@@ -44,7 +44,7 @@
           />
         </el-card>
       </el-col>
-      <el-col :span="6" :xs="24"> </el-col>
+      <el-col :span="6" :xs="24" />
     </el-row>
   </div>
 </template>
@@ -58,7 +58,7 @@ import StepTwo from "./components/newApi/StepTwo";
 import StepThree from "./components/newApi/StepThree";
 
 export default {
-  name: "apiManager",
+  name: "ApiManager",
   components: {
     StepOne,
     StepTwo,
@@ -80,7 +80,7 @@ export default {
   },
   created() {
     this.getUser();
-    let data = this.$route.query;
+    const data = this.$route.query;
     if (data) {
       this.apiServeMap = data.apiServeMap ? data.apiServeMap : data;
       if (data.apiServeMap) {
@@ -109,7 +109,7 @@ export default {
     },
     subMitComplte(mockData) {
       debugger;
-      let data = Object.assign(this.step1Data, this.step2Data);
+      const data = Object.assign(this.step1Data, this.step2Data);
       data.mockResponse = mockData || "";
       data.apiServeMap = this.apiServeMap;
       apiServeNew(data)
@@ -126,7 +126,7 @@ export default {
     },
     submitStep2(item) {
       this.step2Data = item;
-      let data = Object.assign(this.step1Data, item);
+      const data = Object.assign(this.step1Data, item);
       apiServeNew(data)
         .then((res) => {
           this.loading = false;

@@ -11,20 +11,20 @@
     ref="form"
     :model="form"
     size="mini"
-    label-width="120px"
+    label-width="180px"
     label-position="left"
   >
     <el-form-item :label="$t('app_1173')">
-      <el-input v-model="form.name" :placeholder="$t('plaseInput')"></el-input>
+      <el-input v-model="form.name" :placeholder="$t('plaseInput')" />
     </el-form-item>
 
     <el-form-item :label="$t('description')">
       <el-input
+        v-model="form.description"
         type="textarea"
         :maxlength="500"
         :autosize="{ minRows: 5, maxRows: 5 }"
-        v-model="form.description"
-      ></el-input>
+      />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="onSubmit">{{
@@ -37,42 +37,42 @@
 >
 <script>
 export default {
+  props: {
+    updata: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data() {
     return {
       form: {
         name: "",
         region: "HTTP",
-        description: "",
-      },
-    };
-  },
-  props: {
-    updata: {
-      type: Object,
-      default: () => ({}),
-    },
+        description: ""
+      }
+    }
   },
   mounted() {
     if (this.updata) {
-      this.form = this.updata;
+      this.form = this.updata
     }
   },
   methods: {
     goBack() {
-      this.$router.back();
+      this.$router.back()
     },
     onSubmit() {
       if (!this.form.name) {
-        this.$message.error(this.$t("app_1174"));
-        return;
+        this.$message.error(this.$t("app_1174"))
+        return
       }
       if (!this.form.description) {
-        this.$message.error(this.$t("tost_1008"));
-        return;
+        this.$message.error(this.$t("tost_1008"))
+        return
       }
-      this.$emit("submitStep", this.form);
-      console.log("submit!");
-    },
-  },
-};
+      this.$emit("submitStep", this.form)
+      console.log("submit!")
+    }
+  }
+}
 </script>

@@ -9,8 +9,7 @@
           <span
             class="label-style"
             :style="{ width: width.labelWidth + 'px' }"
-            >{{ item.label }}</span
-          >
+          >{{ item.label }}</span>
           <!-- 普通输入框 -->
           <el-input
             v-if="item.type === 'input'"
@@ -102,7 +101,7 @@
       type="text"
       style="margin-left: 6px"
       @click="icon === 'open' ? (icon = 'close') : (icon = 'open')"
-      >{{ icon === "open" ? "收起" : "展开" }}
+    >{{ icon === "open" ? "收起" : "展开" }}
       <i
         :class="icon === 'open' ? 'el-icon-caret-top' : 'el-icon-caret-bottom'"
       />
@@ -115,7 +114,7 @@
  * @desc 📝vue + element-ui 中后台搜索组件
  * @copyright 🤝2020 尽人事, 行王道
  */
-import i18n from "@/lang/index";
+import i18n from "@/lang/index"
 
 export default {
   name: "ElFilter",
@@ -123,44 +122,44 @@ export default {
     /** 字段默认数据 */
     data: {
       type: Object,
-      default: () => ({}),
+      default: () => ({})
     },
     /** 字段配置项 */
     fieldList: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     /** 相关的列表 */
     listTypeInfo: {
       type: Object,
-      default: () => ({}),
+      default: () => ({})
     },
     /** 按钮区域是否隐藏 */
     btnHidden: {
       type: Boolean,
-      default: false,
+      default: false
     },
     foldBtnHidden: {
       type: Boolean,
-      default: false,
+      default: false
     },
     /** 组件尺寸 */
     size: {
       type: String,
-      default: "mini",
+      default: "mini"
     },
     /** 默认搜索数 */
     count: {
       type: Number,
-      default: 4,
+      default: 4
     },
     /** 组件及label宽度 */
     width: {
       type: Object,
       default: () => ({
         labelWidth: 110,
-        itemWidth: 220,
-      }),
+        itemWidth: 220
+      })
     },
     /** 按钮配置 */
     btnStyle: {
@@ -172,7 +171,7 @@ export default {
           disabled: false,
           type: "primary",
           plain: false,
-          round: false,
+          round: false
         },
         {
           icon: null,
@@ -180,16 +179,16 @@ export default {
           disabled: false,
           type: null,
           plain: false,
-          round: false,
-        },
-      ],
-    },
+          round: false
+        }
+      ]
+    }
   },
   data() {
     return {
       defaultData: {},
-      icon: "close",
-    };
+      icon: "close"
+    }
   },
   mounted() {
     /**
@@ -198,7 +197,7 @@ export default {
      * 在搜索条件中同样使用 defaultData
      * 永远保持 props 传递的 data 纯洁度
      */
-    this.defaultData = { ...this.data };
+    this.defaultData = { ...this.data }
   },
   methods: {
     /**
@@ -208,19 +207,19 @@ export default {
      */
 
     getPlaceholder(row) {
-      let placeholder;
+      let placeholder
       if (row.type === "input") {
-        placeholder = i18n.t("plaseInput") + row.label;
+        placeholder = i18n.t("plaseInput") + row.label
       } else if (
         row.type === "select" ||
         row.type === "time" ||
         row.type === "date"
       ) {
-        placeholder = i18n.t("app_1128") + row.label;
+        placeholder = i18n.t("app_1128") + row.label
       } else {
-        placeholder = row.label;
+        placeholder = row.label
       }
-      return placeholder;
+      return placeholder
     },
     /**
      * @func 事件处理
@@ -229,27 +228,27 @@ export default {
     handleEvent(event, val, change) {
       const obj = {
         value: change === "change" ? event : event.target.value,
-        label: val,
-      };
-      this.$emit("handleEvent", obj);
+        label: val
+      }
+      this.$emit("handleEvent", obj)
     },
     /**
      * @func 搜索
      * @desc 📝
      */
     handleFilter() {
-      this.$emit("handleFilter", this.defaultData);
+      this.$emit("handleFilter", this.defaultData)
     },
     /**
      * @func 重置
      * @desc 📝
      */
     handleReset() {
-      this.defaultData = { ...this.data };
-      this.$emit("handleReset", this.defaultData);
-    },
-  },
-};
+      this.defaultData = { ...this.data }
+      this.$emit("handleReset", this.defaultData)
+    }
+  }
+}
 </script>
 <style lang="css" scoped>
 .content {

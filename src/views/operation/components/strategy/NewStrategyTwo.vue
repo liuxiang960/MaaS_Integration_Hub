@@ -16,28 +16,27 @@
   >
     <el-form-item :label="$t('app_1094')">
       <params-list-vue
-        @updataFun="paramsUpdata"
         :updata="paramsList"
-        :isPreview="false"
+        :is-preview="false"
+        @updataFun="paramsUpdata"
       />
     </el-form-item>
 
     <el-form-item style="margin-top: 50px" :label="$t('app_1095')">
       <params-list-user-vue
-        @updataFun="paramsUserUpdata"
         :updata="paramsUserList"
-        :isPreview="false"
+        :is-preview="false"
+        @updataFun="paramsUserUpdata"
       />
     </el-form-item>
 
     <el-form-item style="margin-top: 50px">
       <el-button
-        type="primary"
         v-if="this.updata && this.updata.id"
+        type="primary"
         @click="onSubmit"
-        >{{ $t("app_1036") }}</el-button
-      >
-      <el-button type="primary" v-else @click="onSubmit">{{
+      >{{ $t("app_1036") }}</el-button>
+      <el-button v-else type="primary" @click="onSubmit">{{
         $t("app_1035")
       }}</el-button>
       <el-button @click="goBack">{{ $t("back") }}</el-button>
@@ -47,10 +46,21 @@
 >
 
 <script>
-import ParamsListVue from "./ParamsList.vue";
-import ParamsListUserVue from "./ParamsProjectList.vue";
+import ParamsListVue from "./ParamsList.vue"
+import ParamsListUserVue from "./ParamsProjectList.vue"
 
 export default {
+
+  components: {
+    ParamsListVue,
+    ParamsListUserVue
+  },
+  props: {
+    updata: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data() {
     return {
       paramsList: [],
@@ -61,46 +71,35 @@ export default {
         nameType: "",
         isIp: true,
         paramsList: [],
-        paramsUserList: [],
-      },
-    };
-  },
-
-  components: {
-    ParamsListVue,
-    ParamsListUserVue,
-  },
-  props: {
-    updata: {
-      type: Object,
-      default: () => ({}),
-    },
+        paramsUserList: []
+      }
+    }
   },
   created() {
     if (this.updata) {
-      this.sizeForm = this.updata;
-      this.paramsList = this.updata.paramsList;
-      this.paramsUserList = this.updata.paramsUserList;
+      this.sizeForm = this.updata
+      this.paramsList = this.updata.paramsList
+      this.paramsUserList = this.updata.paramsUserList
     }
   },
 
   mounted() {
-    this.sizeForm = this.updata;
+    this.sizeForm = this.updata
   },
   methods: {
     paramsUpdata(list) {
-      this.sizeForm.paramsList = list || [];
+      this.sizeForm.paramsList = list || []
     },
     paramsUserUpdata(list) {
-      this.sizeForm.paramsUserList = list || [];
+      this.sizeForm.paramsUserList = list || []
     },
     onSubmit() {
-      this.$emit("submitStep", this.sizeForm);
-      console.log("submit!");
+      this.$emit("submitStep", this.sizeForm)
+      console.log("submit!")
     },
     goBack() {
-      this.$emit("goBack");
-    },
-  },
-};
+      this.$emit("goBack")
+    }
+  }
+}
 </script>

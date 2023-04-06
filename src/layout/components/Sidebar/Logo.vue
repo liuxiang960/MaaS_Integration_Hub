@@ -10,7 +10,7 @@
   <div class="sidebar-logo-container" :class="{ collapse: collapse }">
     <transition name="sidebarLogoFade">
       <router-link key="expand" class="sidebar-logo-link" to="/">
-        <img src="../../../assets/common/logo.jpeg" class="sidebar-logo" />
+        <img src="../../../assets/common/logo.jpeg" class="sidebar-logo">
         <h1 class="sidebar-title">{{ $t("title") }}</h1>
       </router-link>
     </transition>
@@ -23,16 +23,16 @@ export default {
   props: {
     collapse: {
       type: Boolean,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
       title: "MaaS Integration Hub",
-      logo: "",
-    };
-  },
-};
+      logo: ""
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

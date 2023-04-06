@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import Pagination from "@/components/Pagination/index";
-import { operationHistory } from "@/api/apiManager";
+import Pagination from "@/components/Pagination/index"
+import { operationHistory } from "@/api/apiManager"
 export default {
   name: "Index",
   components: { Pagination },
@@ -62,7 +62,7 @@ export default {
           sex: 1,
           date: null,
           dateTime: null,
-          range: null,
+          range: null
         },
         // 条件配置项
         fieldList: [
@@ -70,89 +70,89 @@ export default {
             label: "告警状态",
             type: "select",
             value: "appName",
-            list: "alarmStautList",
+            list: "alarmStautList"
           },
 
           {
             label: "告警类型",
             type: "select",
             value: "policyType",
-            list: "policyTypeList",
+            list: "policyTypeList"
           },
 
           {
             label: "告警级别",
             type: "select",
             value: "policyLeve",
-            list: "policyLeveList",
-          },
-        ],
+            list: "policyLeveList"
+          }
+        ]
       },
       listTypeInfo: {
         alarmStautList: [
           {
             id: 1,
-            name: "全部告警",
+            name: "全部告警"
           },
           {
             id: 2,
-            name: "持续中",
+            name: "持续中"
           },
           {
             id: 3,
-            name: "已恢复",
+            name: "已恢复"
           },
           {
             id: 4,
-            name: "已失效",
-          },
+            name: "已失效"
+          }
         ],
         policyList: [
           {
             id: 1,
-            name: "全部告警策略",
-          },
+            name: "全部告警策略"
+          }
         ],
         policyTypeList: [
           {
             id: 1,
-            name: "应用告警",
+            name: "应用告警"
           },
           {
             id: 2,
-            name: "集成流告警",
+            name: "集成流告警"
           },
           {
             id: 3,
-            name: "API服务告警",
+            name: "API服务告警"
           },
           {
             id: 4,
-            name: "API告警",
+            name: "API告警"
           },
           {
             id: 5,
-            name: "环境告警",
-          },
+            name: "环境告警"
+          }
         ],
         policyLeveList: [
           {
             id: 0,
-            name: "全部",
+            name: "全部"
           },
           {
             id: 1,
-            name: "一般",
+            name: "一般"
           },
           {
             id: 2,
-            name: "重要",
+            name: "重要"
           },
           {
             id: 4,
-            name: "紧急",
-          },
-        ],
+            name: "紧急"
+          }
+        ]
       },
 
       title: "",
@@ -165,58 +165,58 @@ export default {
       ruleForm: {
         name: "",
         desc: "",
-        code: "",
+        code: ""
       },
-      loading: false,
-    };
+      loading: false
+    }
   },
   mounted() {
-    this.initPage();
+    this.initPage()
   },
   methods: {
     /** 搜索 */
     handleFilter(row) {
-      console.log(row);
+      console.log(row)
     },
     /** 重置 */
     handleReset(row) {
-      console.log(row);
+      console.log(row)
     },
     /** 焦点失去事件 */
     handleEvent(row) {
-      console.log(row);
+      console.log(row)
     },
     initPage() {
-      this.loading = true;
+      this.loading = true
 
       operationHistory({
         pageNum: this.currentPage,
-        pageSize: this.pageSize,
+        pageSize: this.pageSize
       })
         .then((res) => {
-          this.loading = false;
-          const { code, message, data, total } = res || {};
+          this.loading = false
+          const { code, message, data, total } = res || {}
           if (code === 20000) {
-            this.tableData = data.list;
-            this.total = data.list.length;
+            this.tableData = data.list
+            this.total = data.list.length
           } else {
-            this.$message.error(message);
+            this.$message.error(message)
           }
         })
         .catch((err) => {
-          this.loading = false;
-          console.log(err);
-        });
+          this.loading = false
+          console.log(err)
+        })
     },
     refreshList() {
-      this.initPage();
+      this.initPage()
     },
 
     handleEdit(row) {
-      this.id = row.id;
-      var { name, desc, code } = row;
-      Object.assign(this.ruleForm, { name, desc, code });
-      this.dialogVisible = true;
+      this.id = row.id
+      var { name, desc, code } = row
+      Object.assign(this.ruleForm, { name, desc, code })
+      this.dialogVisible = true
     },
     handleDel(row) {
       // 删除
@@ -224,60 +224,60 @@ export default {
       this.$confirm(this.$t("tost_1001"), this.$t("tost_1002"), {
         confirmButtonText: this.$t("sure"),
         cancelButtonText: this.$t("cancel"),
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
           this.$axios
             .delete(`web/dataSetType/delete?id=${row.id}`)
             .then((res) => {
-              const { status, message } = res.data || {};
+              const { status, message } = res.data || {}
               if (status === 200) {
-                this.initPage();
+                this.initPage()
                 this.$message({
                   type: "success",
-                  message: message,
-                });
+                  message: message
+                })
               } else {
-                this.$message.error(message);
+                this.$message.error(message)
               }
             })
             .catch((err) => {
-              console.log(err);
-            });
+              console.log(err)
+            })
         })
         .catch((err) => {
           this.$message({
             type: "info",
-            message: err,
-          });
-        });
+            message: err
+          })
+        })
     },
 
     handleClose() {
-      this.resetForm();
-      this.dialogVisible = false;
+      this.resetForm()
+      this.dialogVisible = false
     },
     resetForm() {
-      this.$refs["ruleForm"].resetFields();
+      this.$refs["ruleForm"].resetFields()
       this.ruleForm = {
         name: "",
         desc: "",
-        code: "",
-      };
+        code: ""
+      }
     },
     save() {},
 
     pagination(val) {
-      this.pageSize = val.limit;
-      this.currentPage = val.page;
-      this.initPage();
+      this.pageSize = val.limit
+      this.currentPage = val.page
+      this.initPage()
     },
     resetTitle() {
-      this.title = "";
-      this.initPage();
-    },
-  },
-};
+      this.title = ""
+      this.initPage()
+    }
+  }
+}
 </script>
 
 <style scoped></style>

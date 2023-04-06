@@ -14,32 +14,32 @@
           <table-user />
         </el-card>
       </el-col>
-      <el-col :span="6" :xs="24"> </el-col>
+      <el-col :span="6" :xs="24" />
     </el-row>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from "vuex"
 
-import TableUser from "./components/TableUser.vue";
+import TableUser from "./components/TableUser.vue"
 
 export default {
   name: "Application",
   components: {
-    TableUser,
+    TableUser
   },
   data() {
     return {
       user: {},
-      activeTab: "opt1",
-    };
+      activeTab: "opt1"
+    }
   },
   computed: {
-    ...mapGetters(["name", "avatar", "roles"]),
+    ...mapGetters(["name", "avatar", "roles"])
   },
   created() {
-    this.getUser();
+    this.getUser()
   },
   methods: {
     getUser() {
@@ -47,9 +47,9 @@ export default {
         name: this.name,
         role: this.roles.join(" | "),
         email: "admin@test.com",
-        avatar: this.avatar,
-      };
-    },
-  },
-};
+        avatar: this.avatar
+      }
+    }
+  }
+}
 </script>

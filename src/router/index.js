@@ -1,10 +1,10 @@
-import Vue from "vue";
-import Router from "vue-router";
+import Vue from "vue"
+import Router from "vue-router"
 
-Vue.use(Router);
+Vue.use(Router)
 
 /* Layout */
-import Layout from "@/layout";
+import Layout from "@/layout"
 
 /**
  * constantRoutes
@@ -19,29 +19,29 @@ export const constantRoutes = [
     children: [
       {
         path: "/redirect/:path(.*)",
-        component: () => import("@/views/redirect/index"),
-      },
-    ],
+        component: () => import("@/views/redirect/index")
+      }
+    ]
   },
   {
     path: "/login",
     component: () => import("@/views/login/index"),
-    hidden: true,
+    hidden: true
   },
   {
     path: "/auth-redirect",
     component: () => import("@/views/login/auth-redirect"),
-    hidden: true,
+    hidden: true
   },
   {
     path: "/404",
     component: () => import("@/views/error-page/404"),
-    hidden: true,
+    hidden: true
   },
   {
     path: "/401",
     component: () => import("@/views/error-page/401"),
-    hidden: true,
+    hidden: true
   },
 
   {
@@ -53,11 +53,11 @@ export const constantRoutes = [
         path: "home",
         component: () => import("@/views/home/index"),
         name: "home",
-        meta: { title: "leftbar.home", icon: "home", affix: true },
-      },
-    ],
-  },
-];
+        meta: { title: "leftbar.home", icon: "home", affix: true }
+      }
+    ]
+  }
+]
 
 export const asyncRoutes = [
   {
@@ -69,7 +69,7 @@ export const asyncRoutes = [
     meta: {
       title: "leftbar.integration.title",
       icon: "app",
-      roles: ["admin", "editor"], // you can set roles in root nav
+      roles: ["admin", "editor"] // you can set roles in root nav
     },
     children: [
       {
@@ -79,8 +79,8 @@ export const asyncRoutes = [
         meta: {
           title: "leftbar.integration.subtitle",
 
-          roles: ["admin"], // or you can only set roles in sub nav
-        },
+          roles: ["admin"] // or you can only set roles in sub nav
+        }
       },
       {
         path: "newApp",
@@ -90,9 +90,9 @@ export const asyncRoutes = [
         hidden: true,
 
         meta: {
-          title: "leftbar.operation.subtitle7",
+          title: "leftbar.operation.subtitle7"
           // if do not set roles, means: this page does not require permission
-        },
+        }
       },
       {
         path: "integrationFlow",
@@ -101,9 +101,9 @@ export const asyncRoutes = [
         alwaysShow: false, // will always show the root menu
 
         meta: {
-          title: "leftbar.operation.subtitle6",
+          title: "leftbar.operation.subtitle6"
           // if do not set roles, means: this page does not require permission
-        },
+        }
       },
       {
         path: "newIntegration",
@@ -113,9 +113,9 @@ export const asyncRoutes = [
         hidden: true,
 
         meta: {
-          title: "leftbar.operation.subtitle6",
+          title: "leftbar.operation.subtitle6"
           // if do not set roles, means: this page does not require permission
-        },
+        }
       },
       {
         path: "process",
@@ -124,9 +124,9 @@ export const asyncRoutes = [
         alwaysShow: false, // will always show the root menu
         hidden: true,
         meta: {
-          title: "leftbar.operation.subtitle6",
+          title: "leftbar.operation.subtitle6"
           // if do not set roles, means: this page does not require permission
-        },
+        }
       },
 
       {
@@ -134,9 +134,9 @@ export const asyncRoutes = [
         component: () => import("@/views/apiManager/index"),
         name: "apiManager",
         meta: {
-          title: "leftbar.integration.subtitle1",
+          title: "leftbar.integration.subtitle1"
           // if do not set roles, means: this page does not require permission
-        },
+        }
       },
 
       {
@@ -147,9 +147,9 @@ export const asyncRoutes = [
         hidden: true,
 
         meta: {
-          title: "leftbar.integration.subtitle1",
+          title: "leftbar.integration.subtitle1"
           // if do not set roles, means: this page does not require permission
-        },
+        }
       },
 
       {
@@ -160,9 +160,9 @@ export const asyncRoutes = [
         hidden: true,
 
         meta: {
-          title: "manager.title",
+          title: "manager.title"
           // if do not set roles, means: this page does not require permission
-        },
+        }
       },
       {
         path: "newApiList",
@@ -172,11 +172,11 @@ export const asyncRoutes = [
         hidden: true,
 
         meta: {
-          title: "manager.title1",
+          title: "manager.title1"
           // if do not set roles, means: this page does not require permission
-        },
-      },
-    ],
+        }
+      }
+    ]
   },
   {
     path: "/operation",
@@ -187,7 +187,7 @@ export const asyncRoutes = [
     meta: {
       title: "leftbar.operation.title",
       icon: "monitoring_center",
-      roles: ["admin", "editor"], // you can set roles in root nav
+      roles: ["admin", "editor"] // you can set roles in root nav
     },
     children: [
       {
@@ -195,8 +195,8 @@ export const asyncRoutes = [
         component: () => import("@/views/dashboard/index"),
         name: "monitoring",
         meta: {
-          title: "leftbar.operation.subtitle", // if do not set roles, means: this page does not require permission
-        },
+          title: "leftbar.operation.subtitle" // if do not set roles, means: this page does not require permission
+        }
       },
 
       {
@@ -206,8 +206,8 @@ export const asyncRoutes = [
         hidden: true,
         meta: {
           title: "leftbar.operation.subtitle",
-          roles: ["admin"], // or you can only set roles in sub nav
-        },
+          roles: ["admin"] // or you can only set roles in sub nav
+        }
       },
       {
         path: "strategy",
@@ -215,8 +215,8 @@ export const asyncRoutes = [
         name: "strategy",
         meta: {
           title: "leftbar.operation.subtitle5",
-          roles: ["admin"], // or you can only set roles in sub nav
-        },
+          roles: ["admin"] // or you can only set roles in sub nav
+        }
       },
 
       {
@@ -224,9 +224,9 @@ export const asyncRoutes = [
         component: () => import("@/views/operation/dayRecord"),
         name: "dayRecord",
         meta: {
-          title: "leftbar.operation.subtitle4",
+          title: "leftbar.operation.subtitle4"
           // if do not set roles, means: this page does not require permission
-        },
+        }
       },
       // {
       //   path: "page",
@@ -247,10 +247,10 @@ export const asyncRoutes = [
         meta: {
           title: "leftbar.operation.subtitle3",
 
-          roles: ["admin"], // or you can only set roles in sub nav
-        },
-      },
-    ],
+          roles: ["admin"] // or you can only set roles in sub nav
+        }
+      }
+    ]
   },
   {
     path: "/permission",
@@ -261,7 +261,7 @@ export const asyncRoutes = [
     meta: {
       title: "leftbar.manager.title",
       icon: "manager",
-      roles: ["admin", "editor"], // you can set roles in root nav
+      roles: ["admin", "editor"] // you can set roles in root nav
     },
     children: [
       {
@@ -269,8 +269,8 @@ export const asyncRoutes = [
         component: () => import("@/views/manager/index"),
         name: "user",
         meta: {
-          title: "leftbar.manager.subtitle",
-        },
+          title: "leftbar.manager.subtitle"
+        }
       },
 
       {
@@ -278,8 +278,8 @@ export const asyncRoutes = [
         component: () => import("@/views/manager/config"),
         name: "config",
         meta: {
-          title: "leftbar.manager.subtitle2",
-        },
+          title: "leftbar.manager.subtitle2"
+        }
       },
       {
         path: "log",
@@ -287,29 +287,29 @@ export const asyncRoutes = [
         name: "log",
         meta: {
           title: "leftbar.operation.subtitle8",
-          roles: ["admin"], // or you can only set roles in sub nav
-        },
-      },
-    ],
+          roles: ["admin"] // or you can only set roles in sub nav
+        }
+      }
+    ]
   },
 
   // 404 page must be placed at the end !!!
-  { path: "*", redirect: "/404", hidden: true },
-];
+  { path: "*", redirect: "/404", hidden: true }
+]
 
 const createRouter = () =>
   new Router({
     // mode: 'history', // require service support
     scrollBehavior: () => ({ y: 0 }),
-    routes: constantRoutes,
-  });
+    routes: constantRoutes
+  })
 
-const router = createRouter();
+const router = createRouter()
 
 // Detail see: https://github.com/vuejs/vue-router/issues/1234#issuecomment-357941465
 export function resetRouter() {
-  const newRouter = createRouter();
-  router.matcher = newRouter.matcher; // reset router
+  const newRouter = createRouter()
+  router.matcher = newRouter.matcher // reset router
 }
 
-export default router;
+export default router

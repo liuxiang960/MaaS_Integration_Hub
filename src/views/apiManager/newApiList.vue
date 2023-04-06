@@ -14,36 +14,36 @@
           <tab-list :updata="apiServeMap" />
         </el-card>
       </el-col>
-      <el-col :span="6" :xs="24"> </el-col>
+      <el-col :span="6" :xs="24" />
     </el-row>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from "vuex"
 
-import TabList from "./components/apiList/TabList";
+import TabList from "./components/apiList/TabList"
 
 export default {
   name: "Application",
   components: {
-    TabList,
+    TabList
   },
   data() {
     return {
       user: {},
       activeTab: "opt1",
-      apiServeMap: {},
-    };
+      apiServeMap: {}
+    }
   },
   computed: {
-    ...mapGetters(["name", "avatar", "roles"]),
+    ...mapGetters(["name", "avatar", "roles"])
   },
   created() {
-    this.getUser();
-    let data = this.$route.query;
+    this.getUser()
+    const data = this.$route.query
     if (data) {
-      this.apiServeMap = data;
+      this.apiServeMap = data
     }
   },
   methods: {
@@ -52,9 +52,9 @@ export default {
         name: this.name,
         role: this.roles.join(" | "),
         email: "admin@test.com",
-        avatar: this.avatar,
-      };
-    },
-  },
-};
+        avatar: this.avatar
+      }
+    }
+  }
+}
 </script>

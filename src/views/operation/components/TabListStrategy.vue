@@ -9,8 +9,7 @@
               icon="el-icon-plus"
               size="small"
               @click="newAdd"
-              >{{ $t("app_1069") }}</el-button
-            >
+            >{{ $t("app_1069") }}</el-button>
           </el-col>
           <el-col :span="20" :xs="24" style="margin-bottom: 20px">
             <el-filter
@@ -39,8 +38,7 @@
               type="text"
               size="small"
               @click="handleEdit(scope.row)"
-              >{{ scope.row.name }}</el-button
-            >
+            >{{ scope.row.name }}</el-button>
           </template>
         </el-table-column>
         <el-table-column prop="level" :label="$t('app_1070')" />
@@ -52,8 +50,7 @@
               type="text"
               size="small"
               @click="handleEdit(scope.row)"
-              >{{ $t("edit") }}</el-button
-            >
+            >{{ $t("edit") }}</el-button>
             <el-button type="text" size="small" @click="handle(scope.row)">{{
               $t("deletd")
             }}</el-button>
@@ -71,8 +68,8 @@
 </template>
 
 <script>
-import Pagination from "@/components/Pagination/index";
-import { operationList, operationDeletd } from "@/api/operation";
+import Pagination from "@/components/Pagination/index"
+import { operationList, operationDeletd } from "@/api/operation"
 export default {
   name: "Index",
   components: { Pagination },
@@ -90,7 +87,7 @@ export default {
           sex: 1,
           date: null,
           dateTime: null,
-          range: null,
+          range: null
         },
         // 条件配置项
         fieldList: [
@@ -98,18 +95,18 @@ export default {
             label: this.$t("strategyName"),
             type: "input",
             value: "appName",
-            list: "alarmStautList",
+            list: "alarmStautList"
           },
 
           {
             label: this.$t("app_1068"),
             type: "date",
-            value: "policyType",
-          },
-        ],
+            value: "policyType"
+          }
+        ]
       },
       listTypeInfo: {
-        policyLeveList: [],
+        policyLeveList: []
       },
 
       title: "",
@@ -117,66 +114,65 @@ export default {
       currentPage: 1,
       pageSize: 10,
       total: 0,
-      dialogVisible: false,
       id: -1,
       ruleForm: {
         name: "",
         desc: "",
-        code: "",
+        code: ""
       },
-      loading: false,
-    };
+      loading: false
+    }
   },
   mounted() {
-    this.initPage();
+    this.initPage()
   },
   methods: {
     /** 搜索 */
     handleFilter(row) {
-      console.log(row);
+      console.log(row)
     },
     newAdd() {
       this.$router.push({
-        path: "/operation/newStrategy",
-      });
+        path: "/operation/newStrategy"
+      })
     },
     handleClose(done) {
-      this.dialogVisible = false;
+      this.dialogVisible = false
     },
     /** 重置 */
     handleReset(row) {
-      console.log(row);
+      console.log(row)
     },
     /** 焦点失去事件 */
     handleEvent(row) {
-      console.log(row);
+      console.log(row)
     },
     initPage() {
-      this.loading = true;
+      this.loading = true
       operationList({
         pageNum: this.currentPage,
-        pageSize: this.pageSize,
+        pageSize: this.pageSize
       })
         .then((res) => {
-          this.loading = false;
+          this.loading = false
 
-          this.tableData = res;
-          this.total = res.length;
+          this.tableData = res
+          this.total = res.length
         })
         .catch((err) => {
-          this.loading = false;
-          console.log(err);
-        });
+          this.loading = false
+          console.log(err)
+        })
     },
     refreshList() {
-      this.initPage();
+      this.initPage()
     },
 
     handleEdit(row) {
       this.$router.push({
         path: "/operation/newStrategy",
-        query: row || null,
-      });
+        query: row || null
+      })
     },
     handleDel(row) {
       // 删除
@@ -184,61 +180,61 @@ export default {
       this.$confirm(this.$t("tost_1001"), this.$t("tost_1002"), {
         confirmButtonText: this.$t("sure"),
         cancelButtonText: this.$t("cancel"),
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
-          this.deleteRow(row);
+          this.deleteRow(row)
         })
         .catch((err) => {
           this.$message({
             type: "info",
-            message: err,
-          });
-        });
+            message: err
+          })
+        })
     },
     deleteRow(row) {
       operationDeletd(row)
         .then((res) => {
-          this.loading = false;
-          const { code, message, data, total } = res || {};
+          this.loading = false
+          const { code, message } = res || {}
           if (code === 20000) {
-            this.$message.success(this.$t("successfulOperation"));
-            this.initPage();
+            this.$message.success(this.$t("successfulOperation"))
+            this.initPage()
           } else {
-            this.$message.error(message);
+            this.$message.error(message)
           }
         })
         .catch((err) => {
-          this.loading = false;
-          console.log(err);
-        });
+          this.loading = false
+          console.log(err)
+        })
     },
 
     handleClose() {
-      this.resetForm();
-      this.dialogVisible = false;
+      this.resetForm()
+      this.dialogVisible = false
     },
     resetForm() {
-      this.$refs["ruleForm"].resetFields();
+      this.$refs["ruleForm"].resetFields()
       this.ruleForm = {
         name: "",
         desc: "",
-        code: "",
-      };
+        code: ""
+      }
     },
     save() {},
 
     pagination(val) {
-      this.pageSize = val.limit;
-      this.currentPage = val.page;
-      this.initPage();
+      this.pageSize = val.limit
+      this.currentPage = val.page
+      this.initPage()
     },
     resetTitle() {
-      this.title = "";
-      this.initPage();
-    },
-  },
-};
+      this.title = ""
+      this.initPage()
+    }
+  }
+}
 </script>
 
 <style scoped></style>

@@ -2,7 +2,7 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 16:15:40
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-04-02 22:40:40
+ * @LastEditTime: 2023-04-04 16:43:58
  * @FilePath: /MaaS_Integration_Hub/src/lang/en.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -98,9 +98,6 @@ export default {
   tost_1009: "Please enter the API name",
   tost_1010: "Please enter service description information",
   tost_1011: "Please enter parameter setting information",
-  tost_1008: "Please fill in the overview information",
-  tost_1008: "Please fill in the overview information",
-  tost_1008: "Please fill in the overview information",
 
   app_1001: "Please enter the application name",
   app_1002: "Backend service type",

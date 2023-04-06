@@ -8,12 +8,12 @@
 -->
 <template>
   <div class="dashboard-editor-container">
-    <header-view></header-view>
+    <header-view />
     <el-row :gutter="20" style="margin-top: 20px">
       <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
           <div class="unfold-view" @click="didClick(DataHealth)">
-            <div class="unfold"></div>
+            <div class="unfold" />
           </div>
           <div class="common-p">{{ $t("app_1108") }}</div>
 
@@ -24,7 +24,7 @@
       <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
           <div class="unfold-view" @click="didClick(DataNetwork)">
-            <div class="unfold"></div>
+            <div class="unfold" />
           </div>
           <div class="common-p">{{ $t("app_1109") }}</div>
 
@@ -35,7 +35,7 @@
       <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
           <div class="unfold-view" @click="didClick(DataRequestNum)">
-            <div class="unfold"></div>
+            <div class="unfold" />
           </div>
           <div class="common-p">{{ $t("app_1110") }}</div>
 
@@ -46,7 +46,7 @@
       <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
           <div class="unfold-view" @click="didClick(DataconCurrence)">
-            <div class="unfold"></div>
+            <div class="unfold" />
           </div>
           <div class="common-p">{{ $t("app_1111") }}</div>
 
@@ -57,7 +57,7 @@
       <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
           <div class="unfold-view" @click="didClick(ResponseStauts)">
-            <div class="unfold"></div>
+            <div class="unfold" />
           </div>
           <div class="common-p">{{ $t("app_1112") }}</div>
 
@@ -68,7 +68,7 @@
       <el-col :xs="24" :sm="24" :lg="12">
         <div class="chart-wrapper">
           <div class="unfold-view" @click="didClick(ResponseTime)">
-            <div class="unfold"></div>
+            <div class="unfold" />
           </div>
           <div class="common-p">{{ $t("app_1113") }}</div>
 
@@ -90,20 +90,20 @@
 </template>
 
 <script>
-import HeaderView from "./admin/components/HeaderView.vue";
-import LineChart from "./admin/components/LineChart";
-import { getChartData as DataHealth } from "./admin/components/data/health";
-import { getChartData as DataNetwork } from "./admin/components/data/network";
-import { getChartData as DataRequestNum } from "./admin/components/data/requestNum";
-import { getChartData as DataconCurrence } from "./admin/components/data/concurrence";
-import { getChartData as ResponseStauts } from "./admin/components/data/responseStauts";
-import { getChartData as ResponseTime } from "./admin/components/data/responseTime";
+import HeaderView from "./admin/components/HeaderView.vue"
+import LineChart from "./admin/components/LineChart"
+import { getChartData as DataHealth } from "./admin/components/data/health"
+import { getChartData as DataNetwork } from "./admin/components/data/network"
+import { getChartData as DataRequestNum } from "./admin/components/data/requestNum"
+import { getChartData as DataconCurrence } from "./admin/components/data/concurrence"
+import { getChartData as ResponseStauts } from "./admin/components/data/responseStauts"
+import { getChartData as ResponseTime } from "./admin/components/data/responseTime"
 
 export default {
-  name: "chart",
+  name: "Chart",
   components: {
     HeaderView,
-    LineChart,
+    LineChart
   },
   data() {
     return {
@@ -119,30 +119,30 @@ export default {
       ResponseTime: [],
 
       alertData: [],
-      dialogVisible: false,
-    };
+      dialogVisible: false
+    }
   },
   created() {
-    this.DataHealth = DataHealth();
-    this.DataNetwork = DataNetwork();
-    this.DataRequestNum = DataRequestNum();
-    this.DataconCurrence = DataconCurrence();
+    this.DataHealth = DataHealth()
+    this.DataNetwork = DataNetwork()
+    this.DataRequestNum = DataRequestNum()
+    this.DataconCurrence = DataconCurrence()
 
-    this.ResponseStauts = ResponseStauts();
+    this.ResponseStauts = ResponseStauts()
 
-    this.ResponseTime = ResponseTime();
+    this.ResponseTime = ResponseTime()
   },
   methods: {
     didClick(data) {
       // alertData
-      this.alertData = data;
-      this.dialogVisible = true;
+      this.alertData = data
+      this.dialogVisible = true
     },
     handleClose(done) {
-      this.dialogVisible = false;
-    },
-  },
-};
+      this.dialogVisible = false
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

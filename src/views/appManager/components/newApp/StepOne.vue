@@ -2,29 +2,29 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-03-31 21:15:02
+ * @LastEditTime: 2023-04-04 17:28:58
  * @FilePath: /MaaS_Integration_Hub/src/views/apiManager/components/newServeAPi/NewServeAPi1.vue
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
 <template>
-  <el-form ref="form" :model="form" label-width="120px">
+  <el-form ref="form" :model="form" label-width="160px">
     <el-form-item :label="$t('appName')">
-      <el-input v-model="form.name" :placeholder="$t('app_1001')"></el-input>
+      <el-input v-model="form.name" :placeholder="$t('app_1001')" />
     </el-form-item>
     <el-form-item :label="$t('app_1002')">
       <el-radio-group v-model="form.serveType" size="medium">
-        <el-radio border label="MOCK"></el-radio>
-        <el-radio border :label="$t('app_1156')"></el-radio>
-        <el-radio border :label="$t('app_1157')"></el-radio>
-        <el-radio border :label="$t('app_1158')"></el-radio>
+        <el-radio border label="MOCK" />
+        <el-radio border :label="$t('app_1156')" />
+        <el-radio border :label="$t('app_1157')" />
+        <el-radio border :label="$t('app_1158')" />
       </el-radio-group>
     </el-form-item>
 
     <el-form-item label="SecretId">
-      <el-input v-model="form.SecretId" placeholder="SecretId"></el-input>
+      <el-input v-model="form.SecretId" placeholder="SecretId" />
     </el-form-item>
     <el-form-item label="SecretKey">
-      <el-input v-model="form.SecretKey" placeholder="SecretKey"></el-input>
+      <el-input v-model="form.SecretKey" placeholder="SecretKey" />
     </el-form-item>
 
     <!-- <el-form-item label="健康检查接口">
@@ -36,15 +36,15 @@
 
     <el-form-item :label="$t('description')">
       <el-input
+        v-model="form.description"
         type="textarea"
         :maxlength="500"
         :autosize="{ minRows: 5, maxRows: 5 }"
-        v-model="form.description"
-      ></el-input>
+      />
     </el-form-item>
 
     <el-form-item :label="$t('app_1003')">
-      <params-list @updataFun="paramsUpdata" :updata="paramsList" />
+      <params-list :updata="paramsList" @updataFun="paramsUpdata" />
     </el-form-item>
 
     <!-- <el-form-item :label="$t('app_1029')">
@@ -65,6 +65,12 @@ export default {
   components: {
     ParamsList,
   },
+  props: {
+    updata: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   data() {
     return {
       form: {
@@ -72,7 +78,7 @@ export default {
         method: "GET",
         region: "HTTP",
         description: "",
-        serveType: "第三方服务",
+        serveType: this.$t("app_1158"),
         authentication: "NoAuth",
         path: "/",
         paramsList: [],
@@ -81,14 +87,9 @@ export default {
       },
     };
   },
-  props: {
-    updata: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
   created() {
-    if (this.updata) {
+    debugger;
+    if (this.updata && this.updata.name) {
       this.form = this.updata;
       this.paramsList = this.updata.paramsList;
     }

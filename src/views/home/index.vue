@@ -17,21 +17,21 @@
 </template>
 
 <script>
-import Activity from "./components/Activity";
+import Activity from "./components/Activity"
 
 export default {
   name: "Home",
   components: {
-    Activity,
+    Activity
   },
   data() {
     return {
-      user: {},
-    };
+      user: {}
+    }
   },
   computed: {},
   created() {},
   mounted() {},
-  methods: {},
-};
+  methods: {}
+}
 </script>

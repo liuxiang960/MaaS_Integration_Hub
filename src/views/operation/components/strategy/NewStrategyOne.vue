@@ -15,14 +15,14 @@
     label-position="left"
   >
     <el-form-item :label="$t('strategyName')">
-      <el-input v-model="form.name" :placeholder="$t('app_1164')"></el-input>
+      <el-input v-model="form.name" :placeholder="$t('app_1164')" />
     </el-form-item>
     <el-form-item :label="$t('app_1070')">
       <el-select v-model="form.level" :placeholder="$t('app_1165')">
-        <el-option :label="$t('app_1160')" :value="$t('app_1160')"></el-option>
-        <el-option :label="$t('app_1161')" :value="$t('app_1161')"></el-option>
-        <el-option :label="$t('app_1162')" :value="$t('app_1162')"></el-option>
-        <el-option :label="$t('app_1163')" :value="$t('app_1163')"></el-option>
+        <el-option :label="$t('app_1160')" :value="$t('app_1160')" />
+        <el-option :label="$t('app_1161')" :value="$t('app_1161')" />
+        <el-option :label="$t('app_1162')" :value="$t('app_1162')" />
+        <el-option :label="$t('app_1163')" :value="$t('app_1163')" />
       </el-select>
     </el-form-item>
 
@@ -33,17 +33,17 @@
           :key="item"
           :label="item.name"
           :value="item.name"
-        ></el-option>
+        />
       </el-select>
     </el-form-item>
 
     <el-form-item :label="$t('description')">
       <el-input
+        v-model="form.description"
         type="textarea"
         :maxlength="500"
         :autosize="{ minRows: 5, maxRows: 5 }"
-        v-model="form.description"
-      ></el-input>
+      />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="onSubmit">{{
@@ -55,63 +55,63 @@
 </template>
 >
 <script>
-import { appList, appDeletd } from "@/api/app";
+import { appList } from "@/api/app"
 
 export default {
+  props: {
+    updata: {
+      type: Object,
+      default: () => ({})
+    }
+  },
   data() {
     return {
       form: {
         name: "",
         level: this.$t("app_1160"),
         description: "",
-        appName: "",
+        appName: ""
       },
-      appDataList: [],
-    };
-  },
-  props: {
-    updata: {
-      type: Object,
-      default: () => ({}),
-    },
+      appDataList: []
+    }
   },
   mounted() {
-    this.getAppList();
+    this.getAppList()
 
     if (this.updata) {
-      this.form = this.updata;
+      this.form = this.updata
     }
   },
   methods: {
     goBack() {
-      this.$router.back();
+      this.$router.back()
     },
     onSubmit() {
       if (!this.form.name) {
-        this.$message.error(this.$t("app_1167"));
-        return;
+        this.$message.error(this.$t("app_1167"))
+        return
       }
       if (!this.form.appName) {
-        this.$message.error(this.$t("app_1001"));
-        return;
+        this.$message.error(this.$t("app_1001"))
+        return
       }
 
-      this.$emit("submitStep", this.form);
-      console.log("submit!");
+      this.$emit("submitStep", this.form)
+      console.log("submit!")
     },
     getAppList() {
-      this.loading = true;
+      this.loading = true
 
       appList({})
         .then((list) => {
-          this.loading = false;
-          this.appDataList = list;
+          this.loading = false
+          this.appDataList = list
         })
         .catch((err) => {
-          this.loading = false;
-          console.log(err);
-        });
-    },
-  },
-};
+          this.loading = false
+          console.log(err)
+        })
+    }
+  }
+}
 </script>

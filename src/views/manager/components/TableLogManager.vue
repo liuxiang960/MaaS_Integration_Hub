@@ -52,8 +52,7 @@
               type="text"
               size="small"
               @click="handleEdit(scope.row)"
-              >{{ $t("app_1066") }}</el-button
-            >
+            >{{ $t("app_1066") }}</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -74,25 +73,25 @@
       >
         <el-form ref="ruleForm" :model="ruleForm" label-width="100px">
           <el-form-item :label="$t('app_1071')">
-            <el-input disabled="disabled" v-model="ruleForm.name"></el-input>
+            <el-input v-model="ruleForm.name" disabled="disabled" />
           </el-form-item>
           <el-form-item :label="$t('app_1072')">
-            <el-input disabled="disabled" v-model="ruleForm.date"></el-input>
+            <el-input v-model="ruleForm.date" disabled="disabled" />
           </el-form-item>
 
           <el-form-item :label="$t('app_1073')">
-            <el-input disabled="disabled" v-model="ruleForm.result"></el-input>
+            <el-input v-model="ruleForm.result" disabled="disabled" />
           </el-form-item>
           <el-form-item :label="$t('app_1074')">
-            <el-input disabled="disabled" v-model="ruleForm.module"></el-input>
+            <el-input v-model="ruleForm.module" disabled="disabled" />
           </el-form-item>
           <el-form-item :label="$t('app_1075')">
             <el-input
+              v-model="ruleForm.event"
               disabled="disabled"
               :autosize="{ minRows: 4, maxRows: 6 }"
               type="textarea"
-              v-model="ruleForm.event"
-            ></el-input>
+            />
           </el-form-item>
 
           <!-- <el-form-item style="margin-top: 50px">
@@ -110,9 +109,9 @@
 </template>
 
 <script>
-import Pagination from "@/components/Pagination/index";
-import { DateToStr } from "@/utils/index";
-import { logList, logNew, logDeletd } from "@/api/log";
+import Pagination from "@/components/Pagination/index"
+import { DateToStr } from "@/utils/index"
+import { logList, logNew, logDeletd } from "@/api/log"
 export default {
   name: "Index",
   components: { Pagination },
@@ -132,7 +131,7 @@ export default {
         date: "",
         result: "",
         module: "",
-        event: "",
+        event: ""
       },
       filterInfo: {
         // 搜索字段
@@ -143,26 +142,26 @@ export default {
           sex: 1,
           date: null,
           dateTime: null,
-          range: null,
+          range: null
         },
         // 条件配置项
         fieldList: [
           {
             label: this.$t("app_1074"),
             type: "input",
-            value: "name",
+            value: "name"
           },
           {
             label: this.$t("app_1075"),
             type: "input",
-            value: "name",
+            value: "name"
           },
           {
             label: this.$t("app_1068"),
             type: "date",
-            value: "date",
-          },
-        ],
+            value: "date"
+          }
+        ]
       },
       listTypeInfo: {
         //  alarmStautList: [
@@ -171,67 +170,67 @@ export default {
         //     name: "全部告警",
         //   },
       },
-      loading: false,
-    };
+      loading: false
+    }
   },
   mounted() {
-    this.initPage();
+    this.initPage()
   },
   methods: {
     /** 搜索 */
     handleFilter(row) {
-      console.log(row);
+      console.log(row)
     },
     /** 重置 */
     handleReset(row) {
-      console.log(row);
+      console.log(row)
     },
     /** 焦点失去事件 */
     handleEvent(row) {
-      console.log(row);
+      console.log(row)
     },
     onSubmit() {
       if (!this.ruleForm.name) {
-        this.$message.error(this.$t("app_1076"));
-        return;
+        this.$message.error(this.$t("app_1076"))
+        return
       }
-      this.dialogVisible = false;
-      let data = this.ruleForm;
-      data.date = DateToStr(this.ruleForm.date);
+      this.dialogVisible = false
+      const data = this.ruleForm
+      data.date = DateToStr(this.ruleForm.date)
       logNew(data)
         .then((res) => {
-          this.loading = false;
-          this.initPage();
-          this.$message.success(this.$t("successfulOperation"));
+          this.loading = false
+          this.initPage()
+          this.$message.success(this.$t("successfulOperation"))
         })
         .catch((err) => {
-          this.loading = false;
-          console.log(err);
-        });
+          this.loading = false
+          console.log(err)
+        })
     },
     handleClose() {
-      this.dialogVisible = false;
+      this.dialogVisible = false
     },
     initPage() {
-      this.loading = true;
+      this.loading = true
 
       logList({
         pageNum: this.currentPage,
-        pageSize: this.pageSize,
+        pageSize: this.pageSize
       })
         .then((res) => {
-          this.loading = false;
-          const { code, message, data, total } = res || {};
-          this.tableData = data.data;
-          this.total = total;
+          this.loading = false
+          const { code, message, data, total } = res || {}
+          this.tableData = data.data
+          this.total = total
         })
         .catch((err) => {
-          this.loading = false;
-          console.log(err);
-        });
+          this.loading = false
+          console.log(err)
+        })
     },
     refreshList() {
-      this.initPage();
+      this.initPage()
     },
     newAdd() {
       this.ruleForm = {
@@ -239,17 +238,17 @@ export default {
         date: "",
         result: "",
         module: "",
-        event: "",
-      };
-      this.dialogVisible = true;
+        event: ""
+      }
+      this.dialogVisible = true
     },
 
     handleEdit(row) {
-      this.id = row.id;
-      var { name, account, role } = row;
-      this.ruleForm = row;
-      Object.assign(this.ruleForm, { name, account, role });
-      this.dialogVisible = true;
+      this.id = row.id
+      var { name, account, role } = row
+      this.ruleForm = row
+      Object.assign(this.ruleForm, { name, account, role })
+      this.dialogVisible = true
     },
     handleDel(row) {
       // 删除
@@ -257,51 +256,51 @@ export default {
       this.$confirm(this.$t("tost_1001"), this.$t("tost_1002"), {
         confirmButtonText: this.$t("sure"),
         cancelButtonText: this.$t("cancel"),
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
           logDeletd(row)
             .then((res) => {
-              this.initPage();
+              this.initPage()
             })
             .catch((err) => {
-              this.loading = false;
-              console.log(err);
-            });
+              this.loading = false
+              console.log(err)
+            })
         })
         .catch((err) => {
           this.$message({
             type: "info",
-            message: err,
-          });
-        });
+            message: err
+          })
+        })
     },
 
     handleClose() {
-      this.resetForm();
-      this.dialogVisible = false;
+      this.resetForm()
+      this.dialogVisible = false
     },
     resetForm() {
-      this.$refs["ruleForm"].resetFields();
+      this.$refs["ruleForm"].resetFields()
       this.ruleForm = {
         name: "",
         desc: "",
-        code: "",
-      };
+        code: ""
+      }
     },
     save() {},
 
     pagination(val) {
-      this.pageSize = val.limit;
-      this.currentPage = val.page;
-      this.initPage();
+      this.pageSize = val.limit
+      this.currentPage = val.page
+      this.initPage()
     },
     resetTitle() {
-      this.title = "";
-      this.initPage();
-    },
-  },
-};
+      this.title = ""
+      this.initPage()
+    }
+  }
+}
 </script>
 
 <style scoped>

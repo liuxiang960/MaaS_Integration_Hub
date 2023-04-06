@@ -31,17 +31,17 @@
             <!-- <el-button plain @click="goDeleted()">删 除</el-button> -->
           </div>
           <img
-            class="pro-img"
             v-if="language == 'zh'"
+            class="pro-img"
             src="../../assets/common/pross/process_zh.png"
             alt=""
-          />
+          >
           <img
-            class="pro-img"
             v-else
+            class="pro-img"
             src="../../assets/common/pross/process_en.png"
             alt=""
-          />
+          >
         </el-card>
       </el-col>
     </el-row>
@@ -49,33 +49,33 @@
 </template>
 
 <script>
-import TabList from "./components/TableProcess.vue";
+import TabList from "./components/TableProcess.vue"
 
 export default {
   name: "Process",
   components: {
-    TabList,
+    TabList
+  },
+  data() {
+    return {}
   },
   computed: {
     language() {
-      return this.$store.getters.language;
-    },
-  },
-  data() {
-    return {};
+      return this.$store.getters.language
+    }
   },
   methods: {
     goAplly() {
-      this.$message.success(this.$t("app_1176"));
+      this.$message.success(this.$t("app_1176"))
     },
     goSave() {
-      this.$message.success(this.$t("app_1177"));
+      this.$message.success(this.$t("app_1177"))
     },
     goBack() {
-      this.$router.back();
-    },
-  },
-};
+      this.$router.back()
+    }
+  }
+}
 </script>
 
 <style scoped>

@@ -20,26 +20,26 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from "vuex"
 
-import TableConfig from "./components/TableConfig.vue";
+import TableConfig from "./components/TableConfig.vue"
 
 export default {
   name: "Application",
   components: {
-    TableConfig,
+    TableConfig
   },
   data() {
     return {
       user: {},
-      activeTab: "opt1",
-    };
+      activeTab: "opt1"
+    }
   },
   computed: {
-    ...mapGetters(["name", "avatar", "roles"]),
+    ...mapGetters(["name", "avatar", "roles"])
   },
   created() {
-    this.getUser();
+    this.getUser()
   },
   methods: {
     getUser() {
@@ -47,9 +47,9 @@ export default {
         name: this.name,
         role: this.roles.join(" | "),
         email: "admin@test.com",
-        avatar: this.avatar,
-      };
-    },
-  },
-};
+        avatar: this.avatar
+      }
+    }
+  }
+}
 </script>

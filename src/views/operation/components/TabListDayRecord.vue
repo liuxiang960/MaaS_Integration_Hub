@@ -135,9 +135,9 @@ export default {
       })
         .then((res) => {
           this.loading = false;
-          const { code, message, total, list } = res.data || {};
-          this.tableData = list;
-          this.total = total;
+          const { code, message } = res.data || {};
+          this.tableData = res.data.list;
+          this.total = res.data.total;
         })
         .catch((err) => {
           this.loading = false;

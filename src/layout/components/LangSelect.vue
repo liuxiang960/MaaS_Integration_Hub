@@ -12,10 +12,9 @@
       type="text"
       class="btn ant-btn-primary"
       @click="handleSetLanguage()"
-      >{{ language == "zh" ? "切换语言" : "Change Language" }}（{{
-        language
-      }}）</el-button
-    >
+    >{{ language == "zh" ? "切换语言" : "Change Language" }}（{{
+      language
+    }}）</el-button>
   </div>
 </template>
 
@@ -24,24 +23,24 @@ export default {
   name: "LangSelect",
   computed: {
     language() {
-      return this.$store.getters.language;
-    },
+      return this.$store.getters.language
+    }
   },
   methods: {
     handleSetLanguage(lang) {
       if (this.language === "zh") {
-        lang = "en";
+        lang = "en"
       } else {
-        lang = "zh";
+        lang = "zh"
       }
-      this.$i18n.locale = lang;
-      this.$store.dispatch("app/setLanguage", lang);
-      this.$message.success("switch language success");
+      this.$i18n.locale = lang
+      this.$store.dispatch("app/setLanguage", lang)
+      this.$message.success("switch language success")
       // 重新刷新页面更改语言
-      location.reload();
-    },
-  },
-};
+      location.reload()
+    }
+  }
+}
 </script>
 
 <style scoped>

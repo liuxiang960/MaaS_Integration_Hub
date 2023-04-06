@@ -2,7 +2,7 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-04-01 03:20:17
+ * @LastEditTime: 2023-04-04 18:13:33
  * @FilePath: /MaaS_Integration_Hub/src/api/application.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -22,7 +22,7 @@ export function apiServeNew(query) {
     let dt = { id: Math.floor(Math.random() * 100000 + 1) };
 
     dt = Object.assign(query, dt);
-    list.push(dt);
+    list.unshift(dt);
   }
 
   Cookies.set("apiServe", JSON.stringify(list));
@@ -124,11 +124,11 @@ export function apiServeList(query) {
 }
 // isSet 设置
 function getApiTotal(list, isSet) {
-  let muList = [];
+  const muList = [];
   for (let i = 0; i < list.length; i++) {
-    let item = list[i];
+    const item = list[i];
 
-    let cookieKey = "apiServe" + item.id || "";
+    const cookieKey = "apiServe" + item.id || "";
     let listMu = [];
     item.num = 0;
     if (isSet) {
@@ -150,10 +150,10 @@ function getApiTotal(list, isSet) {
   return muList;
 }
 
-//更新t数据
+// 更新t数据
 export function upDataApiServeList(query) {
   return new Promise((resolve, reject) => {
-    let cookieKey = "apiServe" + query.apiServeMap.id || "";
+    const cookieKey = "apiServe" + query.apiServeMap.id || "";
     let list = [];
     if (Cookies.get(cookieKey)) {
       list = JSON.parse(Cookies.get(cookieKey)) || [];

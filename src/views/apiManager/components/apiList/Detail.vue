@@ -36,7 +36,7 @@
                   margin-top: 30px;
                 "
               >
-                <div style="color: #606266; width: 100px">{{$t('app_1087')}}:</div>
+                <div style="color: #606266; width: 100px">{{ $t('app_1087') }}:</div>
                 <ParamsListVue
                   style="width: 100%"
                   :is-preview="true"
@@ -77,26 +77,19 @@
           </el-tab-pane>
         </el-tabs>
 
-        
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import ParamsListVue from "../newApi/ParamsList.vue";
-import Config from "./Config.vue";
+import ParamsListVue from "../newApi/ParamsList.vue"
+import Config from "./Config.vue"
 
 export default {
-  data() {
-    return {
-      size: "",
-      activeTab: "opt1",
-    };
-  },
   components: {
     ParamsListVue,
-    Config,
+    Config
   },
   props: {
     updata: {
@@ -114,11 +107,17 @@ export default {
         appName: "",
         contentType: "application/json",
         authentication: "NoAuth",
-        apiPath: "",
-      }),
-    },
+        apiPath: ""
+      })
+    }
   },
-};
+  data() {
+    return {
+      size: "",
+      activeTab: "opt1"
+    }
+  }
+}
 </script>
 <style>
 .el-descriptions :not(.is-bordered) th,

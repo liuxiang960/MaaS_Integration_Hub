@@ -6,7 +6,7 @@
  * @FilePath: /MaaS_Integration_Hub/src/views/dashboard/admin/components/data/mock/network.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import i18n from "@/lang/index";
+import i18n from "@/lang/index"
 
 const data = {
   good: [
@@ -40,8 +40,8 @@ const data = {
     "2040",
     "3023",
     "2398",
-    "2967",
-  ], //最优
+    "2967"
+  ], // 最优
   preferably: [
     "2646",
     "3639",
@@ -73,8 +73,8 @@ const data = {
     "3156",
     "2997",
     "3117",
-    "3204",
-  ], //其次
+    "3204"
+  ], // 其次
   date: [
     "2023-02-28",
     "2023-03-01",
@@ -106,14 +106,14 @@ const data = {
     "2023-03-27",
     "2023-03-28",
     "2023-03-29",
-    "2023-03-30",
+    "2023-03-30"
   ],
   legend: [i18n.t("app_1120"), i18n.t("app_1121")],
   settingList: [
     { name: i18n.t("app_1120"), color: "#5bb26d" },
-    { name: i18n.t("app_1121"), color: "#3d8fe7" },
-  ],
-};
+    { name: i18n.t("app_1121"), color: "#3d8fe7" }
+  ]
+}
 export function getLineData() {
-  return data;
+  return data
 }

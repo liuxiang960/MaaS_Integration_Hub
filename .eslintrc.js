@@ -30,7 +30,6 @@ module.exports = {
         "vue/script-indent": ["error", 2, { baseIndent: 1 }],
       },
     ],
-    singleQuote: true,
     "vue/singleline-html-element-content-newline": "off",
     "vue/multiline-html-element-content-newline": "off",
     "vue/name-property-casing": ["error", "PascalCase"],
@@ -108,6 +107,8 @@ module.exports = {
         capIsNew: false,
       },
     ],
+    singleQuote: true,
+
     "new-parens": 2,
     "no-array-constructor": 2,
     "no-caller": 2,
@@ -220,14 +221,7 @@ module.exports = {
       },
     ],
     "padded-blocks": [2, "never"],
-    quotes: [
-      2,
-      "single",
-      {
-        avoidEscape: true,
-        allowTemplateLiterals: true,
-      },
-    ],
+    quotes: "off",
     semi: [2, "never"],
     "semi-spacing": [
       2,

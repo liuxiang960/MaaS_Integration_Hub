@@ -77,11 +77,8 @@
 </template>
 
 <script>
-import Cookies from "js-cookie";
-
 import Pagination from "@/components/Pagination/index";
 import { appList, appDeletd } from "@/api/app";
-import { apiServeNew } from "@/api/apiServer";
 
 export default {
   name: "Index",
@@ -205,7 +202,7 @@ export default {
       this.initPage();
     },
     releaseApi(row) {
-      //发布
+      // 发布
       row.status = this.$t("published");
       upDataApiServeList(row).then((res) => {
         this.$message.success(this.$t("successfulOperation"));

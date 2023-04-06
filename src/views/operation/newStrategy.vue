@@ -11,14 +11,14 @@
     <el-row :gutter="24">
       <el-col :span="18" :xs="24" style="margin-top: 30px; margin-left: 30px">
         <el-steps :space="200" :active="active" finish-status="success">
-          <el-step :title="$t('app_1057')"></el-step>
-          <el-step :title="$t('app_1058')"></el-step>
+          <el-step :title="$t('app_1057')" />
+          <el-step :title="$t('app_1058')" />
         </el-steps>
         <new-strategy-one
           v-show="active == 0"
           style="margin-top: 30px"
-          @submitStep="submitStep1"
           :updata="step1Data"
+          @submitStep="submitStep1"
         />
         <new-strategy-two
           v-show="active == 1"
@@ -33,18 +33,18 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from "vuex"
 
-import { operationNew } from "@/api/operation";
+import { operationNew } from "@/api/operation"
 
-import NewStrategyOne from "./components/strategy/NewStrategyOne.vue";
-import NewStrategyTwo from "./components/strategy/NewStrategyTwo.vue";
+import NewStrategyOne from "./components/strategy/NewStrategyOne.vue"
+import NewStrategyTwo from "./components/strategy/NewStrategyTwo.vue"
 
 export default {
   name: "NewStrat",
   components: {
     NewStrategyOne,
-    NewStrategyTwo,
+    NewStrategyTwo
   },
   data() {
     return {
@@ -52,53 +52,53 @@ export default {
       active: 0,
       step1Data: {},
       step2Data: {},
-      isEidt: false,
-    };
+      isEidt: false
+    }
   },
   computed: {
-    ...mapGetters(["name", "avatar", "roles"]),
+    ...mapGetters(["name", "avatar", "roles"])
   },
   created() {
-    this.getUser();
-    let data = this.$route.query;
+    this.getUser()
+    const data = this.$route.query
     if (data) {
-      this.step1Data = data;
-      this.step2Data = data;
-      this.isEidt = true;
+      this.step1Data = data
+      this.step2Data = data
+      this.isEidt = true
     }
   },
   methods: {
     submitStep1(item) {
-      this.active = 1;
-      this.step1Data = item;
+      this.active = 1
+      this.step1Data = item
     },
     goBack() {
-      this.active = 0;
+      this.active = 0
     },
     submitStep2(item) {
-      this.step2Data = item;
-      let data = Object.assign(this.step1Data, item);
+      this.step2Data = item
+      const data = Object.assign(this.step1Data, item)
 
       operationNew(data)
         .then((res) => {
-          this.loading = false;
+          this.loading = false
 
-          this.$message.success(this.$t("app_1059"));
-          this.$router.go(-1);
+          this.$message.success(this.$t("app_1059"))
+          this.$router.go(-1)
         })
         .catch((err) => {
-          this.loading = false;
-          console.log(err);
-        });
+          this.loading = false
+          console.log(err)
+        })
     },
     getUser() {
       this.user = {
         name: this.name,
         role: this.roles.join(" | "),
         email: "admin@test.com",
-        avatar: this.avatar,
-      };
-    },
-  },
-};
+        avatar: this.avatar
+      }
+    }
+  }
+}
 </script>

@@ -9,8 +9,7 @@
               icon="el-icon-plus"
               size="small"
               @click="newAdd"
-              >{{ $t("app_1039") }}</el-button
-            >
+            >{{ $t("app_1039") }}</el-button>
           </el-col>
           <el-col :span="20" :xs="24" style="margin-bottom: 20px">
             <el-filter
@@ -40,8 +39,7 @@
               type="text"
               size="small"
               @click="handleEdit(scope.row)"
-              >{{ scope.row.name }}</el-button
-            >
+            >{{ scope.row.name }}</el-button>
           </template>
         </el-table-column>
 
@@ -54,8 +52,7 @@
               type="text"
               size="small"
               @click="handleEdit(scope.row)"
-              >{{ $t("edit") }}</el-button
-            >
+            >{{ $t("edit") }}</el-button>
             <el-button type="text" size="small" @click="goFlow(scope.row)">{{
               $t("app_1042")
             }}</el-button>
@@ -82,30 +79,29 @@
       >
         <el-form ref="ruleForm" :model="ruleForm" label-width="100px">
           <el-form-item :label="$t('app_1043')">
-            <el-input v-model="ruleForm.code"></el-input>
+            <el-input v-model="ruleForm.code" />
           </el-form-item>
           <el-form-item :label="$t('app_1044')">
             <el-input
+              v-model="ruleForm.content"
               type="textarea"
               :maxlength="500"
               :autosize="{ minRows: 5, maxRows: 5 }"
-              v-model="ruleForm.content"
-            ></el-input>
+            />
           </el-form-item>
 
           <el-form-item :label="$t('app_1045')">
             <el-input
+              v-model="ruleForm.description"
               type="textarea"
               :maxlength="500"
               :autosize="{ minRows: 5, maxRows: 5 }"
-              v-model="ruleForm.description"
-            ></el-input>
+            />
           </el-form-item>
 
           <el-form-item style="margin-top: 50px">
             <el-button type="primary" @click="onSubmit">
-              {{ $t("sure") }}</el-button
-            >
+              {{ $t("sure") }}</el-button>
             <el-button @click="dialogVisible = false">{{
               $t("cancel")
             }}</el-button>
@@ -117,8 +113,8 @@
 </template>
 
 <script>
-import Pagination from "@/components/Pagination/index";
-import { configList, configNew, configDeletd } from "@/api/config";
+import Pagination from "@/components/Pagination/index"
+import { configList, configNew, configDeletd } from "@/api/config"
 export default {
   name: "Index",
   components: { Pagination },
@@ -135,7 +131,7 @@ export default {
       ruleForm: {
         name: "",
         content: "",
-        description: "",
+        description: ""
       },
       loading: false,
       filterInfo: {
@@ -147,157 +143,157 @@ export default {
           sex: 1,
           date: null,
           dateTime: null,
-          range: null,
+          range: null
         },
         // 条件配置项
         fieldList: [
           {
             label: this.$t("app_1046"),
             type: "input",
-            value: "name",
-          },
-        ],
+            value: "name"
+          }
+        ]
       },
-      listTypeInfo: {},
-    };
+      listTypeInfo: {}
+    }
   },
   mounted() {
-    this.initPage();
+    this.initPage()
   },
   methods: {
     /** 搜索 */
     handleFilter(row) {
-      console.log(row);
+      console.log(row)
     },
     /** 重置 */
     handleReset(row) {
-      console.log(row);
+      console.log(row)
     },
     /** 焦点失去事件 */
     handleEvent(row) {
-      console.log(row);
+      console.log(row)
     },
-    //流程编排
+    // 流程编排
     goFlow() {},
     onSubmit() {
       if (!this.ruleForm.code) {
-        this.$message.error(this.$t("app_1047"));
-        return;
+        this.$message.error(this.$t("app_1047"))
+        return
       }
-      this.dialogVisible = false;
+      this.dialogVisible = false
 
       configNew(this.ruleForm)
         .then((res) => {
-          this.loading = false;
-          this.initPage();
-          this.$message.success(this.$t("successfulOperation"));
+          this.loading = false
+          this.initPage()
+          this.$message.success(this.$t("successfulOperation"))
         })
         .catch((err) => {
-          this.loading = false;
-          console.log(err);
-        });
+          this.loading = false
+          console.log(err)
+        })
     },
     handleClose() {
-      this.dialogVisible = false;
+      this.dialogVisible = false
     },
     initPage() {
       this.tableData = [
         {
           name: "protocolType",
           num: "1",
-          description: "protocolType",
-        },
-      ];
-      return;
-      this.loading = true;
+          description: "protocolType"
+        }
+      ]
+      return
+      this.loading = true
 
       configList({
         pageNum: this.currentPage,
-        pageSize: this.pageSize,
+        pageSize: this.pageSize
       })
         .then((res) => {
-          this.loading = false;
-          this.tableData = res;
-          this.total = res.length;
+          this.loading = false
+          this.tableData = res
+          this.total = res.length
         })
         .catch((err) => {
-          this.loading = false;
-          console.log(err);
-        });
+          this.loading = false
+          console.log(err)
+        })
     },
     refreshList() {
-      this.initPage();
+      this.initPage()
     },
     newAdd() {
-      return;
+      return
       this.ruleForm = {
         name: "",
         content: "",
-        description: "",
-      };
-      this.dialogVisible = true;
+        description: ""
+      }
+      this.dialogVisible = true
     },
 
     handleEdit(row) {
-      return;
-      this.id = row.id;
-      var { name, account, role } = row;
-      Object.assign(this.ruleForm, { name, account, role });
-      this.ruleForm = row;
-      this.dialogVisible = true;
+      return
+      this.id = row.id
+      var { name, account, role } = row
+      Object.assign(this.ruleForm, { name, account, role })
+      this.ruleForm = row
+      this.dialogVisible = true
     },
     handleDel(row) {
       // 删除
-      return;
+      return
       // const content = row.locked === 0 ? '确定要锁定吗?' : '确定要解锁吗?'
       this.$confirm(this.$t("tost_1001"), this.$t("tost_1002"), {
         confirmButtonText: this.$t("sure"),
         cancelButtonText: this.$t("cancel"),
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
           configDeletd(row)
             .then((res) => {
-              this.initPage();
+              this.initPage()
             })
             .catch((err) => {
-              this.loading = false;
-              console.log(err);
-            });
+              this.loading = false
+              console.log(err)
+            })
         })
         .catch((err) => {
           this.$message({
             type: "info",
-            message: err,
-          });
-        });
+            message: err
+          })
+        })
     },
 
     handleClose() {
-      this.resetForm();
-      this.dialogVisible = false;
+      this.resetForm()
+      this.dialogVisible = false
     },
     resetForm() {
-      this.$refs["ruleForm"].resetFields();
+      this.$refs["ruleForm"].resetFields()
       this.ruleForm = {
         name: "",
         desc: "",
-        code: "",
-      };
+        code: ""
+      }
     },
     save() {},
 
     pagination(val) {
-      this.pageSize = val.limit;
-      this.currentPage = val.page;
-      this.initPage();
+      this.pageSize = val.limit
+      this.currentPage = val.page
+      this.initPage()
     },
     resetTitle() {
-      this.title = "";
-      this.initPage();
-    },
-  },
-};
+      this.title = ""
+      this.initPage()
+    }
+  }
+}
 </script>
 
 <style scoped></style>

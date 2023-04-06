@@ -2,12 +2,11 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-04-02 23:16:26
+ * @LastEditTime: 2023-04-04 18:14:27
  * @FilePath: /MaaS_Integration_Hub/src/api/application.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import request from "@/utils/request";
-import Cookies from "js-cookie";
 import { removeListItem } from "@/utils/index";
 const APISTR = "integration";
 export function integrationNew(query) {
@@ -20,7 +19,7 @@ export function integrationNew(query) {
   } else {
     let dt = { id: Math.floor(Math.random() * 100000 + 1) };
     dt = Object.assign(query, dt);
-    list.push(dt);
+    list.unshift(dt);
   }
 
   localStorage.setItem(APISTR, JSON.stringify(list));
@@ -48,11 +47,11 @@ export function integrationDeletd(query) {
 export function integrationList(query) {
   return new Promise((resolve, reject) => {
     let list = [];
-    let saveList = localStorage.getItem(APISTR);
+    const saveList = localStorage.getItem(APISTR);
     if (saveList && saveList.length > 0) {
       list = JSON.parse(saveList) || [];
     } else {
-      let listData = [
+      const listData = [
         {
           name: "Approval process",
           description: "Internal approval process",

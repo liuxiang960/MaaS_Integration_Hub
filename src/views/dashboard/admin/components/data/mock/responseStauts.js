@@ -1,4 +1,4 @@
-import i18n from "@/lang/index";
+import i18n from "@/lang/index"
 
 const data = {
   good: [
@@ -32,8 +32,8 @@ const data = {
     "2505",
     "1583",
     "2975",
-    "2527",
-  ], //最优
+    "2527"
+  ], // 最优
   preferably: [
     "0",
     "0",
@@ -65,8 +65,8 @@ const data = {
     "0",
     "0",
     "0",
-    "0",
-  ], //其次
+    "0"
+  ], // 其次
   common: [
     "0",
     "0",
@@ -98,8 +98,8 @@ const data = {
     "0",
     "0",
     "0",
-    "0",
-  ], //一般
+    "0"
+  ], // 一般
   difference: [
     "7",
     "36",
@@ -131,8 +131,8 @@ const data = {
     "28",
     "6",
     "14",
-    "20",
-  ], //差
+    "20"
+  ], // 差
   other: [
     "0",
     "0",
@@ -164,8 +164,8 @@ const data = {
     "0",
     "0",
     "0",
-    "0",
-  ], //其他
+    "0"
+  ], // 其他
   date: [
     "2023-02-28",
     "2023-03-01",
@@ -197,7 +197,7 @@ const data = {
     "2023-03-27",
     "2023-03-28",
     "2023-03-29",
-    "2023-03-30",
+    "2023-03-30"
   ],
   legend: ["2xx", "3xx", "4xx", "5xx", i18n.t("app_1123")],
   settingList: [
@@ -205,9 +205,9 @@ const data = {
     { name: "3xx", color: "#db5d58" },
     { name: "4xx", color: "#eab54a" },
     { name: "5xx", color: "#3d8fe7" },
-    { name: i18n.t("app_1123"), color: "#4aa49b" },
-  ],
-};
+    { name: i18n.t("app_1123"), color: "#4aa49b" }
+  ]
+}
 export function getLineData() {
-  return data;
+  return data
 }

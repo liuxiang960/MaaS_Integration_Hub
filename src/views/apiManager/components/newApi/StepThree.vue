@@ -68,21 +68,16 @@ const jsonData = {
   Date: "{'a':'b'}",
   ErrorCode: "OK",
   RequestId: "",
-  Message: "0k",
-};
+  Message: "0k"
+}
 
 export default {
   components: {},
   props: {
     updata: {
       type: Object,
-      default: () => ({}),
-    },
-  },
-  watch: {
-    updata(newV, oldV) {
-      debugger;
-    },
+      default: () => ({})
+    }
   },
 
   data() {
@@ -90,34 +85,39 @@ export default {
       sizeForm: {
         timeOut: 10,
         method: "",
-        appName: "",
+        appName: ""
       },
       jsonData: {
         Date: "{'a':'b'}",
         ErrorCode: "OK",
         RequestId: "",
-        Message: "0k",
+        Message: "0k"
       },
       tempEidtStr: JSON.stringify(jsonData),
-      jsonEditorStr: JSON.stringify(jsonData),
-    };
+      jsonEditorStr: JSON.stringify(jsonData)
+    }
+  },
+  watch: {
+    updata(newV, oldV) {
+      debugger
+    }
   },
   mounted() {
     if (this.updata && this.updata.mockResponse) {
-      this.tempEidtStr = this.updata.mockResponse;
+      this.tempEidtStr = this.updata.mockResponse
     }
   },
   methods: {
     onSubmit() {
-      this.$emit("subMitComplte", this.tempEidtStr);
-      console.log("submi22t!");
+      this.$emit("subMitComplte", this.tempEidtStr)
+      console.log("submi22t!")
     },
 
     goBack() {
-      this.$emit("goBack");
-    },
-  },
-};
+      this.$emit("goBack")
+    }
+  }
+}
 </script>
 <style>
 .tips {

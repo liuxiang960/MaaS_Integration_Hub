@@ -2,7 +2,7 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-03-30 17:23:58
+ * @LastEditTime: 2023-04-04 16:49:15
  * @FilePath: /MaaS_Integration_Hub/src/views/dashboard/admin/components/data/health.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -12,16 +12,14 @@ import { getLineData as mockData } from "./mock/concurrence";
 export function getLineData(n) {
   return mockData();
 
-  let dateList = getDays(n ? n : 30);
-  let good = [];
-  let preferably = [];
-  let common = [];
-  let difference = [];
-  let other = [];
+  const dateList = getDays(n || 30);
+  const good = [];
+  const preferably = [];
+  const common = [];
+  const difference = [];
+  const other = [];
   for (let i = 0; i < dateList.length; i++) {
-    let item = dateList[i];
-
-    let randomGood = (Math.random() * (13 - 10) + 10).toFixed(0);
+    const randomGood = (Math.random() * (13 - 10) + 10).toFixed(0);
 
     good.push(randomGood);
   }
@@ -50,7 +48,7 @@ export function getChartData() {
 
   return {
     xAxis: {
-      data: date, //横向
+      data: date, // 横向
       boundaryGap: false,
       axisTick: {
         show: false,
@@ -76,7 +74,7 @@ export function getChartData() {
       },
     },
     legend: {
-      data: legend, //标签
+      data: legend, // 标签
     },
     series: [
       {

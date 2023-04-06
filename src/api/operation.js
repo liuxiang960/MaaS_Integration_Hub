@@ -6,52 +6,52 @@
  * @FilePath: /MaaS_Integration_Hub/src/api/application.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import request from "@/utils/request";
-import Cookies from "js-cookie";
-import { removeListItem } from "@/utils/index";
-const APISTR = "Operation";
+import request from "@/utils/request"
+import Cookies from "js-cookie"
+import { removeListItem } from "@/utils/index"
+const APISTR = "Operation"
 export function operationNew(query) {
-  let list = [];
+  let list = []
   if (Cookies.get(APISTR)) {
-    list = JSON.parse(Cookies.get(APISTR)) || [];
+    list = JSON.parse(Cookies.get(APISTR)) || []
   }
   if (query.id) {
-    list = removeListItem(list, query.id, query);
+    list = removeListItem(list, query.id, query)
   } else {
-    let dt = { id: Math.floor(Math.random() * 100000 + 1) };
+    let dt = { id: Math.floor(Math.random() * 100000 + 1) }
 
-    dt = Object.assign(query, dt);
-    list.push(dt);
+    dt = Object.assign(query, dt)
+    list.push(dt)
   }
 
-  Cookies.set(APISTR, JSON.stringify(list));
+  Cookies.set(APISTR, JSON.stringify(list))
   return request({
     url: "/vue-element-admin/operation/new",
     method: "post",
-    params: query,
-  });
+    params: query
+  })
 }
 
 export function operationDeletd(query) {
-  let list = [];
+  let list = []
   if (Cookies.get(APISTR)) {
-    list = JSON.parse(Cookies.get(APISTR)) || [];
-    list = removeListItem(list, query.id);
+    list = JSON.parse(Cookies.get(APISTR)) || []
+    list = removeListItem(list, query.id)
   }
-  Cookies.set(APISTR, JSON.stringify(list));
+  Cookies.set(APISTR, JSON.stringify(list))
   return request({
     url: "/vue-element-admin/operation/deleted",
     method: "post",
-    params: query,
-  });
+    params: query
+  })
 }
 
 export function operationList(query) {
   return new Promise((resolve, reject) => {
-    let list = [];
+    let list = []
 
     if (Cookies.get(APISTR)) {
-      list = JSON.parse(Cookies.get(APISTR)) || [];
+      list = JSON.parse(Cookies.get(APISTR)) || []
     } else {
       list = [
         {
@@ -65,8 +65,8 @@ export function operationList(query) {
               period: "Every day",
               condition: ">",
               params: 1,
-              id: 88179,
-            },
+              id: 88179
+            }
           ],
           paramsUserList: [
             {
@@ -74,10 +74,10 @@ export function operationList(query) {
               role: "admin",
               mobile: "19572922269",
               email: "welcomeqf@sina.cn",
-              id: 16737,
-            },
+              id: 16737
+            }
           ],
-          id: 78624,
+          id: 78624
         },
         {
           name: "MSP-Tram",
@@ -90,8 +90,8 @@ export function operationList(query) {
               period: "Every day",
               condition: ">",
               params: 1,
-              id: 88179,
-            },
+              id: 88179
+            }
           ],
           paramsUserList: [
             {
@@ -99,10 +99,10 @@ export function operationList(query) {
               role: "admin",
               mobile: "19572922269",
               email: "welcomeqf@sina.cn",
-              id: 16738,
-            },
+              id: 16738
+            }
           ],
-          id: 78626,
+          id: 78626
         },
         {
           name: "MaaS-Backend",
@@ -115,8 +115,8 @@ export function operationList(query) {
               period: "Every day",
               condition: ">",
               params: 1,
-              id: 88179,
-            },
+              id: 88179
+            }
           ],
           paramsUserList: [
             {
@@ -124,16 +124,16 @@ export function operationList(query) {
               role: "admin",
               mobile: "19572922269",
               email: "welcomeqf@sina.cn",
-              id: 16739,
-            },
+              id: 16739
+            }
           ],
-          id: 78629,
-        },
-      ];
+          id: 78629
+        }
+      ]
 
-      Cookies.set(APISTR, JSON.stringify(list));
+      Cookies.set(APISTR, JSON.stringify(list))
     }
 
-    resolve(list);
-  });
+    resolve(list)
+  })
 }

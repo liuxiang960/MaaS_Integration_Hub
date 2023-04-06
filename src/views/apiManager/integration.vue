@@ -14,21 +14,21 @@
           <tab-list />
         </el-card>
       </el-col>
-      <el-col :span="6" :xs="24"> </el-col>
+      <el-col :span="6" :xs="24" />
     </el-row>
   </div>
 </template>
 
 <script>
-import TabList from "./components/TableIntegration.vue";
+import TabList from "./components/TableIntegration.vue"
 
 export default {
   name: "Integration",
   components: {
-    TabList,
+    TabList
   },
   data() {
-    return {};
-  },
-};
+    return {}
+  }
+}
 </script>

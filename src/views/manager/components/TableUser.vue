@@ -9,8 +9,7 @@
               icon="el-icon-plus"
               size="small"
               @click="newAdd"
-              >{{ $t("app_1069") }}</el-button
-            >
+            >{{ $t("app_1069") }}</el-button>
           </el-col>
           <el-col :span="20" :xs="24" style="margin-bottom: 20px">
             <el-filter
@@ -39,8 +38,7 @@
               type="text"
               size="small"
               @click="handleEdit(scope.row)"
-              >{{ scope.row.name }}</el-button
-            >
+            >{{ scope.row.name }}</el-button>
           </template>
         </el-table-column>
         <el-table-column prop="account" :label="$t('app_1103')" />
@@ -51,8 +49,7 @@
               type="text"
               size="small"
               @click="handleEdit(scope.row)"
-              >{{ $t("edit") }}</el-button
-            >
+            >{{ $t("edit") }}</el-button>
             <el-button type="text" size="small" @click="handleDel(scope.row)">{{
               $t("deletd")
             }}</el-button>
@@ -76,23 +73,22 @@
       >
         <el-form ref="ruleForm" :model="ruleForm" label-width="100px">
           <el-form-item :label="$t('app_1071')">
-            <el-input v-model="ruleForm.name"></el-input>
+            <el-input v-model="ruleForm.name" />
           </el-form-item>
           <el-form-item :label="$t('app_1154')">
-            <el-input v-model="ruleForm.account"></el-input>
+            <el-input v-model="ruleForm.account" />
           </el-form-item>
 
           <el-form-item :label="$t('app_1104')">
             <el-select v-model="ruleForm.role" :placeholder="$t('app_1155')">
-              <el-option label="admin" value="admin"></el-option>
-              <el-option label="manager" value="manager"></el-option>
+              <el-option label="admin" value="admin" />
+              <el-option label="manager" value="manager" />
             </el-select>
           </el-form-item>
 
           <el-form-item style="margin-top: 50px">
             <el-button type="primary" @click="onSubmit">
-              {{ $t("sure") }}</el-button
-            >
+              {{ $t("sure") }}</el-button>
             <el-button @click="dialogVisible = false">{{
               $t("cancel")
             }}</el-button>
@@ -104,8 +100,8 @@
 </template>
 
 <script>
-import Pagination from "@/components/Pagination/index";
-import { userList, userNew, userDeletd } from "@/api/manager";
+import Pagination from "@/components/Pagination/index"
+import { userList, userNew, userDeletd } from "@/api/manager"
 export default {
   name: "Index",
   components: { Pagination },
@@ -122,7 +118,7 @@ export default {
       ruleForm: {
         name: "",
         account: "",
-        role: "",
+        role: ""
       },
       loading: false,
       filterInfo: {
@@ -134,92 +130,92 @@ export default {
           sex: 1,
           date: null,
           dateTime: null,
-          range: null,
+          range: null
         },
         // 条件配置项
         fieldList: [
           {
             label: this.$t("app_1105"),
             type: "input",
-            value: "name",
-          },
-        ],
+            value: "name"
+          }
+        ]
       },
-      listTypeInfo: {},
-    };
+      listTypeInfo: {}
+    }
   },
   mounted() {
-    this.initPage();
+    this.initPage()
   },
   methods: {
     /** 搜索 */
     handleFilter(row) {
-      console.log(row);
+      console.log(row)
     },
     /** 重置 */
     handleReset(row) {
-      console.log(row);
+      console.log(row)
     },
     /** 焦点失去事件 */
     handleEvent(row) {
-      console.log(row);
+      console.log(row)
     },
     onSubmit() {
       if (!this.ruleForm.name) {
-        this.$message.error(this.$t("app_1076"));
-        return;
+        this.$message.error(this.$t("app_1076"))
+        return
       }
-      this.dialogVisible = false;
+      this.dialogVisible = false
 
       userNew(this.ruleForm)
         .then((res) => {
-          this.loading = false;
-          this.initPage();
-          this.$message.success(this.$t("successfulOperation"));
+          this.loading = false
+          this.initPage()
+          this.$message.success(this.$t("successfulOperation"))
         })
         .catch((err) => {
-          this.loading = false;
-          console.log(err);
-        });
+          this.loading = false
+          console.log(err)
+        })
     },
     handleClose() {
-      this.dialogVisible = false;
+      this.dialogVisible = false
     },
     initPage() {
-      this.loading = true;
+      this.loading = true
 
       userList({
         pageNum: this.currentPage,
-        pageSize: this.pageSize,
+        pageSize: this.pageSize
       })
         .then((res) => {
-          this.loading = false;
-          const { code, message, data, total } = res || {};
-          this.tableData = res;
-          this.total = res.length;
+          this.loading = false
+          const { code, message, data, total } = res || {}
+          this.tableData = res
+          this.total = res.length
         })
         .catch((err) => {
-          this.loading = false;
-          console.log(err);
-        });
+          this.loading = false
+          console.log(err)
+        })
     },
     refreshList() {
-      this.initPage();
+      this.initPage()
     },
     newAdd() {
       this.ruleForm = {
         name: "",
         account: "",
-        role: "",
-      };
-      this.dialogVisible = true;
+        role: ""
+      }
+      this.dialogVisible = true
     },
 
     handleEdit(row) {
-      this.id = row.id;
-      var { name, account, role } = row;
-      Object.assign(this.ruleForm, { name, account, role });
-      this.dialogVisible = true;
+      this.id = row.id
+      var { name, account, role } = row
+      Object.assign(this.ruleForm, { name, account, role })
+      this.dialogVisible = true
     },
     handleDel(row) {
       // 删除
@@ -227,51 +223,51 @@ export default {
       this.$confirm(this.$t("tost_1001"), this.$t("tost_1002"), {
         confirmButtonText: this.$t("sure"),
         cancelButtonText: this.$t("cancel"),
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
           userDeletd(row)
             .then((res) => {
-              this.initPage();
+              this.initPage()
             })
             .catch((err) => {
-              this.loading = false;
-              console.log(err);
-            });
+              this.loading = false
+              console.log(err)
+            })
         })
         .catch((err) => {
           this.$message({
             type: "info",
-            message: err,
-          });
-        });
+            message: err
+          })
+        })
     },
 
     handleClose() {
-      this.resetForm();
-      this.dialogVisible = false;
+      this.resetForm()
+      this.dialogVisible = false
     },
     resetForm() {
-      this.$refs["ruleForm"].resetFields();
+      this.$refs["ruleForm"].resetFields()
       this.ruleForm = {
         name: "",
         desc: "",
-        code: "",
-      };
+        code: ""
+      }
     },
     save() {},
 
     pagination(val) {
-      this.pageSize = val.limit;
-      this.currentPage = val.page;
-      this.initPage();
+      this.pageSize = val.limit
+      this.currentPage = val.page
+      this.initPage()
     },
     resetTitle() {
-      this.title = "";
-      this.initPage();
-    },
-  },
-};
+      this.title = ""
+      this.initPage()
+    }
+  }
+}
 </script>
 
 <style scoped></style>

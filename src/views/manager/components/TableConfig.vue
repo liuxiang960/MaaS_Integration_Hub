@@ -75,26 +75,26 @@
         width="30%"
         :before-close="handleClose"
       >
-        <el-form ref="ruleForm" :model="ruleForm" label-width="100px">
+        <el-form ref="ruleForm" :model="ruleForm" label-width="185px">
           <el-form-item :label="$t('app_1043')">
-            <el-input v-model="ruleForm.code"></el-input>
+            <el-input v-model="ruleForm.code" />
           </el-form-item>
           <el-form-item :label="$t('app_1044')">
             <el-input
+              v-model="ruleForm.content"
               type="textarea"
               :maxlength="500"
               :autosize="{ minRows: 5, maxRows: 5 }"
-              v-model="ruleForm.content"
-            ></el-input>
+            />
           </el-form-item>
 
           <el-form-item :label="$t('app_1045')">
             <el-input
+              v-model="ruleForm.description"
               type="textarea"
               :maxlength="500"
               :autosize="{ minRows: 5, maxRows: 5 }"
-              v-model="ruleForm.description"
-            ></el-input>
+            />
           </el-form-item>
 
           <el-form-item style="margin-top: 50px">

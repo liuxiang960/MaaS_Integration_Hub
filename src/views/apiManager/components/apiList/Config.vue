@@ -32,28 +32,28 @@
               </el-radio-group>
             </div>
 
-            <div class="params_bg" v-for="item in paramsGrop" :key="item.name">
+            <div v-for="item in paramsGrop" :key="item.name" class="params_bg">
               <template v-if="nameEqId(item.keyName, radio)">
                 <div
-                  class="params_item"
                   v-for="itemY in item.list"
                   :key="itemY.id"
+                  class="params_item"
                 >
                   <div class="params_item_p">{{ itemY.name }}</div>
                   <el-input
                     v-if="itemY.type == 'int'"
-                    style="display: inline-block; width: 200px"
                     v-model="itemY.default"
+                    style="display: inline-block; width: 200px"
                     :placeholder="$t('plaseInput')"
                     :type="itemY.type == 'int' ? 'number' : 'text'"
                     οnkeyup="this.value=this.value.replace(/\D/g,‘’)"
-                  ></el-input>
+                  />
                   <el-input
                     v-else
-                    style="display: inline-block; width: 200px"
                     v-model="itemY.default"
+                    style="display: inline-block; width: 200px"
                     :placeholder="$t('plaseInput')"
-                  ></el-input>
+                  />
                 </div>
               </template>
               <div v-else>
@@ -68,10 +68,9 @@
             style="margin-top: 20px"
             type="primary"
             size="small"
-            @click="sendRequst"
             :loading="loading"
-            >{{ $t("app_1054") }}</el-button
-          >
+            @click="sendRequst"
+          >{{ $t("app_1054") }}</el-button>
           <div class="params_bg">
             <div>
               <div
@@ -88,7 +87,7 @@
               </div>
             </div>
           </div>
-          <div class="error_bg" v-if="isShow">
+          <div v-if="isShow" class="error_bg">
             <div class="error_item_bg">
               <div class="error_item_title">Response Headers:</div>
               <div class="error_item_p">stuats:200</div>
@@ -138,33 +137,11 @@
 </template>
 
 <script>
-import Axios from "axios";
-import ParamsListVue from "../newApi/ParamsList.vue";
-import Config from "./Config.vue";
-import { groupByList } from "@/utils/index";
+import Config from "./Config.vue"
+import { groupByList } from "@/utils/index"
 export default {
-  data() {
-    return {
-      size: "",
-      activeTab: "opt1",
-      response: {},
-      radio: 1,
-      paramsGrop: [],
-      activeNames: ["1"],
-      isShow: false,
-      loading: false,
-    };
-  },
   components: {
-    ParamsListVue,
-    Config,
-  },
-  watch: {
-    updata(newV, oldV) {
-      let list = newV.paramsList;
-      console.log(list);
-      this.paramsGrop = groupByList(newV.paramsList, "addr");
-    },
+    Config
   },
 
   props: {
@@ -183,40 +160,59 @@ export default {
         appName: "",
         contentType: "application/json",
         authentication: "NoAuth",
-        apiPath: "/",
-      }),
-    },
+        apiPath: "/"
+      })
+    }
+  },
+  data() {
+    return {
+      size: "",
+      activeTab: "opt1",
+      response: {},
+      radio: 1,
+      paramsGrop: [],
+      activeNames: ["1"],
+      isShow: false,
+      loading: false
+    }
+  },
+  watch: {
+    updata(newV, oldV) {
+      const list = newV.paramsList
+      console.log(list)
+      this.paramsGrop = groupByList(newV.paramsList, "addr")
+    }
   },
   methods: {
     handleEdit(e) {
-      return e.replace(/[^d.]/g, ""); // 只能输入数字和.
+      return e.replace(/[^d.]/g, "") // 只能输入数字和.
     },
     nameEqId(name, id) {
       if (name == "Header" && id == 1) {
-        return true;
+        return true
       } else if (name == "Body" && id == 2) {
-        return true;
+        return true
       }
       if (name == "Query" && id == 3) {
-        return true;
+        return true
       }
 
-      return false;
+      return false
     },
     sendRequst() {
-      this.isShow = false;
-      let that = this;
-      that.loading = true;
+      this.isShow = false
+      const that = this
+      that.loading = true
 
-      setTimeout(function () {
-        that.isShow = true;
-        that.loading = false;
-        that.$message.success("请求发送成功");
-      }, 1000);
+      setTimeout(function() {
+        that.isShow = true
+        that.loading = false
+        that.$message.success("请求发送成功")
+      }, 1000)
     },
-    handleChange() {},
-  },
-};
+    handleChange() {}
+  }
+}
 </script>
 <style>
 .el-descriptions :not(.is-bordered) th,

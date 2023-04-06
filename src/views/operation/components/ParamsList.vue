@@ -15,15 +15,13 @@
       :row-style="{ height: '30px' }"
       :cell-style="{ padding: '0px' }"
     >
-      <el-table-column prop="name" :label="$t('app_1151')"> </el-table-column>
-      <el-table-column prop="addr" :label="$t('position')"> </el-table-column>
-      <el-table-column prop="type" :label="$t('app_1030')"> </el-table-column>
-      <el-table-column prop="default" :label="$t('app_1005')">
-      </el-table-column>
-      <el-table-column prop="need" :label="$t('app_1152')"> </el-table-column>
-      <el-table-column prop="description" :label="$t('description')">
-      </el-table-column>
-      <el-table-column :label="$t('operation')" width="110" v-if="!isPreview">
+      <el-table-column prop="name" :label="$t('app_1151')" />
+      <el-table-column prop="addr" :label="$t('position')" />
+      <el-table-column prop="type" :label="$t('app_1030')" />
+      <el-table-column prop="default" :label="$t('app_1005')" />
+      <el-table-column prop="need" :label="$t('app_1152')" />
+      <el-table-column prop="description" :label="$t('description')" />
+      <el-table-column v-if="!isPreview" :label="$t('operation')" width="110">
         <template slot-scope="scope">
           <el-button type="text" size="small" @click="handleEdit(scope.row)">{{
             $t("look")
@@ -42,8 +40,7 @@
       icon="el-icon-plus"
       size="small"
       @click="newAdd"
-      >{{ $t("addRecord") }}( {{ tableData.length }}/{{ maxNum }} )</el-button
-    >
+    >{{ $t("addRecord") }}( {{ tableData.length }}/{{ maxNum }} )</el-button>
     <div>
       <el-dialog
         :title="this.$t('tost_1002')"
@@ -56,32 +53,32 @@
             <el-input
               v-model="form.name"
               :placeholder="$t('plaseInput')"
-            ></el-input>
+            />
           </el-form-item>
           <el-form-item :label="$t('position')">
             <el-select v-model="form.addr" :placeholder="$t('tost_1007')">
-              <el-option label="Header" value="Header"></el-option>
-              <el-option label="Body" value="Body"></el-option>
-              <el-option label="Query" value="Query"></el-option>
+              <el-option label="Header" value="Header" />
+              <el-option label="Body" value="Body" />
+              <el-option label="Query" value="Query" />
             </el-select>
           </el-form-item>
           <el-form-item :label="$t('app_1004')">
             <el-select v-model="form.type" :placeholder="$t('plaseInput')">
-              <el-option label="string" value="string"></el-option>
-              <el-option label="int" value="int"></el-option>
-              <el-option label="float" value="float"></el-option>
-              <el-option label="char" value="char"></el-option>
+              <el-option label="string" value="string" />
+              <el-option label="int" value="int" />
+              <el-option label="float" value="float" />
+              <el-option label="char" value="char" />
             </el-select>
           </el-form-item>
 
           <el-form-item :label="$t('app_1005')">
             <el-input
-              v-model="form.default"
               v-if="form.type == 'int'"
+              v-model="form.default"
               οnkeyup="this.value=this.value.replace(/\D/g,‘’)"
-            ></el-input>
+            />
 
-            <el-input v-model="form.default" v-else></el-input>
+            <el-input v-else v-model="form.default" />
           </el-form-item>
 
           <el-form-item :label="$t('app_1006')">
@@ -92,11 +89,11 @@
           </el-form-item>
           <el-form-item :label="$t('description')">
             <el-input
+              v-model="form.description"
               type="textarea"
               :maxlength="500"
               :autosize="{ minRows: 5, maxRows: 5 }"
-              v-model="form.description"
-            ></el-input>
+            />
           </el-form-item>
           <el-form-item style="margin-top: 50px">
             <el-button type="primary" @click="onSubmit">{{
@@ -113,8 +110,18 @@
 </template>
 
 <script>
-import { removeListItem } from "@/utils/index";
+import { removeListItem } from "@/utils/index"
 export default {
+  props: {
+    updata: {
+      type: Array,
+      default: () => []
+    },
+    isPreview: {
+      type: Boolean,
+      default: () => false
+    }
+  },
   data() {
     return {
       maxNum: 30,
@@ -125,76 +132,66 @@ export default {
         type: "string",
         default: "",
         need: this.$t("need"),
-        description: "",
+        description: ""
       },
-      dialogVisible: false,
-    };
-  },
-  props: {
-    updata: {
-      type: Array,
-      default: () => [],
-    },
-    isPreview: {
-      type: Boolean,
-      default: () => false,
-    },
+      dialogVisible: false
+    }
   },
   watch: {
     updata(newV, oldV) {
-      this.tableData = this.updata;
-    },
+      this.tableData = this.updata
+    }
   },
   mounted() {
     if (this.updata) {
-      this.tableData = this.updata;
+      this.tableData = this.updata
     }
   },
   methods: {
     newAdd() {
-      let dict = {
+      const dict = {
         name: "",
         addr: "Header",
         type: "string",
         default: "",
         need: this.$t("need"),
-        description: "",
-      };
-      this.form = dict;
-      this.dialogVisible = true;
+        description: ""
+      }
+      this.form = dict
+      this.dialogVisible = true
     },
 
     handleEdit(dict) {
-      this.form = dict;
-      this.dialogVisible = true;
+      this.form = dict
+      this.dialogVisible = true
     },
     handleDel(dict) {
-      this.tableData = removeListItem(this.tableData, dict.id, null);
-      this.$emit("updataFun", this.tableData);
+      this.tableData = removeListItem(this.tableData, dict.id, null)
+      this.$emit("updataFun", this.tableData)
     },
     onSubmit() {
       if (!this.form.name) {
-        this.$message.error(this.$t("app_1153"));
-        return;
+        this.$message.error(this.$t("app_1153"))
+        return
       }
-      this.dialogVisible = false;
+      this.dialogVisible = false
       if (this.form.id) {
         this.tableData = removeListItem(
           this.tableData,
           this.form.id,
           this.form
-        );
+        )
       } else {
-        this.form.id = Math.floor(Math.random() * 100000 + 1);
-        this.tableData.push(this.form);
+        this.form.id = Math.floor(Math.random() * 100000 + 1)
+        this.tableData.push(this.form)
       }
-      this.$emit("updataFun", this.tableData);
+      this.$emit("updataFun", this.tableData)
     },
     handleClose() {
-      this.dialogVisible = false;
-    },
-  },
-};
+      this.dialogVisible = false
+    }
+  }
+}
 </script>
 
 <style lang="scss">

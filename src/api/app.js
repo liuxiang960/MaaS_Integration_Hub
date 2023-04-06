@@ -2,28 +2,29 @@
  * @Author: liuxiang liuxiang@163.com
  * @Date: 2023-03-24 14:33:44
  * @LastEditors: liuxiang liuxiang@163.com
- * @LastEditTime: 2023-04-02 07:16:29
+ * @LastEditTime: 2023-04-04 17:41:30
  * @FilePath: /MaaS_Integration_Hub/src/api/application.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import request from "@/utils/request";
-import Cookies from "js-cookie";
 import { removeListItem, getIncloudList } from "@/utils/index";
-
+const LOCALKEY = "appNew";
 export function appNew(query) {
   let list = [];
-  if (Cookies.get("appNew")) {
-    list = JSON.parse(Cookies.get("appNew")) || [];
+  let localData = localStorage.getItem(LOCALKEY);
+  if (localData) {
+    list = JSON.parse(localData) || [];
   }
+  debugger;
   if (query.id) {
     list = removeListItem(list, query.id, query);
   } else {
     let dt = { id: Math.floor(Math.random() * 100000 + 1) };
     dt = Object.assign(query, dt);
-    list.push(dt);
+    list.unshift(dt);
   }
 
-  Cookies.set("appNew", JSON.stringify(list));
+  localStorage.setItem(LOCALKEY, JSON.stringify(list));
   return request({
     url: "/vue-element-admin/app/new",
     method: "post",
@@ -33,12 +34,13 @@ export function appNew(query) {
 
 export function appDeletd(query) {
   let list = [];
+  let localData = localStorage.getItem(LOCALKEY);
 
-  if (Cookies.get("appNew")) {
-    list = JSON.parse(Cookies.get("appNew")) || [];
+  if (localData) {
+    list = JSON.parse(localData) || [];
     list = removeListItem(list, query.id);
   }
-  Cookies.set("appNew", JSON.stringify(list));
+  localStorage.setItem("appNew", JSON.stringify(list));
   return request({
     url: "/vue-element-admin/app/deleted",
     method: "post",
@@ -49,8 +51,10 @@ export function appDeletd(query) {
 export function appList(query) {
   return new Promise((resolve, reject) => {
     let list = [];
-    if (Cookies.get("appNew")) {
-      list = JSON.parse(Cookies.get("appNew")) || [];
+    let localData = localStorage.getItem(LOCALKEY);
+
+    if (localData) {
+      list = JSON.parse(localData) || [];
       list = removeListItem(list, query.id);
     } else {
       list = [
@@ -165,7 +169,7 @@ export function appList(query) {
           ],
         },
       ];
-      Cookies.set("appNew", JSON.stringify(list));
+      localStorage.setItem(LOCALKEY, JSON.stringify(list));
     }
 
     resolve(list);
@@ -175,7 +179,7 @@ export function appList(query) {
 // api  api时候需要关联api服务  api服务下关联api
 export function apiServeNew(query) {
   let list = [];
-  let cookieKey = "apiServe" + query.apiServeMap.id;
+  const cookieKey = "apiServe" + query.apiServeMap.id;
 
   if (Cookies.get(cookieKey)) {
     list = JSON.parse(Cookies.get(cookieKey)) || [];
@@ -198,7 +202,7 @@ export function apiServeNew(query) {
 
 export function apiServeDeletd(query) {
   let list = [];
-  let cookieKey = "apiServe" + query.apiServeMap.id;
+  const cookieKey = "apiServe" + query.apiServeMap.id;
 
   if (Cookies.get(cookieKey)) {
     list = JSON.parse(Cookies.get(cookieKey)) || [];
@@ -214,7 +218,7 @@ export function apiServeDeletd(query) {
 
 export function apiServeList(query) {
   return new Promise((resolve, reject) => {
-    let cookieKey = "apiServe" + query.apiServeMap.id || "";
+    const cookieKey = "apiServe" + query.apiServeMap.id || "";
     let list = [];
     if (Cookies.get(cookieKey)) {
       list = JSON.parse(Cookies.get(cookieKey)) || [];
@@ -224,10 +228,10 @@ export function apiServeList(query) {
     resolve(list);
   });
 }
-//更新t数据
+// 更新t数据
 export function upDataApiServeList(query) {
   return new Promise((resolve, reject) => {
-    let cookieKey = "apiServe" + query.apiServeMap.id || "";
+    const cookieKey = "apiServe" + query.apiServeMap.id || "";
     let list = [];
     if (Cookies.get(cookieKey)) {
       list = JSON.parse(Cookies.get(cookieKey)) || [];
@@ -250,18 +254,18 @@ export function getReleaseApiList(query) {
       list = JSON.parse(Cookies.get("apiManager")) || [];
     }
 
-    let muList = [];
+    const muList = [];
     for (let i = 0; i < list.length; i++) {
-      let item = list[i];
+      const item = list[i];
 
-      let cookieKey = "apiServe" + item.id || "";
+      const cookieKey = "apiServe" + item.id || "";
       let listData = [];
       if (Cookies.get(cookieKey)) {
         listData = JSON.parse(Cookies.get(cookieKey)) || [];
       }
 
       for (let j = 0; j < listData.length; j++) {
-        let dt = listData[j];
+        const dt = listData[j];
         if (dt.status == "success") {
           muList.push(dt);
         }

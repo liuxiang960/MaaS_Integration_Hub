@@ -6,7 +6,7 @@
  * @FilePath: /MaaS_Integration_Hub/src/views/dashboard/admin/components/data/mock/health.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import i18n from "@/lang/index";
+import i18n from "@/lang/index"
 const data = {
   good: [
     "3115",
@@ -39,8 +39,8 @@ const data = {
     "3096",
     "3129",
     "3169",
-    "3076",
-  ], //最优
+    "3076"
+  ], // 最优
   preferably: [
     "0",
     "0",
@@ -72,8 +72,8 @@ const data = {
     "0",
     "0",
     "0",
-    "0",
-  ], //其次
+    "0"
+  ], // 其次
   common: [
     "3115",
     "3144",
@@ -105,8 +105,8 @@ const data = {
     "3096",
     "3129",
     "3169",
-    "3076",
-  ], //一般
+    "3076"
+  ], // 一般
   date: [
     "2023-02-28",
     "2023-03-01",
@@ -138,15 +138,15 @@ const data = {
     "2023-03-27",
     "2023-03-28",
     "2023-03-29",
-    "2023-03-30",
+    "2023-03-30"
   ],
   legend: [i18n.t("app_1116"), i18n.t("app_1117"), i18n.t("app_1118")],
   settingList: [
     { name: i18n.t("app_1116"), color: "#3D8FE7" },
     { name: i18n.t("app_1117"), color: "#5BB26D" },
-    { name: i18n.t("app_1118"), color: "#4AA49B" },
-  ],
-};
+    { name: i18n.t("app_1118"), color: "#4AA49B" }
+  ]
+}
 export function getLineData() {
-  return data;
+  return data
 }

@@ -13,60 +13,60 @@
         <el-card>
           <step-one
             style="margin-top: 30px"
-            @submitStep="submitStep"
             :updata="stepData"
+            @submitStep="submitStep"
           />
         </el-card>
       </el-col>
-      <el-col :span="6" :xs="24"> </el-col>
+      <el-col :span="6" :xs="24" />
     </el-row>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import { appNew } from "@/api/app";
-import StepOne from "./components/newApp/StepOne";
+import { mapGetters } from "vuex"
+import { appNew } from "@/api/app"
+import StepOne from "./components/newApp/StepOne"
 
 export default {
-  name: "apiManager",
+  name: "ApiManager",
   components: {
-    StepOne,
+    StepOne
   },
   data() {
     return {
       stepData: {},
       isEidt: false,
-      apiServeMap: {},
-    };
+      apiServeMap: {}
+    }
   },
   computed: {
-    ...mapGetters(["name", "avatar", "roles"]),
+    ...mapGetters(["name", "avatar", "roles"])
   },
   created() {
-    let data = this.$route.query;
+    const data = this.$route.query
     if (data) {
-      this.stepData = data;
+      this.stepData = data
 
-      this.isEidt = true;
+      this.isEidt = true
     }
   },
   methods: {
     submitStep(item) {
-      this.step2Data = item;
-      let data = Object.assign(this.stepData, item);
+      this.step2Data = item
+      const data = Object.assign(this.stepData, item)
       appNew(data)
         .then((res) => {
-          this.loading = false;
+          this.loading = false
 
-          this.$message.success(this.$t("successfulOperation"));
-          this.$router.go(-1);
+          this.$message.success(this.$t("successfulOperation"))
+          this.$router.go(-1)
         })
         .catch((err) => {
-          this.loading = false;
-          console.log(err);
-        });
-    },
-  },
-};
+          this.loading = false
+          console.log(err)
+        })
+    }
+  }
+}
 </script>
